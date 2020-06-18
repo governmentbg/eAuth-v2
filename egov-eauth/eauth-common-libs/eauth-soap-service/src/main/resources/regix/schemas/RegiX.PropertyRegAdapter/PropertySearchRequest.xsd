@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg/PropertySearchRequest" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg/PropertySearchRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PropertySearchRequestType">
+		<xs:annotation>
+			<xs:documentation>Търсене на имот</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PropertyLot" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на имотна партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OldPropertyLot" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стара имотна партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CadastreNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кадастрален идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecondCadastreNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Втори кадастрален идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SiteID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на служба по вписвания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="SiteName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на служба по вписвания</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="HousingEstate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Жилищен комплекс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NeighborhoodName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Квартал</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Block" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Блок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Entrance" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вход</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Floor" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Етаж</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Appartment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Апартамент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PostBox" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пощенска кутия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PropertySearchRequest" type="PropertySearchRequestType"/>
+</xs:schema>

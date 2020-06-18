@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MZH" targetNamespace="http://egov.bg/RegiX/MZH" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="EntityType">
+		<xs:annotation>
+			<xs:documentation>Юридическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LegalStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:annotation>
+			<xs:documentation>Физическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Surname" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Презиме</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Family" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegistrationType">
+		<xs:annotation>
+			<xs:documentation>В случай, че лицето е с активна регистрация</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на регистрация или пререгистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CancelledRegistrationType">
+		<xs:annotation>
+			<xs:documentation>В случай, че лицето е отписано от РЗП</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CancelledDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на отписване на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdministrativeDataType">
+		<xs:annotation>
+			<xs:documentation>Административни данни за регистрирания земеделски производител</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Entity" type="EntityType" minOccurs="0"/>
+			<xs:element name="Person" type="PersonType" minOccurs="0"/>
+			<xs:element name="ActiveRegistration" type="RegistrationType" minOccurs="0"/>
+			<xs:element name="CancelledRegistration" type="CancelledRegistrationType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LandType">
+		<xs:annotation>
+			<xs:documentation>Земеделска земя</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EKKATE" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕКАТТЕ на землище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Infield" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обработвана земя общо</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CropType">
+		<xs:annotation>
+			<xs:documentation>Отглеждана култура</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EKKATE" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕКАТТЕ на землище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CropCode" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на вид културата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CropName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на вид на културата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SownArea" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Засети площи </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IntendedSownAreaNextYear" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Намерения за засети площи (за следваща стопанска година) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalType">
+		<xs:annotation>
+			<xs:documentation>Отглеждано животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EKKATE" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕКАТТЕ на землище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnimalCode" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на животно/група животни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnimalName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на животно/група животни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Units" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой животни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LandsType">
+		<xs:annotation>
+			<xs:documentation>Данни за използвани земеделски земи</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Land" type="LandType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CropsType">
+		<xs:annotation>
+			<xs:documentation>Данни за отглеждани култури</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Crop" type="CropType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalsType">
+		<xs:annotation>
+			<xs:documentation>Данни за отглеждани животни</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Animal" type="AnimalType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

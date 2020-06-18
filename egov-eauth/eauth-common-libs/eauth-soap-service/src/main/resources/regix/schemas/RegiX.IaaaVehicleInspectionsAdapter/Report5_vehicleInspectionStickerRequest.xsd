@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/VehicleInspectionStickerRequest" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/VehicleInspectionStickerRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Справка за проверка на автентичност на стикер за технически преглед</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="VehicleInspectionStickerRequestType">
+		<xs:sequence>
+			<xs:element name="RegNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационне номер на търсеното ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StickerNumber" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер стикер търсен в справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VehicleInspectionStickerRequest" type="VehicleInspectionStickerRequestType"/>
+</xs:schema>

@@ -1,0 +1,89 @@
+#verifier-container {
+    font-family: Lato sans-serif;
+    font-size: 15pt;
+    text-align: center;
+    box-sizing: border-box;
+    color: #333;
+    
+    #dialog {
+        border: solid 1px #ccc;
+        margin: 20px auto;
+        padding: 10px 20px;
+        box-shadow: 0 0 4px #ccc;
+        background-color: #FAF8F8;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+
+      h5 {
+        margin: 0 0 5px;
+        padding: 0;
+        line-height: 1.25;
+      }
+      
+      span {
+        font-size: 90%;
+      }  
+    }
+
+    .clear-verified-code {
+        width: 50px;
+        margin-left: auto;
+        display: flex;
+    }
+      .resend-code-btn-holder {
+        display: flex;
+        margin-top: 5px;
+        width: 80%;
+      
+        .resend-btn {
+            margin-right: 10px;
+        }
+      }
+  }
+
+.btns-holder {
+  margin-top: 30px;
+  display: flex;
+}
+
+.code-question {
+  font-size: 17px;
+  margin: 5px 0 5px 0;
+}
+
+.generate-new-code-btn {
+  margin-top: 15px;
+  display: flex;
+  margin-left: 23%;
+  font-size: 1rem;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+
+  &:hover {
+    color: #f2b01f;
+  }
+}
+
+.qr-code-btn {
+  font-size: 9pt;
+  background-color: grey;
+  margin-left: 10px;
+}
+
+.timer-countdown {
+  padding-bottom: 10px !important;
+}
+
+.cancel-auth-link {
+  border: none;
+  background-color: transparent;
+  font-family: Roboto sans-serif;
+  color: #014b6a;
+  margin-top: 15px;
+  display: flex;
+  font-size: 1rem;
+  &:hover {
+    color: #f2b01f;
+  }
+}

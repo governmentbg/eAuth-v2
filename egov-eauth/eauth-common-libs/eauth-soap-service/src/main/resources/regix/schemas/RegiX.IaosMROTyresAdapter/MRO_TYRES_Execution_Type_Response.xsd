@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROTyres/ExecutionTypeResponse" xmlns:common="http://egov.bg/RegiX/IAOS/MROTyres/Common" targetNamespace="http://egov.bg/RegiX/IAOS/MROTyres/ExecutionTypeResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/MROTyres/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="MRO_TYRES_Execution_Type_Response" type="MRO_TYRES_Execution_Type_Response"/>
+	<xs:complexType name="MRO_TYRES_Execution_Type_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на Справка за начин на изпълнение на задълженията в Регистъра на лицата, които пускат на пазара гуми
+Справката връща информация за начина на изпълнение на задълженията на организацията, вписана в регистъра. Изпращаните данни са филтрирани в зависимост от начина на изпълние.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationExecutionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationExecutionType">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MroFulfillment" type="common:Fulfilment" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начин на изпълниение на задълженията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecOrgNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на организация по оползотворяване (ООп)/ индивидуално изпълнение на задължения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UonName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията по оползотворяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

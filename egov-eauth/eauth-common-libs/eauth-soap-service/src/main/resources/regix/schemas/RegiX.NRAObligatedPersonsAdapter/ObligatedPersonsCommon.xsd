@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NRA/Obligations" targetNamespace="http://egov.bg/RegiX/NRA/Obligations" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="IdentityType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:string"/>
+      <xs:element name="TYPE" type="EikTypeType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResponseIdentityType">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор(с дължина от 6 до 16 символа)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TYPE" type="EikTypeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вид на идентификатора</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EikTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bulstat"/>
+      <xs:enumeration value="EGN"/>
+      <xs:enumeration value="LNC"/>
+      <xs:enumeration value="SystemNo"/>
+      <xs:enumeration value="BulstatCL"/>
+      <!-- Foreign person with a Bulstat number -->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ThresholdType">
+    <xs:restriction base="xs:unsignedShort">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>Тип на статуса</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Код
+
+            Възможни стойности:
+            0 - OK
+            1 - XML валидационна грешка
+            2 - Невалиден ЕИК
+            99 - Друго
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Съобщение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ObligationStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ABSENT"/>
+      <xs:enumeration value="PRESENT"/>
+      <!-- No obligation above the given threshold  -->
+      <!-- There is obligation above the given threshold -->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ObligationStatusType" type="ObligationStatusType"/>
+</xs:schema>

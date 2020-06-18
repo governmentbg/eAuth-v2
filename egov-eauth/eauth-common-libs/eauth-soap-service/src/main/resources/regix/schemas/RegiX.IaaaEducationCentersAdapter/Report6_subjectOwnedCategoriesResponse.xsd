@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters/SubjectOwnedCategoriesResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/EducationCenters" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters/SubjectOwnedCategoriesResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/EducationCenters" schemaLocation="REDUCommon.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка по ЕГН/ЛНЧ за придобити категории за управление на ППС.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="SubjectOwnedCategoryDto">
+		<xs:sequence>
+			<xs:element name="CategoryName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на категорията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateOwned" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на придобиване на категорията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubjectOwnedCategoriesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OwnedCategories" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Списък с категории за управление на ППС и дата на придобиване на дадено лице</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OwnedCategorie" type="SubjectOwnedCategoryDto" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

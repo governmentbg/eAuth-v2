@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/ChNTs/ForeignerPermissionsResponse" targetNamespace="http://egov.bg/RegiX/MP/ChNTs/ForeignerPermissionsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ForeignerPermissionsResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за издадени/отказани разрешения за извършване на дейност с нестопанска цел в РБ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PermissionData" type="ForeignerPermissionData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SearchDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата, към която е извършена справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Permission">
+		<xs:annotation>
+			<xs:documentation>Разрешение за извършване на дейност с нестопанска цел в РБ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начална дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Крайна дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActivityType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид дейност, извършвана от чужденеца</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NonprofitEntityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЮЛНЦ, чрез което извършва дейността</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="ActivityAddress" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на дейността</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ActivityAddress">
+		<xs:annotation>
+			<xs:documentation>Адрес на дейността</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DistrictCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DistrictName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MunicipalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MunicipalityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerritorialUnitCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerritorialUnitName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на адрес в рамките на населеното място на дейността</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ForeignerPermissionData">
+		<xs:annotation>
+			<xs:documentation>Данни за разрешение за извършване на дейност с нестопанска цел</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+      <xs:element name="NamesLatin" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Имена на латиница</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NamesCyrillic" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Имена на кирилица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="NationalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност - код на държава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NationalityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност - наименование на държава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatusCode" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на статус: 1 - Новосъздаден, 2 - Регистриран, 3 - Отказан</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatusName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Resolution" type="Resolution" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Решение за разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Permission" type="Permission" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Resolution">
+		<xs:annotation>
+			<xs:documentation>Решения за издаване/продължаване/отказ/отнемане на разрешения</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrderNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на заповед</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrderDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на заповед</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ForeignerPermissionsResponse" type="ForeignerPermissionsResponseType"/>
+</xs:schema>

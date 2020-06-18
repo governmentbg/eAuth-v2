@@ -1,0 +1,125 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/BULSTAT/BulstatAllInfoResponse" xmlns:common="http://egov.bg/RegiX/AV/BULSTAT" targetNamespace="http://egov.bg/RegiX/AV/BULSTAT/BulstatAllInfoResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AV/BULSTAT" schemaLocation="BulstatCommon.xsd"/>
+	<xs:complexType name="BulstatAllInfoResponseType">
+		<xs:annotation>
+			<xs:documentation>Подробна справка</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BulstatCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Булстат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пълно наименование</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Търговско име на кирилица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LatinName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Търговско име на латиница</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Състояние</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActivityState" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Активност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Activity" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основна дейност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LegalState" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Юридически статут</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Group" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Група</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TradersAssociationType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид обединение на търговци</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubLevel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ниво на подчиненост</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExistancePeriod" type="common:YearsAndMonthsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Срок на съществуване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Notes" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Забележки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Documents" type="common:DocumentsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Addresses" type="common:AddressesType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Седалище / адрес на управление</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Telecommunications" type="common:TelecommunicationsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телекомуникации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Managers" type="common:ManagersType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Управляващ(и)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Capital" type="common:CapitalType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер на капитала</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Owners" type="common:OwnersType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Съдружници/ акционери/ учредители/ съсобственици</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CapitalDistribution" type="common:CapitalDistributionType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разпределение на собствеността (по видове)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FundingSources" type="common:FundingSourcesType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Източници на финансиране</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="BulstatAllInfoResponse" type="BulstatAllInfoResponseType">
+		<xs:annotation>
+			<xs:documentation>Валидност на БУЛСТАТ ЕИК номер</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

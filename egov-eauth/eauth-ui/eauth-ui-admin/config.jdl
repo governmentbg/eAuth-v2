@@ -1,0 +1,4 @@
+entity Config {
+	propertyKey String,
+    propertyValue String
+}

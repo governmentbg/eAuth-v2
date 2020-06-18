@@ -1,0 +1,1 @@
+package bg.bulsi.egov.eauth.eid.provider.service.exception;

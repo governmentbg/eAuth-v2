@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/KZLD" xmlns="http://egov.bg/RegiX/KZLD/ExemptAdministrators/DeniedEntryAdministratorResponse" targetNamespace="http://egov.bg/RegiX/KZLD/ExemptAdministrators/DeniedEntryAdministratorResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/KZLD" schemaLocation="KZLDCommon.xsd"/>
+	<xs:element name="ExemptRegistrationAdministratorResponse">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ/ЕГН/ЛНЧ за освободен от регистрация  администратор на лични данни - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PDCExemptRegistrationData" type="common:PersonalDataControllerData" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данни за освободен от регистрация администратор на лични данни</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="LegalBasis" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Правно основание за освобождаване от регистрация</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Protocol" type="ProtocolType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данни за протокола на решението</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ProtocolType">
+		<xs:sequence>
+			<xs:element name="ProtocolDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на протокола на решението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProtocolNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на протокола на решението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

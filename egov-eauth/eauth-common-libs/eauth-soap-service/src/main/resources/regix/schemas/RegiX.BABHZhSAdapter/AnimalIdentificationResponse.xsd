@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/BABH/BABHZhS/AnimalIdentificationResponse" targetNamespace="http://egov.bg/RegiX/BABH/BABHZhS/AnimalIdentificationResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="AnimalProfile">
+		<xs:annotation>
+			<xs:documentation>Профил на животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nationality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Breed" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Порода</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Sex" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пол</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Color" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Цвят</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на раждане</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UniqueNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникален доживотен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalIdentificationDataEntry">
+		<xs:annotation>
+			<xs:documentation>Идентификатор на животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Number" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Foreign" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Чужд да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalPassport">
+		<xs:annotation>
+			<xs:documentation>Паспорт на животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Number" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssueDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на паспорт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalStatus">
+		<xs:annotation>
+			<xs:documentation>Статус на животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatusDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalResidence">
+		<xs:annotation>
+			<xs:documentation>Актуално местодомуване на животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OEZNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на епизоотично значение (ОЕЗ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="District" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Municipality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Settlement" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на собстреника или животновъдния обект</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Датам от която животното се намира на адреса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalOwner">
+		<xs:annotation>
+			<xs:documentation>Собственик на животно</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OwnerNames" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnerIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН/ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnerDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата, от която животното е собственост на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalIdentification">
+		<xs:annotation>
+			<xs:documentation>Данни за идентифицирано животно </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IdentificationDataList" type="AnimalIdentificationDataEntry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="AnimalProfile" type="AnimalProfile" minOccurs="0"/>
+			<xs:element name="AnimalPassport" type="AnimalPassport" minOccurs="0"/>
+			<xs:element name="AnimalStatus" type="AnimalStatus" minOccurs="0"/>
+			<xs:element name="AnimalResidence" type="AnimalResidence" minOccurs="0"/>
+			<xs:element name="AnimalOwner" type="AnimalOwner" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:complexType name="AnimalIdentificationResponseType">
+    <xs:annotation>
+      <xs:documentation>Справка за идентифицирано животно </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AnimalIdentification" type="AnimalIdentification" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:element name="AnimalIdentificationResponse" type="AnimalIdentificationResponseType"/>
+</xs:schema>

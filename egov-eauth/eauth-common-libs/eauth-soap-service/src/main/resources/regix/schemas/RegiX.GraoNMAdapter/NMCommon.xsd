@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns="http://egov.bg/RegiX/GRAO/NM" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/GRAO/NM" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="SettlementPlaceType">
+    <xs:sequence>
+      <xs:element name="DistrictCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на област</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DistrictName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на област</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MunicipalityCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на община</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MunicipalityName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на община</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementPlaceCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementPlaceName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementTypeCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на вид на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementTypeName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вид на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

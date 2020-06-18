@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MT/TOInsuranceByEIKResponse" targetNamespace="http://egov.bg/RegiX/MT/TOInsuranceByEIKResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="TOInsuranceByEIKResponse" type="InsuranceArray">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за сключена застраховка за туроператор_Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="InsuranceArray">
+		<xs:sequence>
+			<xs:element name="Insurance" type="InsuranceType" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Застраховка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InsuranceType">
+		<xs:sequence>
+			<xs:element name="EIK" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InsuranceCompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на застрахователна компания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InsurancePolicyNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на застрахователна полица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InsuranceIssuedDate" type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на сключване на застраховката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InsuranceEndDate " type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на валидност (изтичане) на застраховката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

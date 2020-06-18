@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             elementFormDefault="qualified"
+             attributeFormDefault="unqualified"
+             targetNamespace="http://egov.bg/RegiX/MTSP/NKPD/AllNKPDDataResponse"
+             xmlns="http://egov.bg/RegiX/MTSP/NKPD/AllNKPDDataResponse"
+             xmlns:cm="http://egov.bg/RegiX/MTSP/NKPD">
+  
+  <xs:import namespace="http://egov.bg/RegiX/MTSP/NKPD" schemaLocation="NKPDCommon.xsd"/>    
+     
+  <xs:complexType name="AllNKPDDataType">
+      <xs:annotation>
+        <xs:documentation>Данни за национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+      </xs:annotation>
+      <xs:sequence >
+        <xs:element name="VersionName" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Наименование на версия</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ValidDate" type ="xs:date" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Дата на валидност</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="NKPD" type="cm:NKPDEntry" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  <xs:element name="AllNKPDDataResponse" type="AllNKPDDataType"/>  
+</xs:schema>

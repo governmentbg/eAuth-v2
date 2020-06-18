@@ -1,0 +1,9 @@
+<button class="resend-btn" 
+    mat-mini-fab color="primary" 
+    [id]="methodName"
+    [disabled]="currentMethod.disabledBtn && !isTotp" 
+    [matTooltip]="tooltipText"
+    (click)="resendCode()">
+    <mat-icon *ngIf="hasIcon()">{{iconName}}</mat-icon>
+    {{!hasIcon() ? methodName : ''}}
+</button>

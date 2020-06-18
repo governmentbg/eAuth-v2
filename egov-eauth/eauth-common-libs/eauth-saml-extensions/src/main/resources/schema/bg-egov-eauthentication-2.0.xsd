@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="urn:bg:egov:eauth:2.0:saml:ext"
+	xmlns:egovbga="urn:bg:egov:eauth:2.0:saml:ext"
+	elementFormDefault="qualified" version="2.0">
+
+	<xsd:simpleType name="ResourceOID">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				The object identifier of an Resource in the bulgarian e-government.
+				Every oid must start with 2.16.100
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="2.16.100.([1-9]+.)*[1-9]+" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LevelOfAssuranceType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Accepted Levels of assurance for Administrative Electronic services
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:levelofassurance:low" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:levelofassurance:substantial" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:levelofassurance:high" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:element name="RequestedService"
+		type="egovbga:RequestedServiceType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				This element is used in saml:Extensions element in samlp:AuthenticationRequest
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+
+	<xsd:complexType name="RequestedServiceType">
+		<xsd:sequence minOccurs="1" maxOccurs="1">
+
+			<xsd:element name="Service" type="egovbga:ResourceOID">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The oid of the requested service
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+			<xsd:element name="Provider" type="egovbga:ResourceOID"
+				minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The administration which provides the electronic administrative service
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LevelOfAssurance" type="egovbga:LevelOfAssuranceType"
+				minOccurs="1" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						Level of assurance for this AuthnRequest
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:element name="SPContext" type="egovbga:SPContextType" />
+	<xsd:complexType name="SPContextType">
+		<xsd:sequence>
+			<xsd:any namespace="##other" processContents="lax" 	maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:simpleType name="UserNameFormatEnum">
+		<xsd:restriction base="xsd:anyURI">
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:username:simple" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:username:canonical" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:attribute name="userNameFormat" type="egovbga:UserNameFormatEnum">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				This attribute is used in wsse:UsernameToken element to determine the provided user name
+				format: simple(plain) user name or canonical x.509 name
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+
+
+
+	<xsd:element name="Claim" type="egovbga:ClaimType" />
+	<xsd:complexType name="ClaimType">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				This custom claim element is used in WS-Trust Claims element
+				Allowed values are: ClaimsTypeEnum
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence />
+		<xsd:attribute name="uri" type="egovbga:ClaimsTypeEnum" />
+		<xsd:attribute name="required" type="xsd:boolean" default="true" use="optional" />
+	</xsd:complexType>
+
+	<xsd:simpleType name="ClaimsTypeEnum">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:personIdentifier" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:personName" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:latinName" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:birthName" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:email" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:phone" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:gender" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:dateOfBirth" />
+			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:placeOfBirth" />
+			<!-- EXITING old not in use claims -->
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:cannonicalName" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:nationalityCode" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:canonicalResidenceAddress" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:adminOID" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:adminLegalIdentifier" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:admLegalName" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:admPosition" />
+			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:admUnit" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+
+</xsd:schema>

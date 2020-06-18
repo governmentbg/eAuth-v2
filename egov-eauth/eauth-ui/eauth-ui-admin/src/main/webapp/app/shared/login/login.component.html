@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4 class="modal-title">Вход</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-danger" *ngIf="authenticationError">
+                <strong>Грешка при вход!</strong> Моля проверете вашите данни за вход и опитайите отново.
+            </div>
+        </div>
+        <div class="col-md-8">
+            <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+                <div class="form-group">
+                    <label class="username-label" for="username">Потребителско име</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Потребителско име"
+                           formControlName="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Парола</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Парола"
+                           formControlName="password">
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" for="rememberMe">
+                        <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" checked>
+                        <span>Запомни ме</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Вход</button>
+            </form>
+            <p></p>
+            <div class="alert alert-warning">
+                <a class="alert-link" (click)="requestResetPassword()">Забравена парола</a>
+            </div>
+            <div class="alert alert-warning">
+                <span>Нямате акаунт?</span>
+                <a class="alert-link" (click)="register()">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</div>

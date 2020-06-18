@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/ValidityCheckByRegNumberRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/ValidityCheckByRegNumberRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="REG35_Validity_Check_By_Reg_Number_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на Справка за валидност по номер на документ в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG35_Validity_Check_By_Reg_Number_Request" type="REG35_Validity_Check_By_Reg_Number_Request"/>
+</xs:schema>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml2p:Response
+	Destination="http://2fa-test-backend.egov.bg:9092/login/saml2/sso/mock-idp"
+	ID="_f5bbb24b-e78e-4636-ad20-88b3977ab5f4"
+	InResponseTo="ARQc37d10a-0eda-4113-8555-fdbb153db347"
+	IssueInstant="2020-04-09T20:57:25.932Z" Version="2.0"
+	xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+	<saml2:Issuer
+		Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
+		xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">http://mock-idp</saml2:Issuer>
+	<saml2p:Status>
+		<saml2p:StatusCode
+			Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
+	</saml2p:Status>
+	<saml2:Assertion
+		ID="_3e229df7-6a48-43f9-b547-d8625c29a428"
+		IssueInstant="2020-04-09T20:57:26.024Z" Version="2.0"
+		xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<saml2:Issuer
+			Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">http://mock-idp</saml2:Issuer>
+		<ds:Signature
+			xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+			<ds:SignedInfo>
+				<ds:CanonicalizationMethod
+					Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+				<ds:SignatureMethod
+					Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+				<ds:Reference
+					URI="#_3e229df7-6a48-43f9-b547-d8625c29a428">
+					<ds:Transforms>
+						<ds:Transform
+							Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+						<ds:Transform
+							Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+							<ec:InclusiveNamespaces PrefixList="xsd"
+								xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#" />
+
+						</ds:Transform>
+					</ds:Transforms>
+					<ds:DigestMethod
+						Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+					<ds:DigestValue>OZSG7yvG0bjpzsWBkvZhaLZDczzlGCOA1DnFCC3hxx0=</ds:DigestValue>
+				</ds:Reference>
+			</ds:SignedInfo>
+			<ds:SignatureValue>
+				UAqbkagd8qKWNbSBW97e66FV4smeVg8fcDy4f1s5qTSvJCqKpEYVqQOctTL/ku+jsgI773AfrIxp&#xd;
+				FqrABdzz22UgSjIj3R2QvGLqkyyyYZaiLU7QwiRz46N37ASTMXnLob1uD+VWUtMGC6mPRvry94RN&#xd;
+				JVY/QklL92FM53ePTFd5GUkJ/zkqEiwGmxxJHPXLkEBB0tfiLrs/Kv9HSPRnCst3GXNjMT2uBzaa&#xd;
+				D5aGXgmRdhfkRCUJZ81DBHSqIV6En6mccwg6l6GrisS6Q8IelUfCZFWvjLk38lBcc/i3iIQoivyA&#xd;
+				H3FerVbOdoittEtpCAUEbhyg6K/FAcZzgRW9aA==
+			</ds:SignatureValue>
+		</ds:Signature>
+		<saml2:Subject>
+			<saml2:NameID
+				Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">test</saml2:NameID>
+			<saml2:SubjectConfirmation
+				Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+				<saml2:SubjectConfirmationData
+					InResponseTo="ARQc37d10a-0eda-4113-8555-fdbb153db347"
+					NotOnOrAfter="2020-04-10T04:57:26.003Z"
+					Recipient="http://2fa-test-backend.egov.bg:9092/login/saml2/sso/mock-idp" />
+			</saml2:SubjectConfirmation>
+		</saml2:Subject>
+		<saml2:Conditions
+			NotBefore="2020-04-09T20:54:26.009Z"
+			NotOnOrAfter="2020-04-09T21:00:26.009Z">
+			<saml2:AudienceRestriction>
+				<saml2:Audience>http://2fa-test-backend.egov.bg:9092/saml2/service-provider-metadata/mock-idp
+				</saml2:Audience>
+			</saml2:AudienceRestriction>
+		</saml2:Conditions>
+		<saml2:AuthnStatement
+			AuthnInstant="2020-04-09T20:57:26.010Z">
+			<saml2:AuthnContext>
+				<saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password
+				</saml2:AuthnContextClassRef>
+				<saml2:AuthenticatingAuthority>http://mock-idp
+				</saml2:AuthenticatingAuthority>
+			</saml2:AuthnContext>
+		</saml2:AuthnStatement>
+		<saml2:AttributeStatement>
+			<saml2:Attribute
+				Name="urn:egov:bg:eauth:2.0:attributes:personName"
+				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="xsd:string">Петър Иванов Петров</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute
+				Name="urn:egov:bg:eauth:2.0:attributes:personIdentifier"
+				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:type="xsd:string">PNOBG-1010101010</saml2:AttributeValue>
+			</saml2:Attribute>
+		</saml2:AttributeStatement>
+	</saml2:Assertion>
+</saml2p:Response>

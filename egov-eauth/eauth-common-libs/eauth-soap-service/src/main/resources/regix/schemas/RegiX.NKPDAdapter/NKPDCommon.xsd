@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified"
+           targetNamespace="http://egov.bg/RegiX/MTSP/NKPD"
+           xmlns="http://egov.bg/RegiX/MTSP/NKPD">
+  <xs:simpleType name="NKPDType">
+    <xs:annotation>
+      <xs:documentation>Тип</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="class"/>
+      <xs:enumeration value="subClass"/>
+      <xs:enumeration value="group"/>
+      <xs:enumeration value="individualGroup"/>
+      <xs:enumeration value="nkpd"/>
+    </xs:restriction>
+  </xs:simpleType>
+    <xs:simpleType name="NationalClassificationOfOccupationsClassCode">
+      <xs:annotation>
+        <xs:documentation xml:lang="bg">Код на клас от национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="\d{1}" />
+      </xs:restriction>
+    </xs:simpleType>
+  <xs:simpleType name="NationalClassificationOfOccupationsSubclassCode">
+    <xs:annotation>
+      <xs:documentation xml:lang="bg">Код на подклас от национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{2}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NationalClassificationOfOccupationsGroupCode">
+    <xs:annotation>
+      <xs:documentation xml:lang="bg">Код на група от национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{3}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NationalClassificationOfOccupationsEducationalAndQualificationLevelCode">
+    <xs:annotation>
+      <xs:documentation xml:lang="bg">Код на образователно и квалификационно ниво от национална класификация на професиите и длъжностите в Република България национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{1}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NationalClassificationOfOccupationsPositionCode">
+    <xs:annotation>
+      <xs:documentation xml:lang="bg">Код на професия и длъжност от национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{8}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NationalClassificationOfOccupationsIndividualGroupCode">
+    <xs:annotation>
+      <xs:documentation xml:lang="bg">Код на единична група от национална класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{4}" />
+    </xs:restriction>
+  </xs:simpleType> 
+    <xs:complexType name="NKPDEntry">
+      <xs:annotation>
+        <xs:documentation>Данни за запис от националната класификация на професиите и длъжностите в Република България (НКПД)</xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="Type" type="NKPDType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Тип</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Code" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Name" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Наименование</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ClassCode" type="NationalClassificationOfOccupationsClassCode" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код на клас</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="SubclassCode" type="NationalClassificationOfOccupationsSubclassCode" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код на подклас</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="GroupCode" type="NationalClassificationOfOccupationsGroupCode" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код на група</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="IndividualGroupCode" type="NationalClassificationOfOccupationsIndividualGroupCode" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код на единична група</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="EducationLevelCode" type="NationalClassificationOfOccupationsEducationalAndQualificationLevelCode" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Код на образователно и квалификационно ниво</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+ </xs:schema>

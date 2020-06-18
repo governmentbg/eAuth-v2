@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/NPOStatusRequest" targetNamespace="http://egov.bg/RegiX/MP/NPOStatusRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="NPOStatusRequest" type="NPOStatusRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за състояние на юридическо лице с нестопанска цел за общественополезна дейност</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NPOStatusRequestType">
+		<xs:sequence>
+			<xs:element name="Bulstat" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Булстат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

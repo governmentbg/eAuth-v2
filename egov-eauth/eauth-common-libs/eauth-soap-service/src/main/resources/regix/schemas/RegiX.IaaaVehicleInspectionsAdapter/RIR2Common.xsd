@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PermitInspectorDto">
+		<xs:sequence>
+			<xs:element name="SubjectIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН на инспектор в пукнт за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubjectFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на инспектор в пукнт за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CurrentStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текущо състояние (В - включен в списъка, И - изключен от списъка)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsChairman" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дали е председател (Y=Да, N=Не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PermitDto">
+		<xs:sequence>
+			<xs:element name="KtpName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на фирма на пункт за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubjectIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК/БУЛСТАТ на фирма на пункт за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KtpCityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град на пунктът за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KtpAddress" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на пунктът за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KtpCategoryLabel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Категория на пунктът за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PermitNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на разрешението за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgUnitShortName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Областен отдел в който оперира пунктът за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PermitStatusCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус код на разрешението за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PermitStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на разрешението за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstRegDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на първа регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastChangeDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на последна промяна на разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListChangeDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на последна промяна на списъка от председатели и членове</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InspectionProtocols" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номера на протоколи от инспекция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InspectionDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на протоколи от инспекция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CloseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на закриване, ако е закрито</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CloseReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина за закриване, ако е закрито</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StampNumber" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на печат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Remarks" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бележки, коментар</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LineCount" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой линии за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation>Пакет с логическите структури на данните в следните справки към Регистър за издадените разрешения по ал. 2, на председателите на комисиите, извършващи прегледите, и на техническите специалисти към ИА АА:
+	1. Справка за статус на регистрацията по ЕИК - връща списък с пунктовете и техните разрешителни и персонал с посочения ЕИК.
+	2. Справка по лице за вписвания като председател на комисия/технически специалист в регистрирани пунктове за технически - връща списък с разрешителни за пунктове, в които е вписано лицето с посочения ЕГН/ЛНЧ.
+	3. Справка по ЕИК за обслужени автомобили за период - връща списък с брой обслужени автомобили в пунктовете на фирмата с посочения ЕИК за периода плюс един ред със сума за определен период.
+	4. Справка за извършен технически преглед по регистрационен автомобил на автомобил – връща данни за валиден технически преглед с информация за пункта, дата на прегледа и номер на стикер по даден регистрационен номер
+	5. Справка за проверка на автентичност на стикер за технически преглед – връща данни за технически преглед на автомобила по даден регистрационен номер</xs:documentation>
+	</xs:annotation>
+</xs:schema>

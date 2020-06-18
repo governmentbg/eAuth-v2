@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/NBD" xmlns="http://egov.bg/RegiX/GRAO/NBD/PersonDataRequest" targetNamespace="http://egov.bg/RegiX/GRAO/NBD/PersonDataRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/NBD" schemaLocation="NBDCommon.xsd"/>
+	<xs:complexType name="PersonDataRequestType">
+		<xs:sequence>
+			<xs:element name="EGN" type="common:EGN">
+        <xs:annotation>
+          <xs:documentation>ЕГН</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PersonDataRequest" type="PersonDataRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за физическо лице</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

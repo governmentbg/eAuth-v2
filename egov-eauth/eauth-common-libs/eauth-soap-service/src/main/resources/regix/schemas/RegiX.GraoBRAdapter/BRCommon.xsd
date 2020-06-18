@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://egov.bg/RegiX/GRAO/BR" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/GRAO/BR" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="BirthDate">
+		<xs:annotation>
+			<xs:documentation xml:lang="bg">Дата на раждане</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:date"/>
+	</xs:simpleType>
+	<xs:simpleType name="EGN">
+		<xs:annotation>
+			<xs:documentation xml:lang="bg">ЕГН</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+  <xs:simpleType name="GenderCodeType">
+    <xs:annotation>
+      <xs:documentation>Пол - код</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GenderNameType">
+    <xs:annotation>
+      <xs:documentation>Име на пол</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Мъж"/>
+      <xs:enumeration value="Жена"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GenderNameType" type="GenderNameType"/>
+  <xs:element name="GenderCodeType" type="GenderCodeType"/>
+</xs:schema>

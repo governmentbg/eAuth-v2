@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROBatteries/ExecutionTypeResponse" xmlns:common="http://egov.bg/RegiX/IAOS/MROBatteries/Common" targetNamespace="http://egov.bg/RegiX/IAOS/MROBatteries/ExecutionTypeResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/MROBatteries/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="MRO_BA_Execution_Type_Response" type="MRO_BA_Execution_Type_Response"/>
+	<xs:complexType name="MRO_BA_Execution_Type_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка за начин на изпълнение в Регистър на лицата, които пускат на пазара батерии и акумулатори, включително вградени в уреди и моторни превозни средства
+Справката връща информация за начина на изпълнение на задълженията на организацията, вписана в регистъра. Изпращаните данни са филтрирани в зависимост от начина на изпълние.  </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationExecutionType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationExecutionType">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MroFulfillment" type="common:Fulfilment" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начин на изпълнение на задължения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecOrgNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на организация по оползотворяване (ООп)/ индивидуално изпълнение на задължения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UonName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията по оползотворяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

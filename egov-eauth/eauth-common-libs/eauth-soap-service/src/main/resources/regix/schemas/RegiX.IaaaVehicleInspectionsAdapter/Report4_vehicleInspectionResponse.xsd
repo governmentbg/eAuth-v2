@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/VehicleInspectionResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/VehicleInspections" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/VehicleInspectionResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/VehicleInspections" schemaLocation="RIR2Common.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка за извършен технически преглед по регистрационен номер на автомобил</xs:documentation>
+	</xs:annotation>
+	<xs:element name="VehicleInspectionResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ProtocolNumber" type="xs:long" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Номер на протокол за преглед</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="StickerNumber" type="xs:long" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Номер на знак за преминат преглед (холограма)</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Permit" type="common:PermitDto" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Разрешение на пукнта в който е преминат прегледа</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="InspectionDateTime" type="xs:date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Дата на начало на прегледа</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="EndDateTime" type="xs:date" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Дата и час в които е завършен прегледа</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Conclusion" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Заключение на комисията</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NextInspectionDate" type="xs:anySimpleType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Дата на следващ преглед</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Chairman" type="common:PermitInspectorDto" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Председателя на комисията</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Member" type="common:PermitInspectorDto" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Член на комисията</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="RegNumber" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Разрешение и брой прегледани ППС от него</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CurrentStatus" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Текущ статус на прегледа</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,110 @@
+###########################################################
+# 3rd party Identity Providers -> EidProvidersConfiguration
+###########################################################
+
+idp.3rd.party:
+   providers: 
+      'test': 
+         provider-id: 'test'
+         provider-api-key: ''
+         name: 
+            'bg': 'Тест 1 LOW'
+            'en': 'Test 1 LOW'
+         loa: LOW
+         tfa-required: false
+         endpoint: ''
+         active: true
+         expirationPeriod: 10
+         attributes:
+            'test_USERNAME':
+               id: 'username'
+               mandatory: true
+               label: {
+                  'bg':'Потребител',
+                  'en':'User'
+               }
+               type: DEFAULT
+               e-id: IDENTITY
+            'test_PASSWORD':
+               id: 'password'
+               mandatory: true
+               label: {
+                  'bg':'Парола',
+                  'en':'Password'
+               } 
+               type: SECRET
+               e-id: PASSWORD
+      'noi': 
+         provider-id: 'noi'
+         provider-api-key: ''
+         name:
+            'bg': 'Тест 2 НОИ SUB + 2FA'
+            'en': 'Test 2 NOI SUB + 2FA'
+         loa: SUBSTANTIAL
+         tfa-required: true
+         endpoint: ''
+         active: true
+         expirationPeriod: 20
+         attributes:
+            'noi_EGN':
+               id: 'egn'
+               mandatory: true
+               label: {
+                  'bg': 'Идентификатор',
+                  'en': 'Identifier'
+               }
+               type: EGN
+               e-id: IDENTITY
+      'nap': 
+         provider-id: 'nap'
+         provider-api-key: ''
+         name: 
+            'bg': 'Тест 3 НАП HIGH'
+            'en': 'Test 3 NAP HIGH'
+         loa: HIGH
+         tfa-required: false
+         endpoint: ''
+         active: true
+         expirationPeriod: 30
+         attributes:
+            'nap_EGN':
+               id: 'egn'
+               mandatory: true
+               label: {
+                  'bg': '',
+                  'en': ''
+               }
+               type: EGN
+               e-id: IDENTITY
+      'qes': 
+         provider-id: 'qes'
+         provider-api-key: ''
+         name: 
+            'bg': 'Тест 4 QES HIGH'
+            'en': 'Test 4 QES HIGH'
+         loa: HIGH
+         tfa-required: false
+         endpoint: ''
+         active: true
+         expirationPeriod: 30
+      'idptest':
+         privider_id: 'idptest'
+         privider_api_key: ''
+         name: 
+            'bg': 'Тест 5 Тестови Провайдер Idp'
+            'en': 'Test 5 Test Provider Idp'
+         loa: HIGH
+         tfa-required: false
+         endpoint: http://test-provider-idp.eauth.egov.bg:8230
+         activate: true
+         expirationPeriod: 30
+         attributes:
+            'idptest_ENG':
+               id: 'egn'
+               mandatory: true
+               label: {
+                  'bg':'Тип идентификационен ключ',
+                  'en':'Identification keyType'
+               }
+               type: EGN
+               e-id: IDENTITY

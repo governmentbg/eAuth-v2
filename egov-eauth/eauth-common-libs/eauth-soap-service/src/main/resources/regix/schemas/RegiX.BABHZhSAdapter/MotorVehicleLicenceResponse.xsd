@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/BABH/BABHZhS/MotorVehicleLicenceResponse" targetNamespace="http://egov.bg/RegiX/BABH/BABHZhS/MotorVehicleLicenceResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="MotorVehicleData">
+		<xs:annotation>
+			<xs:documentation>Общи данни за превозно средство</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MotorVehicleType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на МПС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Площ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatusDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на статуса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalInfo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Допълнителна информация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LicenceData">
+		<xs:annotation>
+			<xs:documentation>Разрешително за пътуване</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LicenceType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид лиценз</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenceNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>От дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>До дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RevokeReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина на отнемане</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UsedAnimalType">
+		<xs:annotation>
+			<xs:documentation> Вид животно, за които се използва транспорта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AnimalKind" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид животно</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Count" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReltionshipData">
+		<xs:annotation>
+			<xs:documentation>Връзка с лица (ФЛ или ЮЛ), които имат отношение към превозното средство</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RelationshipType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на връзката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на лицето/организацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Identificator" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН/ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>От дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>До дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MotorVehicleLicenceResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за издадени лицензи за кратки и продължителни пътувания при превоз на живи животни</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MotorVehicleData" type="MotorVehicleData" minOccurs="0"/>
+			<xs:element name="LicencesData" type="LicenceData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="UsedAnimalTypes" type="UsedAnimalType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ReltionshipsData" type="ReltionshipData" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MotorVehicleLicenceResponse" type="MotorVehicleLicenceResponseType"/>
+</xs:schema>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AM/ZADS/RegistrationInfoRequest" targetNamespace="http://egov.bg/RegiX/AM/ZADS/RegistrationInfoRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RegistrationInfoRequestType">
+		<xs:sequence>
+			<xs:element name="EIK" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕИК (Булстат) на ю.лице (икономически оператор)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatusDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата - определена дата, към която да се види статута </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegistrationInfoRequest" type="RegistrationInfoRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за статут на лице по ЗАДС</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

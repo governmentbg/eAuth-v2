@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             elementFormDefault="qualified"
+             attributeFormDefault="unqualified"
+             targetNamespace="http://egov.bg/RegiX/BABH/BABHZhS/MotorVehicleLicenceRequest"
+             xmlns="http://egov.bg/RegiX/BABH/BABHZhS/MotorVehicleLicenceRequest">
+
+  <xs:complexType name="MotorVehicleLicenceRequestType">
+    <xs:annotation>
+      <xs:documentation>Справка за идентифицирано животно </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MotorVehicleRegNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Регистрационен номер на превозно средство (на кирилица и без разделители)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MotorVehicleLicenceRequest" type="MotorVehicleLicenceRequestType"/>
+</xs:schema>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters/SubjectOwnedCategoriesRequest" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters/SubjectOwnedCategoriesRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Справка по ЕГН/ЛНЧ за придобити категории за управление на ППС.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="SubjectOwnedCategoriesRequestType" >
+		<xs:sequence>
+			<xs:element name="SubjectIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН на лицето за което се прави справката за категории.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubjectOwnedCategoriesRequest" type="SubjectOwnedCategoriesRequestType" >
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/InfoByEIKResponse" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/InfoByEIKResponse" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:common="http://egov.bg/RegiX/IAOS/REG35Reg/Common">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/REG35Reg/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="REG35_Info_By_EIK_Response" type="REG35_Info_By_EIK_Response"/>
+	<xs:complexType name="REG35_Info_By_EIK_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на Справка по ЕИК в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие
+Справката връща информация за издадените на лицето документи по чл. 35 от Закона за управление на отпадъците (ЗУО):
+
+	1. Разрешения  за дейности с отпадъци;
+	2. Регистрационни документи за третиране на отпадъци
+	3. Регистрационни документи за събиране и транспортиране на отпадъци
+
+ </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationRegInfo" minOccurs="0" maxOccurs="99"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationRegInfo">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthType" type="common:AuthorizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на регистрацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Riosv" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регионална инспекция по околна среда и води (РИОСВ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="common:AuthState35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/PNA" xmlns="http://egov.bg/RegiX/GRAO/PNA/TemporaryAddressResponse" targetNamespace="http://egov.bg/RegiX/GRAO/PNA/TemporaryAddressResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/PNA" schemaLocation="PNACommon.xsd"/>
+  <xs:complexType name="TemporaryAddressResponseType">
+    <xs:sequence>
+      <xs:element name="CountryCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на държава</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CountryName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на държава</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DistrictCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на област</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DistrictName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на област</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MunicipalityCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на община</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MunicipalityName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на община</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CityAreaCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на район</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CityArea" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на район</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocationCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на локализационна единица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocationName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на локализационна единица </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BuildingNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Entrance" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вход </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Floor" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Етаж</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Apartment" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Апартамент </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FromDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата на заявяване</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:element name="TemporaryAddressResponse" type="TemporaryAddressResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за настоящ адрес</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

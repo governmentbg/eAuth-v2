@@ -1,0 +1,149 @@
+<samlp:Response
+	xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:egovbga="urn:bg:egov:eauth:1.0:saml:ext"
+	xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+	Destination="https://rir.egov.bg/pages/UI.php"
+	ID="20200217133210298_ITOP_2018081503000979"
+	InResponseTo="ITOP_2018081503000979" IssueInstant="2020-02-17T13:32:16"
+	Version="2.0">
+	<ds:Signature>
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod
+				Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+			<ds:SignatureMethod
+				Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1" />
+			<ds:Reference URI="">
+				<ds:Transforms>
+					<ds:Transform
+						Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<ds:Transform
+						Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+				</ds:Transforms>
+				<ds:DigestMethod
+					Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<ds:DigestValue>/+kft0iULpFNj6L3+dQ9LY5VHlY=</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>NP0e2o/C6ujQOtWeWFfay2xBQ/qLBDAalINvpE1a01ktmOgh9dIXdw==</ds:SignatureValue>
+		<ds:KeyInfo>
+			<ds:X509Data>
+				<ds:X509IssuerSerial>
+					<ds:X509IssuerName>CN=bg.egov.authenticator, OU=EAuthenticator,
+						O=MTITS, L=Sofia, ST=Sofia, C=BG</ds:X509IssuerName>
+					<ds:X509SerialNumber>1433317994</ds:X509SerialNumber>
+				</ds:X509IssuerSerial>
+				<ds:X509SubjectName>CN=bg.egov.authenticator,OU=EAuthenticator,O=MTITS,L=Sofia,ST=Sofia,C=BG</ds:X509SubjectName>
+				<ds:X509Certificate>MIIDJTCCAuOgAwIBAgIEVW6yajALBgcqhkjOOAQDBQAwdjELMAkGA1UEBhMCQkcxDjAMBgNVBAgTBVNvZmlhMQ4wDAYDVQQHEwVTb2ZpYTEOMAwGA1UEChMFTVRJVFMxFzAVBgNVBAsTDkVBdXRoZW50aWNhdG9yMR4wHAYDVQQDExViZy5lZ292LmF1dGhlbnRpY2F0b3IwHhcNMTUwNjAzMDc1MzE0WhcNMTgwNjAyMDc1MzE0WjB2MQswCQYDVQQGEwJCRzEOMAwGA1UECBMFU29maWExDjAMBgNVBAcTBVNvZmlhMQ4wDAYDVQQKEwVNVElUUzEXMBUGA1UECxMORUF1dGhlbnRpY2F0b3IxHjAcBgNVBAMTFWJnLmVnb3YuYXV0aGVudGljYXRvcjCCAbcwggEsBgcqhkjOOAQBMIIBHwKBgQD9f1OBHXUSKVLfSpwu7OTn9hG3UjzvRADDHj+AtlEmaUVdQCJR+1k9jVj6v8X1ujD2y5tVbNeBO4AdNG/yZmC3a5lQpaSfn+gEexAiwk+7qdf+t8Yb+DtX58aophUPBPuD9tPFHsMCNVQTWhaRMvZ1864rYdcq7/IiAxmd0UgBxwIVAJdgUI8VIwvMspK5gqLrhAvwWBz1AoGBAPfhoIXWmz3ey7yrXDa4V7l5lK+7+jrqgvlXTAs9B4JnUVlXjrrUWU/mcQcQgYC0SRZxI+hMKBYTt88JMozIpuE8FnqLVHyNKOCjrh4rs6Z1kW6jfwv6ITVi8ftiegEkO8yk8b6oUZCJqIPf4VrlnwaSi2ZegHtVJWQBTDv+z0kqA4GEAAKBgGEVEw31wuvJ8739Ym+ITCdVKkkVpN6D3HZdeHzHaVF/RFi2mkDymiTYrVZQoI5l1amMQ+XhZh9EftR2Z6q3YAtazLIZ9CHF6xYfuq3zJTU5uGo3VUoY0mDPXvZvPMJDkw2AnnopUvthZHKGLQWJZYYRHZGuc75vvrsRbNhk6hkbMAsGByqGSM44BAMFAAMvADAsAhRdNNCbtqyquhoUCNEtDFIlujZdPQIUJpNRHN6tFPN2cu7HTqx+THprPhE=</ds:X509Certificate>
+			</ds:X509Data>
+		</ds:KeyInfo>
+	</ds:Signature>
+	<samlp:Status>
+		<samlp:StatusCode
+			Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
+		<samlp:StatusMessage>Успешен отговор на заявката</samlp:StatusMessage>
+	</samlp:Status>
+	<saml2:Assertion
+		xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		ID="_EA9D70B5E34ADF16921581939120040140009"
+		IssueInstant="2020-02-17T11:32:00.040Z" Version="2.0"
+		xsi:type="saml2:AssertionType">
+		<saml2:Issuer>http://eauth.egov.bg/</saml2:Issuer>
+		<ds:Signature>
+			<ds:SignedInfo>
+				<ds:CanonicalizationMethod
+					Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+				<ds:SignatureMethod
+					Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+				<ds:Reference
+					URI="#_EA9D70B5E34ADF16921581939120040140009">
+					<ds:Transforms>
+						<ds:Transform
+							Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+						<ds:Transform
+							Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+							<ec:InclusiveNamespaces
+								xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"
+								PrefixList="xs" />
+						</ds:Transform>
+					</ds:Transforms>
+					<ds:DigestMethod
+						Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+					<ds:DigestValue>2TUOl/X5mcdIZJ35D7A+ojxoYGg=</ds:DigestValue>
+				</ds:Reference>
+			</ds:SignedInfo>
+			<ds:SignatureValue>voVeSwINU8V9hD+64xL+qLJdTBZpZD0PCf9+lj8pInCMAF74z9e0hx6OjykeFNTUgdhPVUfiNoTRkoMrUtnOLUbR6FWQcVSOaOVrWV33S+n35/FotSEEL5ah8A/wT+aPDCCiRiFuQV94mQKJoVtuH6t8396ncfiZfT7UodUeQIDDpun2ickgDjMnO00BrCJ5zE7knQcLwuIhhfEcdPKin/6HTZAJrUhqg1OVtJEA4yutqNXRw+nMbagswrrqOYb5TiDfMXE11xMSrdUJ9MdrrE0JXF0e0WSsqQ8t+fmfTAaDhNGdeZn8rHlTNvjAo8AB1YFQtIbR4Rgq5I0AxkK5TcikeOfA7CNkVsWy4yMkpTNCjaSYSeNE+69TCnoN+SE5Vd/nKH2zfSagJ1OWZtNLQte4RbeNUVRBCzcG4X02FBoCes9o6+QHCKmYkj6DL8ZGItsSn5BasftsdG9tsOKVHnwi7G/0BnxjXQziZYIeRUFB5tdPstmOUEsyBKkatPqxilWKocbxcf+T6n7zUle0doOS9jWX4LAfOwH+mgVV33Ujq1Z++6cfZYAMnFLWCNQQ+QI9or+wNSnx7hPYtvsfi/ZYFy5PPGBcTFjpa7XiJy2naSYNB3KEwBuPynS/+ly2tSRcozFVNrrM1bIY/49GHe3DpyTWblLieKUUbcRJnp0=</ds:SignatureValue>
+			<ds:KeyInfo>
+				<ds:X509Data>
+					<ds:X509Certificate>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</ds:X509Certificate>
+				</ds:X509Data>
+			</ds:KeyInfo>
+		</ds:Signature>
+		<saml2:Subject>
+			<saml2:NameID
+				Format="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
+				NameQualifier="urn:egov:bg:eauth:1.0:attributes:eIdentifier:EGN">7506196308</saml2:NameID>
+			<saml2:SubjectConfirmation
+				Method="urn:oasis:names:tc:SAML:2.0:cm:sender-vouches">
+				<saml2:SubjectConfirmationData />
+			</saml2:SubjectConfirmation>
+		</saml2:Subject>
+		<saml2:Conditions
+			NotBefore="2020-02-17T11:32:00.040Z"
+			NotOnOrAfter="2020-03-02T11:32:00.040Z">
+			<saml2:AudienceRestriction>
+				<saml2:Audience>urn:egov:bg:services:oid:2.16.100.1.1.1.1.18.1.1.1</saml2:Audience>
+			</saml2:AudienceRestriction>
+		</saml2:Conditions>
+		<saml2:AuthnStatement
+			AuthnInstant="2020-02-17T11:32:00.040Z">
+			<saml2:AuthnContext>
+				<saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</saml2:AuthnContextClassRef>
+			</saml2:AuthnContext>
+		</saml2:AuthnStatement>
+		<saml2:AttributeStatement>
+			<saml2:Attribute
+				Name="urn:egov:bg:eauth:1.0:attributes:personNamesLatin"
+				NameFormat="urn:egov:bg:eauth:1.0:attributes:personNamesLatin">
+				<saml2:AttributeValue xsi:type="xs:string">Yavor Dimitrov
+					Dimitrov</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute
+				Name="urn:egov:bg:eauth:1.0:attributes:eMail"
+				NameFormat="urn:egov:bg:eauth:1.0:attributes:eMail">
+				<saml2:AttributeValue xsi:type="xs:string">ydimitrov@e-gov.bg</saml2:AttributeValue>
+			</saml2:Attribute>
+		</saml2:AttributeStatement>
+	</saml2:Assertion>
+	<samlp:Extensions>
+		<egovbga:SPContext />
+	</samlp:Extensions>
+</samlp:Response>

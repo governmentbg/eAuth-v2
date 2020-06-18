@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/KZLD/Common" xmlns="http://egov.bg/RegiX/KZLD/Administrators/RegisteredAdministratorByNumberResponse" targetNamespace="http://egov.bg/RegiX/KZLD/Administrators/RegisteredAdministratorByNumberResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/KZLD/Common" schemaLocation="KZLDCommon.xsd"/>
+	<xs:element name="RegisteredAdministratorByNumberResponse">
+		<xs:annotation>
+			<xs:documentation>Справка по Уникален идентификационен номер за вписан администратор на лични данни - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PDCRegisterNumer" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Уникален идентификационен номер от Регистъра на вписаните администратори на лични данни</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PDCData" type="common:PersonalDataControllerData" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данни за администратора на лични данни</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:sequence minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="PDSRegisters" type="common:PersonalDataControllerRegister" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Регистри, поддържани от администратора на лични данни</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

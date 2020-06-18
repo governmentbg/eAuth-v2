@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REGPapz/ProtectedAreaSizeRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REGPapz/ProtectedAreaSizeRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="REG_PAPZ_Protected_Area_Size_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка за извличане на площ на защитена територия/ зона в Регистър на защитените територии и зони в България.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AreaCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Код на територията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AreaType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Тип на територията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG_PAPZ_Protected_Area_Size_Request" type="REG_PAPZ_Protected_Area_Size_Request"/>
+</xs:schema>

@@ -1,0 +1,21 @@
+.qr-container {
+    display: flex;
+    flex-direction: column;
+
+    img {
+        margin: 0 auto;
+    }
+
+    .security-code-holder {
+        margin: 0 auto;
+        width: 300px;
+
+        .security-code-input {
+            text-align: center;
+        }
+    }
+
+    .generate-new-code-btn {
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/CROZ/CROZ" targetNamespace="http://egov.bg/RegiX/CROZ/CROZ" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="participantName">
+		<xs:annotation>
+			<xs:documentation>Имена на участник</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name1" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name2" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Презиме</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name3" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="company" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на компания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="participant">
+		<xs:annotation>
+			<xs:documentation>Участник</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="particip_id" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Служебен идентификатор на участник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="particip_id_code" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификационен код на участник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="participantName" minOccurs="0"/>
+			<xs:element name="full_name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пълно име на участник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="city" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="zip" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пощенски код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="participantsArray">
+		<xs:annotation>
+			<xs:documentation>Списък на участници</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="participant" type="participant" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="consignCreditorsArray">
+		<xs:annotation>
+			<xs:documentation>Списък на участниците по първоначалното вписване или допълнителните вписвания към него</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="consignCreditors" type="consignCreditor" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="consignEntry">
+		<xs:annotation>
+			<xs:documentation>Първоначално вписване</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="regId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Състояние на вписването</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reg_date" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на вписване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reg_time" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Час на вписване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="page_numbers" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой страници на оптичният архив за вписването</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expire_date" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата, на която се прекратява вписването</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scanned" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditors" type="consignCreditorsArray" minOccurs="0"/>
+			<xs:element name="rejected" type="xs:string" minOccurs="0"/>
+			<xs:element name="archived" type="xs:string" minOccurs="0"/>
+			<xs:element name="oa_pole17" type="OAArray" minOccurs="0"/>
+			<xs:element name="newManagerDates" type="datesArray" minOccurs="0"/>
+			<xs:element name="amd_numbers" type="xs:int" minOccurs="0"/>
+			<xs:element name="opis_header" type="xs:string" minOccurs="0"/>
+			<xs:element name="retId" type="xs:string" minOccurs="0"/>
+			<xs:element name="pledgeOnClaim" type="xs:string" minOccurs="0"/>
+			<xs:element name="distrainSecuredClaims" type="distrainSecuredClaimArray" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="consignEntriesArray">
+		<xs:annotation>
+			<xs:documentation>Списък на първоначални вписвания</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="consignEntries" type="consignEntry" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="consignCreditor">
+		<xs:annotation>
+			<xs:documentation>Участник по първоначалното вписване или допълнителните вписвания към него</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="participant" type="participant" minOccurs="0"/>
+			<xs:element name="proceedexecutionDates" type="datesArray" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дати на регистрация на неархивирани вписвания в състояние различно от „Отказ” от тип 05-„Заявление за вписване на пристъпване към изпълнение”</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftExecutionDates" type="datesArray" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дати на регистрация на неархивирани вписвания в състояние различно от „Отказ” от тип 07-„Заявление за вписване на изоставяне на изпълненнието”</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eraseExecutionDates" type="datesArray" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дати на регистрация на неархивирани вписвания в състояние различно от „Отказ” от тип 12-„Съгласие за заличаване на вписването”</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="datesArray">
+		<xs:annotation>
+			<xs:documentation>Списък от дати</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dates" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="distrainSecuredClaimArray">
+		<xs:sequence>
+			<xs:element name="distrainSecuredClaim" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OA">
+		<xs:annotation>
+			<xs:documentation>Запис в оптичен архив</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="regId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sheet" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на лист</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sheet_type" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="imgFaceType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Тип на запис - лице</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="imgFace" type="xs:base64Binary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Съдържание на запис - лице</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!--<xs:element name="imgBackType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Тип на запис - гръб</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="imgBack" type="xs:base64Binary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Съдържание на запис - гръб</xs:documentation>
+        </xs:annotation>
+      </xs:element>-->
+			<xs:element name="img_side" type="xs:string" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OAArray">
+		<xs:annotation>
+			<xs:documentation>Оптичен архив</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="oas" type="OA" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="changeType">
+		<xs:sequence>
+			<xs:element name="prop1" type="xs:string" minOccurs="0"/>
+			<xs:element name="prop2" type="xs:string" minOccurs="0"/>
+			<xs:element name="prop3" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="entry">
+		<xs:sequence>
+			<xs:element name="regId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Състояние на вписването</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reg_date" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на вписване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reg_time" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Час на вписване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="page_numbers" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой страници на оптичният архив за вписването</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expire_date" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата, на която се прекратява вписването</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scanned" type="xs:string" minOccurs="0"/>
+			<xs:element name="creditors" type="participantsArray" minOccurs="0"/>
+			<xs:element name="debtors" type="participantsArray" minOccurs="0"/>
+			<xs:element name="rejected" type="xs:string" minOccurs="0"/>
+			<xs:element name="archived" type="xs:string" minOccurs="0"/>
+			<xs:element name="oa_pole17" type="OAArray" minOccurs="0"/>
+			<xs:element name="oa_extraPages" type="OAArray" minOccurs="0"/>
+			<xs:element name="parent" type="xs:string" minOccurs="0"/>
+			<xs:element name="opis_header" type="xs:string" minOccurs="0"/>
+			<xs:element name="retId" type="xs:string" minOccurs="0"/>
+			<xs:element name="pledgeOnClaim" type="xs:string" minOccurs="0"/>
+			<xs:element name="distrainSecuredClaims" type="distrainSecuredClaimArray" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="amendment">
+		<xs:sequence>
+			<xs:element name="entry" type="entry" minOccurs="0"/>
+			<xs:element name="changeType" type="changeType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="amendmentsArray">
+		<xs:sequence>
+			<xs:element name="amendments" type="amendment" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConsignmentType">
+		<xs:annotation>
+			<xs:documentation>Партида</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="consignment_number" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификационен код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="consignmentParticipants" type="participantsArray" minOccurs="0"/>
+			<xs:element name="consignEntries" type="consignEntriesArray" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DealType">
+		<xs:annotation>
+			<xs:documentation>Сделка</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="entry" type="entry" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вписване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="amendments" type="amendmentsArray" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изменения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

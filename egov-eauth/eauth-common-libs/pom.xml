@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>bg.bulsi</groupId>
+		<artifactId>egov-eauth</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<packaging>pom</packaging>
+
+	<artifactId>eauth-common-libs</artifactId>
+
+	<modules>
+		<module>eauth-security-provider</module>
+		<module>eauth-db-property-source</module>
+		<module>eauth-encryption-check</module>
+		<module>egov-saml-impl</module>
+		<module>eauth-soap-service</module>
+		<module>eauth-saml-extensions</module>
+		<module>eauth-audit</module>
+	</modules>
+
+	<properties>
+		<opensaml-tools-version>2.6.4</opensaml-tools-version>
+		<xml-helper-version>1.5.0</xml-helper-version>
+	</properties>
+
+	<dependencyManagement>
+
+		<dependencies>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-eid-api-provider</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-eid-api-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-encryption-check</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.opensaml</groupId>
+				<artifactId>opensaml</artifactId>
+				<version>${open-saml-tools-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ru.dmerkushov</groupId>
+				<artifactId>xml-helper</artifactId>
+				<version>${xml-helper-version}</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+</project>

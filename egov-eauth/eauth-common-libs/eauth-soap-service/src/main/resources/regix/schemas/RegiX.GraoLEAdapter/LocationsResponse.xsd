@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/LE" xmlns="http://egov.bg/RegiX/GRAO/LE/LocationsResponse" targetNamespace="http://egov.bg/RegiX/GRAO/LE/LocationsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/LE" schemaLocation="LECommon.xsd"/>
+  <xs:complexType name ="LocationsResponseType">
+    <xs:sequence>
+      <xs:element name="Locations" type="common:LocationType" minOccurs="0" maxOccurs="unbounded"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:element name="LocationsResponse" type="LocationsResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за локализационни единици</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

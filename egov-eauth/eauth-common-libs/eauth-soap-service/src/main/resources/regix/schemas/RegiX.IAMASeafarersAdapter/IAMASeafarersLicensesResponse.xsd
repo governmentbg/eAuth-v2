@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://egov.bg/RegiX/IAMA/SeafarersLicensesResponse"
+           targetNamespace="http://egov.bg/RegiX/IAMA/SeafarersLicensesResponse"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+  <xs:complexType name="SeafarersLicensesResponseType">
+    <xs:annotation>
+      <xs:documentation>Справка за свидетелства за правоспособност на морските лица</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="Name"
+                  type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Име</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="Surname"
+                  type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Презиме</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="FamilyName"
+                  type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Фамилия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="EGN"
+                  type="xs:string">
+        <xs:annotation>
+          <xs:documentation>ЕГН</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="Certificates"
+                  type="ArrayOfCertificate" >
+        <xs:annotation>
+          <xs:documentation>Списък с придобитите правоспособности на лицето по актуални свидетелства</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SeafarersLicensesResponse"
+              type="SeafarersLicensesResponseType">
+    <xs:annotation>
+      <xs:documentation>Справка за свидетелства за правоспособност на морските лица</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="LicenseType">
+    <xs:sequence>
+      <xs:element name="LicenseName"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование или вид правоспособност </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfCertificate">
+    <xs:sequence>
+      <xs:element minOccurs="0"
+                  maxOccurs="unbounded"
+                  name="Certificate"
+                  nillable="true"
+                  type="Certificate">
+        <xs:annotation>
+          <xs:documentation>Свидетелство за правоспособност</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Certificate">
+    <xs:sequence>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="IssueDate"
+                  type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Дата на издаване:</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="ValidDate"
+                  type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Дата на валидност:</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="CertificateType"
+                  type="xs:string" >
+        <xs:annotation>
+          <xs:documentation>Вид на свидетелството</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="UniqueNumber"
+                  type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Уникален номер</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="Id"
+                  type="xs:int">
+        <xs:annotation>
+          <xs:documentation>ИД на свидетелството</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="Qualification"
+                  type="ArrayOfString" >
+        <xs:annotation>
+          <xs:documentation>Квалификации</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0"
+                  maxOccurs="1"
+                  name="Duty"
+                  type="ArrayOfString" >
+        <xs:annotation>
+          <xs:documentation>Отговорности</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0"
+                  maxOccurs="unbounded"
+                  name="StringElement"
+                  nillable="true"
+                  type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

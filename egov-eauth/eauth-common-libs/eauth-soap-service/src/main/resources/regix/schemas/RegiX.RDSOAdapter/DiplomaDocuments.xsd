@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified" 
+           targetNamespace="http://egov.bg/RegiX/MOMN/RDSO/DiplomaDocuments" 
+           xmlns:common="http://egov.bg/RegiX/MOMN/RDSO" 
+           xmlns="http://egov.bg/RegiX/MOMN/RDSO/DiplomaDocuments">
+  <xs:import schemaLocation="RDSOCommonXSD.xsd" namespace="http://egov.bg/RegiX/MOMN/RDSO"/>
+  <xs:complexType name="DiplomaDocumentsType" >
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DiplomaDocument" nillable="true" type="common:DiplomaDocumentType">
+      </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+<xs:element name="DiplomaDocuments" type="DiplomaDocumentsType"/>
+
+  <xs:complexType name="DiplomaSearchType">
+    <xs:sequence>
+      <xs:element name="StudentID" type="xs:string" minOccurs="1" maxOccurs="1" >
+        <xs:annotation>
+          <xs:documentation>ЕГН, ЛНЧ или служебен номер на ученика / студента</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IDType" type="common:IdentifierType" minOccurs="1" maxOccurs="1" >
+        <xs:annotation>
+          <xs:documentation>EGN, LNCh, IDN - каквото е подадено като StudentID</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentNumber" type="xs:string" minOccurs="1" maxOccurs="1" >
+        <xs:annotation>
+          <xs:documentation>Номер на документ - въвежда се само цифровата част на номера</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:element name="DiplomaSearch" type="DiplomaSearchType">
+    <xs:annotation>
+      <xs:documentation>Търсене на данни от Регистъра на дипломите за завършена образователна степен за средно образование и придобита степен на професионална квалификация</xs:documentation>
+    </xs:annotation>
+    
+  </xs:element>
+</xs:schema>

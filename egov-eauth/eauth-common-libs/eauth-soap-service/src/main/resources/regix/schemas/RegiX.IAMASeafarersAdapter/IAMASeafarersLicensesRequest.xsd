@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://egov.bg/RegiX/IAMA/SeafarersLicensesRequest"
+           targetNamespace="http://egov.bg/RegiX/IAMA/SeafarersLicensesRequest"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+  <xs:complexType name="SeafarersLicensesRequestType">
+    <xs:sequence>
+      <xs:element name="EGN"
+                  type="xs:string">
+        <xs:annotation>
+          <xs:documentation>ЕГН</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SeafarersLicensesRequest"
+              type="SeafarersLicensesRequestType">
+    <xs:annotation>
+      <xs:documentation>Справка за свидетелства за правоспособност на морските лица</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

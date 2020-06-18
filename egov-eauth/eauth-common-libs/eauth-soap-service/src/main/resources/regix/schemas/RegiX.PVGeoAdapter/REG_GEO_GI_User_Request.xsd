@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/Geo/GIUserRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/Geo/GIUserRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="GetGIByUserName" type="GetGIByUserNameType">
+		<xs:annotation>
+			<xs:documentation>Справка по ползвател на географско означение</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetGIByUserNameType">
+		<xs:sequence>
+      <xs:element name="FName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Име</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Презиме</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Фамилия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

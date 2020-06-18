@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/BR" xmlns="http://egov.bg/RegiX/GRAO/BR/SpouseRequest" targetNamespace="http://egov.bg/RegiX/GRAO/BR/SpouseRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/BR" schemaLocation="BRCommon.xsd"/>
+	<xs:complexType name="SpouseRequestType">
+		<xs:sequence>
+			<xs:element name="EGN" type="common:EGN">
+        <xs:annotation>
+          <xs:documentation>ЕГН</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SpouseRequest" type="SpouseRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за съпруг/съпруга</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

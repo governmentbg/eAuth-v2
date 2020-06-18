@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/BR" xmlns="http://egov.bg/RegiX/GRAO/BR/SpouseResponse" targetNamespace="http://egov.bg/RegiX/GRAO/BR/SpouseResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/BR" schemaLocation="BRCommon.xsd"/>
+	<xs:complexType name="SpouseResponseType">
+		<xs:sequence>
+			<xs:element name="EGN" type="common:EGN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Собствено име на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SurName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бащино име на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamilyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилно име на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthDate" type="common:BirthDate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на раждане на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeathDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на смърт на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GenderCode" type="common:GenderCodeType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на пол на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="GenderName" type="common:GenderNameType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Пол на съпруга/ съпругата</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="NationalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на гражданство на съпруга/ съпругата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="NationalityName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Гражданство на съпруга/ съпругата</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SecondNationalityCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на второ гражданство на съпруга/ съпругата</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SecondNationalityName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Второ гражданство на съпруга/ съпругата</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SpouseResponse" type="SpouseResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за съпруг/съпруга</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

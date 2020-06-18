@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/AZ" xmlns="http://egov.bg/RegiX/AZ/EmployerFreeJobPositionsResponse" targetNamespace="http://egov.bg/RegiX/AZ/EmployerFreeJobPositionsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AZ" schemaLocation="AZCommon.xsd"/>
+	<xs:complexType name="FreeJobPosition">
+		<xs:annotation>
+			<xs:documentation>Данни за обявено в Агенцията по заетостта свободно работно място при работодател</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="JobPosition" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Длъжност (свободно работно място)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начална дата на валидност на обявената позиция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Крайна дата на валидност на обявената позиция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnnouncedFreeJobsCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой обявени свободни работни места</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JobSeekersDirectedCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой насочени търсещи работа лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VacantJobsCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой незаети свободни работни места</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Minucipality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община на местонахождение на работно място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Town" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="District" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Район </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationRequirements" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изисквания за образование</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LanguageSkillsRequirements" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изисквания за езикови умения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ComputerSkillsRequirements" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изисквания за компютърни умения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EmployerFreeJobPositionsResponse">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за обявени свободни работни места при работодател - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="EmployerData" type="common:EntityData" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данни за работодател</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="FreeJobPositions" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Обявени свободни работни места при работодател</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0">
+							<xs:element name="FreeJobPosition" type="FreeJobPosition" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Обявено свободно работно място при работодател</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

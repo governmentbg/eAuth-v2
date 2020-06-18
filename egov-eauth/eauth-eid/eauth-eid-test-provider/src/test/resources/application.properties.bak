@@ -1,0 +1,30 @@
+#spring.datasource.url=jdbc:postgresql://10.10.0.30:5432/eauth
+spring.datasource.url=jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+#spring.batch.initialize-schema=always
+spring.datasource.username=bulsiadmin
+spring.datasource.password=bulsivirtual
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.sql-script-encoding=utf-8
+database-property-source.schema=identity_provider
+
+#hibernate properties configuration
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQL94Dialect
+spring.jpa.hibernate.use-new-id-generator-mappings=true
+spring.jpa.properties.hibernate.default_schema=identity_provider
+###jpa properties configuration
+spring.jpa.show-sql=true
+spring.jpa.database=postgresql
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+server.port=8230
+
+# EGN, EMAIL or PHONE
+eid.provider.identity.type=egn
+
+spring.datasource.initialization-mode=always
+
+#Spring security extra loging
+logging.level.org.springframework.security=DEBUG
+#logging.level.org.springframework.web=DEBUG
+logging.level.org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping=TRACE

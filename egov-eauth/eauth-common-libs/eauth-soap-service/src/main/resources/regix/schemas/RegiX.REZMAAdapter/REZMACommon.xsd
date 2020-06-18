@@ -1,0 +1,81 @@
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AM/REZMA" targetNamespace="http://egov.bg/RegiX/AM/REZMA"  elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ObligationType">
+		<xs:sequence>
+			<xs:element name="CodeMU" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код МУ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MU" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Митническо управление</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Document" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на възникване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TypeObligation" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид задължение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ObligationAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сума на задължение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayingDocument" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документ за погасяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayingDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на погасяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayingAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сума на погасяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PayingTotal" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Погасено тотал</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Difference" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разлика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ObligationsType">
+		<xs:sequence>
+			<xs:element name="Obligation" type="ObligationType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Задължение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,36 @@
+# The logging configuration. On a real server this will be a file url. e.g. file://{{ mujina_dir }}/logback.xml
+logging:
+  config: classpath:logback.xml
+
+server:
+  # The port to where this Spring Boot application listens to. e.g. http://localhost:{{ springapp_tcpport }}
+  port: 9092
+  servlet:
+    # The context path of the server. You can skip this value in the overriding application.yml on the classpath
+    context-path:
+    session:
+      # 8 hours before we time-out
+      timeout: 28800
+      cookie:
+        secure: false
+
+spring:
+  application:
+    name: test_sp
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          mock-idp:
+            signing:
+              credentials:
+                - private-key-location: "classpath:credentials/rp-private.key"
+                  certificate-location: "classpath:credentials/rp-certificate.crt"
+            identityprovider:
+              verification:
+                credentials:
+                  - certificate-location: "classpath:credentials/idp-certificate.crt"
+              entity-id: http://mock-idp
+              sso-url: http://eauth.egov.bg/SingleSignOnService
+              #localhost:4200
+              

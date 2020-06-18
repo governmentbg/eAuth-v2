@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/NBD" xmlns="http://egov.bg/RegiX/GRAO/NBD/PersonDataResponse" targetNamespace="http://egov.bg/RegiX/GRAO/NBD/PersonDataResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/NBD" schemaLocation="NBDCommon.xsd"/>
+  <xs:complexType name="PersonDataResponseType">
+		<xs:sequence>
+			<xs:element name="PersonNames" type="common:PersonNames" minOccurs="0"/>
+			<xs:element name="Alias" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Псевдоним</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LatinNames" type="common:PersonNames" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имена на латиница</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ForeignNames" type="common:PersonNames" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Други известни имена в чужбина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Gender" type="common:Gender" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пол</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EGN" type="common:EGN" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthDate" type="common:BirthDate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на раждане</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlaceBirth" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Място на раждане</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="Nationality" type="common:Nationality" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Гражданство</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="DeathDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на смърт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PersonDataResponse" type="PersonDataResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за физическо лице</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

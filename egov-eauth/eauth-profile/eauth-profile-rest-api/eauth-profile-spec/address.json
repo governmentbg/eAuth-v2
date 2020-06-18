@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Profile API JSON Schema",
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "ekatte": {
+          "$ref": "#/definitions/Ekatte"
+        }
+      },
+      "required": [
+        "ekatte"
+      ]
+    },
+    "Ekatte": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5
+        },
+        "type": {
+          "type": "string"
+        },
+        "place": {
+          "type": "string"
+        },
+        "municipality": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "EkatteReq": {
+      "type": "object",
+      "properties": {
+        "place": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

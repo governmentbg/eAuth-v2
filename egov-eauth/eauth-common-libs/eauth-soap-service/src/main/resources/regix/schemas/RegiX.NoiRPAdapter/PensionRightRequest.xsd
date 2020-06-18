@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NOI/RP/PensionRightRequest" xmlns:common="http://egov.bg/RegiX/NOI/RP" targetNamespace="http://egov.bg/RegiX/NOI/RP/PensionRightRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/NOI/RP" schemaLocation="RPCommon.xsd"/>
+	<xs:complexType name="PensionRightRequestType">
+		<xs:sequence>
+			<xs:element name="Identifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentifierType" type="common:IdentifierType">
+				<xs:annotation>
+					<xs:documentation>Тип на идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Month" type="common:MonthType">
+				<xs:annotation>
+					<xs:documentation>Месец за справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="PensionRightRequest" type="PensionRightRequestType">
+    <xs:annotation>
+      <xs:documentation>Справка за наличието на упражнено право на пенсия за осигурителен стаж и възраст</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

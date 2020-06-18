@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           targetNamespace="http://egov.bg/RegiX/CROZ/CROZ/ConsignmentsRequest"
+           xmlns="http://egov.bg/RegiX/CROZ/CROZ/ConsignmentsRequest">
+
+  <xs:complexType name ="ConsignmentInfoSearchType">
+    <xs:annotation>
+      <xs:documentation>Справка/удостоверение за вписванията по партида на определено лице</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ParticipantID" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Служебен идентификатор на участник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateFrom" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Начална дата на периода на актуалност на данните</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateTo" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Крайна дата на периода на актуалност на данните</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConsignmentsRequest" type="ConsignmentInfoSearchType"/>
+
+</xs:schema>

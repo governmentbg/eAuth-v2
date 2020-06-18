@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="testngSuite">
+	<test name="testngTest">
+		<classes>
+		 <class name="bg.bulsi.egov.eauth.TestPropertyContext"></class>
+		</classes>
+	</test>
+</suite>  

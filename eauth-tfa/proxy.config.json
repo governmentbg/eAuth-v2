@@ -1,0 +1,22 @@
+{
+  "/api/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/SingleSignOnService": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/login/*": {
+    "target": "http://localhost:9090",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/qes": {
+    "target": "http://localhost:8080/api/idp",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

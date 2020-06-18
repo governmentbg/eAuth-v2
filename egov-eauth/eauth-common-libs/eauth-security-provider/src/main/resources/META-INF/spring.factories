@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=bg.bulsi.egov.security.autoconfiguration.EauthSecurityProviderAutoconfigure,bg.bulsi.egov.security.autoconfiguration.JwtProviderAutoconfigure

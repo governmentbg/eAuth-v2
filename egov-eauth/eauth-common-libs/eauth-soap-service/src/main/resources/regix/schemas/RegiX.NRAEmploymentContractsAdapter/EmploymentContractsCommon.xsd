@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NRA/EmploymentContracts" targetNamespace="http://egov.bg/RegiX/NRA/EmploymentContracts" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="ResponseIdentityType">
+    <xs:sequence>
+      <xs:element name="ID" type="IDType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор(с дължина от 6 до 16 символа)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TYPE" type="EikTypeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вид на идентификатора</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IDType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="6"/>
+      <xs:maxLength value="16"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="StatusType">
+    <xs:annotation>
+      <xs:documentation>Тип на статуса</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            Код
+
+            Възможни стойности:
+            0 - OK
+            2 - Невалиден ЕИК
+            99 - Друго
+
+            XML Validation error are returned as plain text with status 400 BadRequest
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Съобщение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EContractReasonType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+      <xs:enumeration value="06"/>
+      <xs:enumeration value="07"/>
+      <xs:enumeration value="08"/>
+      <xs:enumeration value="09"/>
+      <xs:enumeration value="10"/>
+      <xs:enumeration value="11"/>
+      <xs:enumeration value="12"/>
+      <xs:enumeration value="13"/>
+      <xs:enumeration value="14"/>
+      <xs:enumeration value="15"/>
+      <xs:enumeration value="16"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="EContract">
+    <xs:annotation>
+      <xs:documentation>Трудов договор</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ContractorBulstat" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ContractorName" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Наименование</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="IndividualEIK" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>ЕГН</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="IndividualNames" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Имена на лицето</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="StartDate" type="xs:date" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Начална дата</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="LastAmendDate" type="xs:date" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Дата на последна промяна</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="EndDate" type="xs:date" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Крайна дата</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Reason" type="EContractReasonType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Основание</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="TimeLimit" type="xs:date" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Изпитателен период</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="EcoCode" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>КИД код</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ProfessionCode" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>НКПД код</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Remuneration" type="xs:decimal" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Заплата</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="EikTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bulstat"/>
+      <xs:enumeration value="EGN"/>
+      <xs:enumeration value="LNC"/>
+      <xs:enumeration value="SystemNo"/>
+      <xs:enumeration value="BulstatCL"/>
+      <!-- Foreign person with a Bulstat number -->
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

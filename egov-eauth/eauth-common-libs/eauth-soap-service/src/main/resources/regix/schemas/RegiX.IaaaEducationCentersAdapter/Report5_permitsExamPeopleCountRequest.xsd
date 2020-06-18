@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitsExamPeopleCountRequest" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitsExamPeopleCountRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Справка по ЕИК и период за брой обучени лица в център за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitsExamPeopleCountRequestType">
+		<xs:sequence>
+			<xs:element name="IdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК/БУЛСТАТ на търсената фирма и разрешение в справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата ОТ за периода на справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата ДО за периода на справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PermitsExamPeopleCountRequest" type="PermitsExamPeopleCountRequestType"/>
+</xs:schema>

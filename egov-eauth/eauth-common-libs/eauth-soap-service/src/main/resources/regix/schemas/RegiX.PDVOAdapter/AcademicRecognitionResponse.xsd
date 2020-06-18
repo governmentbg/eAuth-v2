@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NACID/PDVO/AcademicRecognitionResponse" targetNamespace="http://egov.bg/RegiX/NACID/PDVO/AcademicRecognitionResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="IdentificatorType">
+		<xs:annotation>
+			<xs:documentation>Тип идентификатор (1: ЕГН; 2:ЛНЧ; 3:личен документ)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<!--1- ЕГН-->
+			<!--2 - ЛНЧ-->
+			<!--3 - личен документ-->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CertificateNumbers">
+		<xs:annotation>
+			<xs:documentation>Списък от номера на удостоверения</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CertificateNum" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecognizedSpecialities">
+		<xs:annotation>
+			<xs:documentation>Списък от признати специалности</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RecognizedSpecialityName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AcademicRecognitionResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за академично признаване на придобито висше образование в чужбина</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InternalAppNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Деловоден номер на заявление на НАЦИД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InternalAppDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на завеждане на заявление в НАЦИД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AcademicRecognitionStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на признаване (издадено удостоверение, обезсилено удостоверение, отказ, прекратено заявление, недопуснато до разглеждане, в процес на признаване)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecognitionRefusal" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Правно основание за отказ/обезсилване/прекратяване/недопускане до процедура по академично признаване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Презиме</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentificatorType" type="IdentificatorType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentificatorTypeName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на тип идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Identificator" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecognizedEduLevel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Призната образователно-квалификационна степен</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecognizedProfQualName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Призната професионална квалификация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UniversityOriginalName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оригинално наименование на висшето училище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UniversityNameCyrillic" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на висшето училище на български</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CountryNameCyrillic" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на държавата на университета на Български</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SettlementAbroadName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град на университета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressDescriptionAbroad" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на университета</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CertificateNums" type="CertificateNumbers" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Списък удостоверения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RecognizedSpecialities" type="RecognizedSpecialities" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Списък признати специалности</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AcademicRecognitionResponse" type="AcademicRecognitionResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за академично признаване на придобито висше образование в чужбина</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

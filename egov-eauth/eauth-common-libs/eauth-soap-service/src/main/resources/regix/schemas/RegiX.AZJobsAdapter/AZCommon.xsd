@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AZ" targetNamespace="http://egov.bg/RegiX/AZ" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="EntityID" type="EntityID"/>
+  <xs:simpleType name="EntityID">
+		<xs:annotation>
+			<xs:documentation>Идентификатор на юридическо лице - ЕИК/БУЛСТАТ</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:complexType name="EntityData">
+		<xs:annotation>
+			<xs:documentation>Данни за работодател</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EntityID" type="EntityID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор - ЕИК/БУЛСТАТ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EntityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на работодател</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="PersonalID" type="PersonalID"/>
+  <xs:simpleType name="PersonalID">
+		<xs:annotation>
+			<xs:documentation>Идентификатор на физическо лице - ЕГН/ЛНЧ</xs:documentation>
+		</xs:annotation>
+		<xs:restriction>
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PersonData">
+		<xs:annotation>
+			<xs:documentation>Общи данни за физическо лице, водени в Регистъра на търсещите работа лица на Агенцията по заетостта</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonalID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на лице - ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лично име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бащино име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDBT" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ДБТ на настоящата регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

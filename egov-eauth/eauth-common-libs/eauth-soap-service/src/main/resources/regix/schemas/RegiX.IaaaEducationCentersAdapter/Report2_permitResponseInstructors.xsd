@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitInstructorsResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/EducationCenters" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitInstructorsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/EducationCenters" schemaLocation="REDUCommon.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка по ЕИК за регистрирани преподаватели.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitWithInstructorsDto">
+		<xs:sequence>
+			<xs:element name="Number" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване на разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на валидност на разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на фирмата от разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК/БУЛСТАТ на фирмата от разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Instructors" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Преподаватели в разрешението</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Instructor" type="common:InstructorDto" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PermitInstructorsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Permits" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Списък с разрешенията на дадена фирма заедно с преподаватели</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Permit" type="PermitWithInstructorsDto" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

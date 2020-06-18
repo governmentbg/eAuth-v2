@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           targetNamespace="http://egov.bg/RegiX/MOMN/RDSO/CertifiedDocumentsResponse"
+           xmlns:common="http://egov.bg/RegiX/MOMN/RDSO"
+           xmlns="http://egov.bg/RegiX/MOMN/RDSO/CertifiedDocumentsResponse">
+  <xs:import schemaLocation="RDSOCommonXSD.xsd" namespace="http://egov.bg/RegiX/MOMN/RDSO"/>
+
+  <xs:complexType name="CertifiedDocumentsType" >
+    <xs:sequence>
+        <xs:element name="GenerationTimeStamp" type="xs:dateTime" minOccurs="0"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CertifiedDocument" nillable="true" type="common:CertifiedDocumentType">
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="CertifiedDocumentsResponse" type="CertifiedDocumentsType"/>
+  
+</xs:schema>

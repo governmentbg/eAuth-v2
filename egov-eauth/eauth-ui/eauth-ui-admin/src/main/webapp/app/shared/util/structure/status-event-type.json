@@ -1,0 +1,36 @@
+{
+    "eventTypes": [
+        "AUTHENTICATION_SUCCESS",
+        "AUTHENTICATION_FAILURE",
+        "AUTHENTICATION_FAILED",
+        "SAML_AUTHENTICATION_REQUEST",
+        "SAML_AUTHENTICATION_SUCCESS",
+        "SAML_AUTHENTICATION_FAILED",
+        "CREATE_MODEL",
+        "UPDATE_MODEL",
+        "EXT_IDP_AUTHENTICATION",
+        "QEP_AUTHENTICATION",
+        "CREATE_2FA_PROFILE",
+        "UPDATE_2FA_PROFILE",
+        "ADD_CONFIGURATION",
+        "CHANGE_CONFIGURATION",
+        "SEND_2FA_OTP",
+        "VALIDATE_2FA_OTP",
+        "EXPIRED_2FA_OTP",
+        "USER_EVENT",
+        "TEST_EID_AUTHN_SUCCESS",
+        "TEST_EID_AUTHN_FAILED"
+    ],
+    "originTypes": [
+        "application",
+        "email_2fa",
+        "sms_2fa",
+        "totp_2fa",
+        "test_eid_provider",
+        "profile_2fa",
+        "test_sp",
+        "eAuth_admin",
+        "eAuth_IdP"
+    ]
+	
+}

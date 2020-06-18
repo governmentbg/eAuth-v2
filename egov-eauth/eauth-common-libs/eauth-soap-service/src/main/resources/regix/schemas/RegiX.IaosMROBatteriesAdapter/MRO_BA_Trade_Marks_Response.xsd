@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROBatteries/TradeMarksResponse" xmlns:common="http://egov.bg/RegiX/IAOS/MROBatteries/Common" targetNamespace="http://egov.bg/RegiX/IAOS/MROBatteries/TradeMarksResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/MROBatteries/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="MRO_BA_Trade_Marks_Response" type="MRO_BA_Trade_Marks_Response"/>
+	<xs:complexType name="MRO_BA_Trade_Marks_Response">
+		<xs:annotation>
+			<xs:documentation>
+        Отговор на справка за търговски марки в Регистър на лицата, които пускат на пазара батерии и акумулатори, включително вградени в уреди и моторни превозни средства.
+        Справката връща информация за търговските марките, вписани в регистрацията на организацията.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationTradeMarks" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationTradeMarks">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EIK" type="common:Bulstat" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TradeMarks" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Търговски марки</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="999">
+						<xs:element name="TradeMark" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Търговска марка</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

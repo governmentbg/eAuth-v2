@@ -1,0 +1,53 @@
+server.port: 8230
+
+debug: true
+
+spring:
+   application:
+      name: test_eid_provider
+   profiles:
+      include: actuator
+   datasource:
+      type: com.zaxxer.hikari.HikariDataSource
+      url: jdbc:postgresql://10.10.0.30:5432/eauth
+      #url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+      username: bulsiadmin
+      password: bulsivirtual
+      driver-class-name: org.postgresql.Driver
+      sql-script-encoding: utf-8
+      initialization-mode: always
+      hikari:
+         poolName: Hikari
+         auto-commit: false
+   batch:
+      initialize-schema: always
+   jpa:
+      database-platform: io.github.jhipster.domain.util.FixedPostgreSQL95Dialect
+      show-sql: true
+      database: POSTGRESQL
+      hibernate:
+         use-new-id-generator-mappings: true
+         ddl-auto: update
+      properties: 
+         hibernate:
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
+         #   default_schema: identity_provider
+            show_sql: true
+            id.new_generator_mappings: true
+            connection.provider_disables_autocommit: true
+            cache:
+               use_second_level_cache: true
+               use_query_cache: false
+            generate_statistics: false   
+
+#database-property-source.schema: identity_provider
+
+# EGN, EMAIL or PHONE
+eid.provider.identity.type: egn
+
+#Spring security extra loging
+logging.level.org.springframework:
+   security: DEBUG
+#  web: DEBUG
+   web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+     

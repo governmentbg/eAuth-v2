@@ -1,0 +1,1390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/GIT/RZZBUT/ActualDeclarationResponse" targetNamespace="http://egov.bg/RegiX/GIT/RZZBUT/ActualDeclarationResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="AddressDetails">
+		<xs:annotation>
+			<xs:documentation>Данни за адрес</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Municipality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Town" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="District" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Suburb" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Жилищен комплекс/квартал</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Street" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResidenceBlock" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Блок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Entrance" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вход</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Floor" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Етаж</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Apartment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Апартамент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон/Факс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Email" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Email адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PostCode" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пощенски код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonData">
+		<xs:annotation>
+			<xs:documentation>Данни за физическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FirstMiddleLastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Трите имена на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон/Факс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Email" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Email адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Position" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Длъжност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RepresentativeData">
+		<xs:annotation>
+			<xs:documentation>Данни за управляващ и представляващ дружеството, организацията, търговеца</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Names" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Трите имена на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Position" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Длъжност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон/Факс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Email" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Email адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsManager" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Управляващ - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsRepresentative" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Представляващ - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EnterpriseUnit">
+		<xs:annotation>
+			<xs:documentation>Данни за поделение на предприятието</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EnterpriseUnitName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на поделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой наети лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseKIDCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дейност по КИД 2008 (код) на поделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseUnitAddress" type="AddressDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на поделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseUnitManager" type="PersonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ръководител на поделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EnterpriseActivity">
+		<xs:annotation>
+			<xs:documentation>Основна и спомагателна дейност съгласно Класификатора на икономическите дейности (КИД 2008)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="KIDCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на дейност по КИД 2008</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KIDDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на дейност по КИД 2008</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DangerousChemicalAgents">
+		<xs:annotation>
+			<xs:documentation>Данни за идентифицирани опасни химически агенти, канцерогени и мутагени - списък</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CASNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>CAS номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChemicalAgentName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на химически агент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeExposedCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой експонирани работещи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CancerAgentsData">
+		<xs:annotation>
+			<xs:documentation>Данни за канцерогени и мутагени към Приложение 2</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExposureEsitamted" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>При извършване на оценката на риска е определен видът, степента и продължителността на експозицията на работещите за всяка дейност, при която може да възникне риск от експозиция на канцерогени или мутагени (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BorderlineCorresponding" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Измерените стойности на канцерогените и мутагените във въздуха на работното място съответстват на граничните стойности (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReplacementSupplied" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Заместване с вещества, препарати или процеси, които не са опасни или са по-малко опасни за здравето и безопасността на работещите (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReplacementMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Заместване с вещества, препарати или процеси, които не са опасни или са по-малко опасни за здравето и безопасността на работещите</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClosedProductionSet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Осигурена затворена система за производство и използване на канцерогени и мтагени (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClosedProductionMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Осигурена затворена система за производство и използване на канцерогени и мутагени</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExposureDecreased" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Намаляване на нивото на експозиция на работещите (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExposureDecreaseMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Намаляване на нивото на експозиция на работещите</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralSecuritySet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Осигурени колективни средства за защита (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralSecurityMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Осигурени колективни средства за защита</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalPreventionSet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Осигурени хигиенни мерки и лични предпазни средства (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalPreventionMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Осигурени хигиенни мерки и лични предпазни средства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherMeasureSet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Други (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с мутагени и канцерогени - Други</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreventionMeasureNotTaken" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Към момента на деклариране не са предприети мерки (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainingProvided" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>На работещите и/или техните представители са осигурени подходяща информация, обучение и инструктаж (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WarningSignsProvided" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурено е ясно и четливо етикетиране и обозначаване с предупредителни знаци и знаци за безопасност на инсталациите, контейнерите и опаковките, които съдържат канцерогени и мутагени (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdatedEmployeeList" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изготвен е и се поддържа в актуално състояние списък на работещите, за които може да има опасност от експозиция на канцерогени и мутагени (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeListedCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой на работещите, включени в актуалния списък</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="DangerousCancerAgents" type="DangerousChemicalAgents" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данни за идентифицирани канцерогени и мутагени</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChemicalAgentsData">
+		<xs:annotation>
+			<xs:documentation>Данни за химически агенти към Приложение 2</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RiskEstimated" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Извършена оценка на риска при работа с опасни химически агенти (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SafetyIndexBox" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Съставена картотека на информационните листове за безопасност (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeCountResticted" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Ограничаване на броя работещи, които са или могат да бъдат експонирани (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeRestrictionMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Ограничаване на броя работещи, които са или могат да бъдат експонирани</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExposureDurationDecreased" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Намаляване на продължителността и степента на експозицията (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExposureDurationMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Намаляване на продължителността и степента на експозицията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChemicalAgentsQuantityRestricted" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Ограничено количество на химическите агенти до минимума, необходим за извършване на определен вид работа (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChemicalAgentsQuatityMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Ограничено количество на химическите агенти до минимума, необходим за извършване на определен вид работа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcedureManagementSet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Въведени процедури за съхранение и транспортиране на опасни химически агенти, както и на отпадъците, които ги съдържат (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcedureManagementMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Въведени процедури за съхранение и транспортиране на опасни химически агенти, както и на отпадъците, които ги съдържат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReplacementSupplied" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Замяна с химически агенти или процеси, които не са опасни или са по-малко опасни (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReplacementMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Замяна с химически агенти или процеси, които не са опасни или са по-малко опасни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralSecuritySet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Осигурени мерки за колективна защита (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GeneralSecurityMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Осигурени мерки за колективна защита</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalPreventionSet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Осигурени лични предпазни средства (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalPreventionMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Осигурени лични предпазни средства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherMeasureSet" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Други (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприети мерки за предотвратяване или намаляване на риска, свързан с работата с химически агенти - Други</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PreventionMeasureNotTaken" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Към момента на деклариране не са предприети мерки (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PeriodicTestDone" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Извършени периодични измервания на наличните химически агенти, които могат да доведат до риск за здравето на работещите на работното място (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainingProvided" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурена информация и подходящо обучение на работещите за използваните и произвеждани опасни химически агенти (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActionPlanPrepared" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изготвен и проигран през годината план за действие за предотвратяване и ликвидиране на аварии, инциденти и злополуки, свързани с опасни химически агенти (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HealthcareProvided" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурено здравно наблюдение при идентифициран риск за здравето на работещите при оценката на риска (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HealthcareCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой на работещите, подлежащи на здравно наблюдение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="DangerousChemicalAgents" type="DangerousChemicalAgents" minOccurs="0"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AsbestosData">
+		<xs:annotation>
+			<xs:documentation>Данни за азбест към Приложение 2</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LicenseIssued" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприятието има издадено разрешение по Закона за здравето за извършване на дейностите по разрушаване и/или демонтаж на азбест и азбестосъдържащи продукти (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RiskEstimated" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За всяка дейност, при която мож да възникне риск от експозиция на прах от азбест или азбестосъдържащи материали, е оценен рискът, като е определен видът на азбеста и степента на експозицията, на която работещите са изложени (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourInspectionNotified" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Преди започване на работа е уведомена дирекция "Инспекция на труда" и Регионалната инспекция за опазване и контрол на общественото здраве (РИОКОЗ), на територията на която се намира обекта, за дейностите при които работещите са или могат да бъдат експонирани на прах от азбест или от азбестосъдържащи материали (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BorderlineMeasureTaken" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети са мерки при превишаване на граничната стойност на концентрация на азбестови влакна във въздуха на работната среда (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BorderlineMeasure" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание на предприетите мерки при превишаване на граничната стойност на концентрация на азбестови влакна във въздуха на работната среда</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HealthStatusEstimated" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурена е оценка на здравното състояние на работещите (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HealthStatusEstimationCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи, на които е осигурена оценка на здравното състояние през последните 3 години</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeRegisterAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Води се регистър на работещите, които извършват дейности, при които са или могат да бъдат експонирани на прах от азбест или от азбестосъдържащи материали (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeRegisteredCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой на работещите, включени в регистъра</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainingProvided" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурено е обучение на всички работещи, които са или е вероятно да бъдат експонирани на прах, който съдържа азбест (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Appl2_CheminalCancerAsbestosAgentsData">
+		<xs:annotation>
+			<xs:documentation>Данни за Приложение 2 към Декларация по чл. 15 от Закона за здравословни и безопасни условия на труд (за дадена година)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ChemicalAgentsData" type="ChemicalAgentsData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за химически агенти към Приложение 2</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancerAgentsData" type="CancerAgentsData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за канцерогени и мутагени към Приложение 2</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AsbestosData" type="AsbestosData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за азбест към Приложение 2</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChemicalAgentsUsed" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>В предприятиесто се произвеждат, използват или съхраняват химически агенти (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancerAgentsUsed" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>В предприятиесто се произвеждат, използват или съхраняват канцерогени / мутагени (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AsbestosUsed" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>В предприятиесто се произвежда, използва или съхранява азбест (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VibrationCondition">
+		<xs:annotation>
+			<xs:documentation>Данни за вибрации</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VibrationExposureRiskEstimated" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Рискът при излагане на вибрации е оценен (да/не/няма необходимост)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationBorderlineCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работници, изложени на вибрации над установените гранични стойности на експозиция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationArmShoulderCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работници, изложени на вибрации над установените гранични стойности на експозиция:
+в т.ч.  предавани на системата ръка-рамо</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationWholeBodyCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работници, изложени на вибрации над установените гранични стойности на експозиция:
+в т.ч.  предавани на цялото тяло</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HealthcareCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи, на които е осигурено здравно наблюдение през годината</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExceptionAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изключения съгласно чл. 9 на Наредба 3 от 5.05.2005 г. за минималните изисквания за осигуряване на здравето и безопасността на рабитещите при рискове, свързани с експозиция на вибрации, при които мерките по чл. 8, ал. 1 на наредбата не се прилагат (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExceptionReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причини за изключения съгласно чл. 9 на Наредба 3 от 5.05.2005 г. за минималните изисквания за осигуряване на здравето и безопасността на рабитещите при рискове, свързани с експозиция на вибрации, при които мерките по чл. 8, ал. 1 на наредбата не се прилагат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeMethods" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Mетоди на работа с по-ниска експозиция на вибрации - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeWorkEquipment" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работно оборудване, генериращо възможно най-малко вибрации - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeAdditionalEquipment" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Допълнително оборудване, намаляващо риска от увреждания (седалки/ръкохватки) - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeMaintenance" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Програми за поддържане на работното оборудване - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeLimits" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ограничаване на продължителността и интензивността на експозицията - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeClimateConditions" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигуряване на подходящи микроклиматични условия - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeLps" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЛПС, вкл. работно облекло, което предпазва експонираните работещи от студ и влага - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationExposureEscapeNoMeasures" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Към момента на деклариране не са предприети мерки - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherMeasures" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за избягване на риска от въздействие на вибрации (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherMeasuresDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за избягване на риска от въздействие на вибрации - Описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NoiseConditions">
+		<xs:annotation>
+			<xs:documentation>Данни за шум</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NoiseExposureRiskEstimated" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оценен е рискът при експозиция на шум (да/не/няма необходимост)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DailyNoiseExposureData" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Използвани данни при оценката на риска - дневно ниво на екпозиция на шум</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AverageWeeklyNoiseExposureData" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Използвани данни при оценката на риска - средноседмично ниво на екпозиция на шум</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherNoiseExposureData" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Използвани данни при оценката на риска - друго ниво на екпозиция на шум (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherNoiseExposureDataText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Използвани данни при оценката на риска - друго ниво на експоцизия на шум - ОПИСАНИЕ.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConstantNoiseExposureRisk" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>При оценката на риска е определен риск, свързан с постоянен шум</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VariableNoiseExposureRisk" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>При оценката на риска е определен риск, свързан с променлив шум</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CombinedNoiseAndVibrationExposure" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>При оценката на риска е идентифициран повишен риск във връзка с възможна експозиция едновременно на шум и:
+- Вибрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CombinedNoiseAndOtotoxicExposure" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>При оценката на риска е идентифициран повишен риск във връзка с възможна експозиция едновременно на шум и:
+- Ототоксични материали с професионален произход
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeCountOver80dB" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работници, изложени на шум над 80 dB(A)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeCountOver85dB" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работници, изложени на шум над 85 dB(A)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployeeCountOver87dB" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работници, изложени на шум над 87 dB(A)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AudiometricTestedCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи, на които е осигурено здравно наблюдение и профилактично аудиометрично изследване през годината</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExceptionAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изключения съгласно чл. 10 от Наредба 6 от 15.08.2005 г. за минималните изисквания за осигуряване на здравето и безопасността на работещите при рискове, свързани с експозиция на шум, при които изискванията по чл. 8, ал. 1, т. 1 и 2 и чл. 9 от наредбата не се прилагат (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExceptionReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причини за изключения съгласно чл. 10 от Наредба 6 от 15.08.2005 г. за минималните изисквания за осигуряване на здравето и безопасността на работещите при рискове, свързани с експозиция на шум, при които изискванията по чл. 8, ал. 1, т. 1 и 2 и чл. 9 от наредбата не се прилагат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeWorkPlaces" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Проектиране и разположение на работните места - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeEquipment" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Избор на подходящо оборудване - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeNewMethods" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нов метод на работа с по-ниска експозиция на шум - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeTechnicalEquipment" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Tехнически средства за ограничаване на шума - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeMaintenance" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Програми за поддържане на работното оборудване - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeOrganization" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Организация на работата - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeLps" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЛПС - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeNoMeasures" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Към момента на деклариране не са предприети мерки - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseExposureEscapeOthers" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за избягване или намаляване на риска от експозиция на шум - други (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="NoiseExposureEscapeOthersText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Предприети мерки за избягване или намаляване на риска от експозиция на шум - други (описание)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkRestRegimeTotal">
+		<xs:annotation>
+			<xs:documentation>Общото време за регламентирани почивки достига</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="EmployeesCountForRest" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>брой работещи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorktimePercentageForRest" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>% от работното време</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkRestRegime">
+		<xs:annotation>
+			<xs:documentation>Данни за физиологични режими за труд и почивка</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WorkRestRegimeEstimated" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>В предприятието са разработени физиологични режими на труд и почивка в зависимост от оценката на риска и организацията на работния процес (да/не/няма необходимост)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegulatedRestActive" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи при активни регламентирани почивки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegulatedRestSemiPassive" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи при полупасивни регламентирани почивки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegulatedRestPassive" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи при пасивни регламентирани почивки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RestSpotProvided" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурени подходящи места за почивка (да/не/не зз всички)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegulatedRests" type="WorkRestRegimeTotal" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Общото време за регламентирани почивки достига</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkWithMonitors">
+		<xs:annotation>
+			<xs:documentation>Данни за работа с видеодисплеи</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WorkWithMonitorRiskEstimated" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оценен е рискът на работните места с видеодисплеи (да/не/няма такива работни места)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkWithMonitorEmployeeCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работещи, които работят с видеодисплеи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MoreWorkWithMonitorCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>(в т.ч.) Брой работещи, които работят с видеодисплеи през повече от половината от законоустановеното работно време</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VisionTestEmployeeCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи, на които през годината е осигурен преглед на очите и оценка на състоянието на зрението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VisionComplainCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>(в т.ч.) Брой работещи, на които през годината е осигурен преглед на очите и оценка на състоянието на зрението при оплакване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VisionCorrectionMeansCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой осигурени средства за корекция на зрението през годината</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManualWeightWork">
+		<xs:annotation>
+			<xs:documentation>Данни за ръчна работа с тежести (РРТ)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ManualWeightRiskEstimated" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Оценен е рискът при ръчна работа с тежести (да/не/не се извършва РРТ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WeightWorkEmployeeCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работещи, извършващи редовна ръчна работа с тежести</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WeightWorkWomenCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работещи жени, извършващи редовна ръчна работа с тежести</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WeightWorkMenCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работещи мъже, извършващи редовна ръчна работа с тежести</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationalMeasuresTaken" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести са предприети/осигурени организационни мерки (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationalMeasuresConsultations" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести са предприети/осигурени консултации с работещите и/или техните представители - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationalMeasuresTrainings" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести са предприети/осигурени обучения - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationalMeasuresAdditionalInformation" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести е предприето/осигурено предоставяне на информация - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationalMeasuresOthers" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести са предприети/осигурени : други - да/не</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganisationalMeasuresOthersText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести са предприети/осигурени : други - описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TechnicalEquipmentSupplied" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести са предприети/осигурени технически средства/оборудване (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MeasuresNotTaken" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>За избягване/ограничаване на ръчната работа с тежести към момента на деклариране не са предприети мерки (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MedicalEvaluationCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи, на които е извършена предварителна медицинска оценка за извършване на ръчна работа с тежести</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TechnicalEquipment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Технически средства/оборудване, осигурени за избягване/ограничаване на ръчната работа с тежести - описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LabourConditions">
+		<xs:annotation>
+			<xs:documentation>Данни за Условия на труд, свързани с осъществяваната дейност</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DustRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - прах</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChemicalAgentsRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - химически агенти</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NanomaterialRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - работа с наноматериали</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancerRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - канцерогени и мутагени</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AsbestosRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - азбест</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BiologicalAgentsRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - биологични агенти</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - шум</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - вибрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IonizingRadiationRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - източници на йонизиращи лъчения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работни места</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ElectromagneticRadiationRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - електромагнитни лъчения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MobileWorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой подвижни работни места (част от Общ брой работни места)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HomeWorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за надомна работа (част от Общ брой работни места)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LaserRadiationRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - лазерни оптични лъчения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherRadiationRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - други вредни лъчения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OutdoorsWorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работни места, свързани с работа на открито - общ брой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OutdoorsWorkPlacesWomen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за жени, свързани с работа на открито</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OutdoorsWorkPlacesMen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за мъже, свързани с работа на открито</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PhisicalWorkRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - физическа натовареност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WeightLoadRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - ръчна работа с тежести</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IlluminationRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - осветеност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UndergroundWorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работни места, свързани с работа под земята - общ брой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UndergroundWorkPlacesWomen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за жени, свързани с работа под земята</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UndergroundWorkPlacesMen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за мъже, свързани с работа под земята</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MicroclimateRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - неблагоприятен микроклимат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExplosivesRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - взривоопасна среда</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FiresRiskCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи в условия на опасности/източници на опасност с риск за здравето - пожароопасна среда</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OnairWorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работни места, свързани с работа във въздуха - общ брой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OnairWorkPlacesWomen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за жени, свързани с работа във въздуха</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OnairWorkPlacesMen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за мъже, свързани с работа във въздуха</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaterWorkPlacesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работни места, свързани с работа на и под водата - общ брой</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaterWorkPlacesWomen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за жени, свързани с работа на и под водата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WaterWorkPlacesMen" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работни места за мъже, свързани с работа на и под водата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShiftWorkCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи на работа на смени</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NightWorkCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи - нощен труд</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DutyWorkCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи на дежурства</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OnCallWorkCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой работещи на разположение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ElectricityRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - електрически ток (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MachineEquipmentRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - машини и съоръжения (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HighVoltageRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - електрически уредби над 1000 V, обслужвани от предприятието (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TransportMeansRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - транспортни средства (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PressureRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - съдове под налягане (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LiftingEquipmentRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - повдигателни съоръжения (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RopeWayRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - въжени линии (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContsructionRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - строителни скелета (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MovingPlatformRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - подвижни платформи (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherRiskAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - други (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherRiskDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Опасности/източници на опасност с риск за здравето и безопасността на работещите - други (описание)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RZZBUTDeclaration">
+		<xs:annotation>
+			<xs:documentation>Данни на декларация по чл. 15 от ЗЗБУТ (Закона за здравословни и безопасни условия на труд)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InspectionName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дирекция "Инспекция по труда"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IncomingNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Входящ номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeclaredYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Година на деклариране</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на декларация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployerEntityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работодател - наименование на юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployerIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работодател - идентификатор ЕИК/БУЛСТАТ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployerPersonFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работодател - пълно име на физическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployerHiring" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работодателят самостоятелно наема работещи (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmployerTemporaryWork" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работодателят ползва/л работещи, предоставени от предприятие, което осигурява временна заетост (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HeadquarterAddress" type="AddressDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Седалище и адрес на управление на работодателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactPerson" type="PersonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лице за контакти на работодателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseActivity" type="EnterpriseActivity" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Основна и спомагателна дейност съгласно Класификатора на икономическите дейности (КИД 2008)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на предприятието</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseAddress" type="AddressDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адресни данни на предприятието</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseManager" type="PersonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за ръководител на предприятието</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseStaffSizeInterval" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Големина на предприятието според средносписъчния брой на персонала</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseUnitAvailable" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Поделения на предприятието извън основния адрес (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnterpriseUnit" type="EnterpriseUnit" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Поделения на предприятието извън адреса по т. 5</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RepresentativeDetails" type="RepresentativeData" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Управляващ и представляващ дружеството, организацията, търговеца</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StaffCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой наети лица към датата на подаване на декларацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HiredEmployeesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работници и служители, наети по трудово/служебно правоотношение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HiredWomenCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой жени, наети по трудово/служебно правоотношение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HiredMenCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой мъже, наети по трудово/служебно правоотношение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherEntityEmployeesCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общ брой работници и служители на друго физическо или юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherEntityWomenCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой жени - работници и служители на друго физическо или юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherEntityMenCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой мъже - работници и служители на друго физическо или юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourCommittee" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Учреден комитет по условия на труд (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourGroup" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Учредена група по условия на труд (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourCommitteAndGroup" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Учреден комитет и група/и по условия на труд (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourMedicalVisit" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Провеждане на задължителни предварителни и периодични медицински прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourMedicineService" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Осигурено обслужване от служба по трудова медицина, регистрирана в Министерството на здравеопазването (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentedEstimation" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Документирана оценка на рисковете за безопасността и здравето на работещите (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LabourConditions" type="LabourConditions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за Условия на труд, свързани с осъществяваната дейност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManualWeightWork" type="ManualWeightWork" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за ръчна работа с тежести (РРТ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkWithMonitors" type="WorkWithMonitors" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за работа с видеодисплеи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NoiseConditions" type="NoiseConditions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за шум</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VibrationConditions" type="VibrationCondition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за вибрации</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkRestRegime" type="WorkRestRegime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за физиологични режими за труд и почивка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Appl2_CheminalCancerAsbestosAgentsData" type="Appl2_CheminalCancerAsbestosAgentsData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за Приложение 2 към Декларация по чл. 15 от Закона за здравословни и безопасни условия на труд (за дадена година)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ActualDeclarationResponse" type="RZZBUTDeclaration">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕГН/ЕИК за актуална декларация - резултат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

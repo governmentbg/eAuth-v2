@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NOI/RP/UP8Response" xmlns:common="http://egov.bg/RegiX/NOI/RP" targetNamespace="http://egov.bg/RegiX/NOI/RP/UP8Response" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/NOI/RP" schemaLocation="RPCommon.xsd"/>
+	<xs:element name="UP8Response" type="UP8ResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за доход от пенсия/и и добавка/и - обр. УП-8 за доход от пенсия/и и добавка/ и обр. УП-8а за промяна в пенсията/ите</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="UP8ResponseType">
+		<xs:sequence>
+			<xs:element name="Title" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на справка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ForDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerritorialDivisionNOI" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ТП на НОИ, където лицето получава пенсия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Identifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Names" type="common:PersonNames" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Трите имена на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PensionerStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на пенсионер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateOfDeath" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на смърт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContentText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на уверение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PensionPayments" type="common:PensionPaymentsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Таблица с редове за всеки месец от зададения период </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

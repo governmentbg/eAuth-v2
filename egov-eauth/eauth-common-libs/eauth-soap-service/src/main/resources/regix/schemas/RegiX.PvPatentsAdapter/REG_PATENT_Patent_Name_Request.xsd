@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/Patents/PatentNameRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/Patents/PatentNameRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="getPatentsByName" type="getPatentsByNameType">
+		<xs:annotation>
+			<xs:documentation>Справка по име на патент</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="getPatentsByNameType">
+		<xs:sequence>
+			<xs:element name="PatentName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Име на патент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

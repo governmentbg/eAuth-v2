@@ -1,0 +1,17 @@
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAMA/RegistrationInfoByOwnerResponse" xmlns:common="http://egov.bg/RegiX/IAMA" targetNamespace="http://egov.bg/RegiX/IAMA/RegistrationInfoByOwnerResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAMA" schemaLocation="VesselsCommon.xsd"/>
+	<xs:complexType name="RegistrationInfoByOwnerResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за регистрация на кораб по егн/булстат на собственик</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="VesselInfo" type="common:VesselInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegistrationInfoByOwnerResponse" type="RegistrationInfoByOwnerResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за регистрация на кораб по егн/булстат на собственик</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

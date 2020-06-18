@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REGPapz/ProtectedAreaLocationRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REGPapz/ProtectedAreaLocationRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="REG_PAPZ_Protected_Area_Location_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка местонахождение в Регистър на защитените територии и зони в България.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DistName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PopName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG_PAPZ_Protected_Area_Location_Request" type="REG_PAPZ_Protected_Area_Location_Request"/>
+</xs:schema>

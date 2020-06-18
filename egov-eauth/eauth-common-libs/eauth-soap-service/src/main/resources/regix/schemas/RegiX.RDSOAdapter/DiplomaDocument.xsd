@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:simpleType name="IdentifierType">
+    <xs:annotation>
+      <xs:documentation>Тип на идентификатор</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EGN"/>
+      <xs:enumeration value="LNCh"/>
+      <xs:enumeration value="IDN"/>
+    </xs:restriction>
+  </xs:simpleType>
+	<xs:element name="DiplomaDocuments">
+  <xs:complexType >
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DiplomaDocument" nillable="true" >
+  <xs:complexType>
+		<xs:sequence>
+			<xs:element name="intID" type="xs:long">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на документа; служебно поле</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intStudentID" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>ЕГН, ЛНЧ или служебен номер на ученика / студента</xs:documentation>
+      </xs:annotation>
+      </xs:element>
+      <xs:element name="IDType" minOccurs="1" maxOccurs="1"  type="IdentifierType" >
+        <xs:annotation>
+          <xs:documentation>1- ЕГН, 2 - ЛНЧ, 3 - ИДН - каквото е подадено като входни данни</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcName1" type="xs:string" minOccurs="0">
+      <xs:annotation>
+        <xs:documentation>Име на ученика</xs:documentation>
+      </xs:annotation>
+      </xs:element>
+			<xs:element name="vcName2" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Презиме на ученика</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcName3" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Фамилия на ученика</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intBPlaceE" type="xs:int">
+      <xs:annotation>
+        <xs:documentation>Месторождение (код на населеното място по ЕКАТТЕ)</xs:documentation>
+      </xs:annotation>
+      </xs:element>
+			<xs:element name="codeNationality" type="xs:string" minOccurs="0">
+      <xs:annotation>
+        <xs:documentation>Гражданство (код на държавата по международната класификация ISO 3166)</xs:documentation>
+      </xs:annotation>
+      </xs:element>
+			<xs:element name="boolGender" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Пол на студента: 0 мъж, 1 жена</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="intDocumentType" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Код на документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcDocumentName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intYearGraduated" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Година на завършване</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcPrnSer" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Серия на документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcPrnNo" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер на документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcRegNo1" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Регистрационен на документа (част 1)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcRegNo2" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Регистрационен на документа (част 2)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="dtRegDate" type="xs:dateTime" nillable="true">
+        <xs:annotation>
+          <xs:documentation>Дата на издаване на документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intSchoolID" type="xs:long">
+        <xs:annotation>
+          <xs:documentation>Код на училището, издало документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcSchoolName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на училището, издало документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intEKATTE" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>Код на населеното място по ЕКАТТЕ на училището, издало документа</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intVETSpeciality" type="xs:long" nillable="true">
+        <xs:annotation>
+          <xs:documentation> Код на завършена специалност (при придобита професионална квалификация)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcVETSpecialityName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на специалност (при придобита професионална квалификация)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intVETLevel" type="xs:short" nillable="true">
+        <xs:annotation>
+          <xs:documentation>Код на придобита степен на професионална квалификация</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcVETLevelName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на степен на професионална квалификация</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intVETGroupIdent" type="xs:int" nillable="true">
+        <xs:annotation>
+          <xs:documentation>Код на професионално направление (при придобита степен на професионална квалификация)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcEducAreaName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на професионално направление (при придобита степен на професионална квалификация)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intEdForm" type="xs:short">
+        <xs:annotation>
+          <xs:documentation>Код на форма на обучение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcEdFormName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на форма на обучение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intClassType" type="xs:short" nillable="true">
+        <xs:annotation>
+          <xs:documentation>Код на вид подготовка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="vcClassTypeName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на вид подготовка (профилирана, професионална и пр.)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="intMeanMark" type="xs:float" nillable="true">
+        <xs:annotation>
+          <xs:documentation>Среден успех от дипломата</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="DocumentImages" minOccurs="0">
+        <xs:complexType>
+          <xs:annotation>
+          <xs:documentation>Съдържа масив от изображения на документа</xs:documentation>
+        </xs:annotation>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="DocumentImage" nillable="true" type="xs:base64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+  
+</xs:schema>

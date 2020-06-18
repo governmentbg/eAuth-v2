@@ -1,0 +1,75 @@
+<div class="register-container">
+    <form [formGroup]="registerForm" style="display: flex; margin: 0 auto;">
+        <!-- <div
+            style="margin: 0 auto; width: 200px; padding-bottom: 20px; display: flex; flex-direction: column; margin-right: 130px;">
+            <h5>Тестови цели</h5>
+            <div class="register-button-wrapper">
+                <button mat-raised-button color="primary" (click)="getUserData()">Извличане на данни за профил</button>
+            </div>
+        </div> -->
+
+        <div class="register-form-wrapper">
+            <mat-form-field appearance="outline">
+                <mat-label>Имена, според средството за идентификация</mat-label>
+                <input 
+                    matInput placeholder="Имена"
+                    [(ngModel)]="fullName" 
+                    [ngModelOptions]="{standalone: true}"
+                    autocomplete="off"
+                    (keyup)="cyrillicTransform()" />
+                <mat-error>Имената са задължителни</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="email" autocomplete="off" />
+                <mat-error *ngIf="registerForm.get('email').hasError('required')">
+                    Задължително поле
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('email').hasError('email')">
+                    Моля въведете валиден имейл адрес
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Телефонен номер</mat-label>
+                <input matInput appPhoneMask formControlName="phoneNumber" autocomplete="off" />
+                <mat-error>Телефоният номер e задължителen</mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="50" class="pl-4">
+                <input type="text" placeholder="Избери населено място в България" aria-label="Number" matInput
+                    formControlName="address" [matAutocomplete]="a" autocomplete="off" />
+                <mat-autocomplete #a="matAutocomplete" [displayWith]="displayAddress">
+                    <mat-option *ngFor="let option of filteredRegions | async" [value]="option">
+                        {{option.fullName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <div class="authTypes shadow">
+
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="radio-group" [(ngModel)]="authType"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-radio-button class="authType" *ngFor="let selectedAuthType of twoFATypes"
+                        [value]="selectedAuthType">
+                        {{selectedAuthType.desc}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div>
+                <mat-checkbox [(ngModel)]="commonRulesAccept" [ngModelOptions]="{standalone: true}">Съгласен съм с 
+                    <a (click)="goToAgreements()" style="color: #318fc1; white-space: normal !important; font-size: 14px;">
+                        Общите Условия на сайта(текстът ще бъде уточнен)
+                    </a>
+                </mat-checkbox>
+            </div>
+
+            <div class="register-button-wrapper">
+                <button mat-raised-button color="primary"
+                    [disabled]="isValidForm" (click)="save()">Запази</button>
+            </div>
+        </div>
+
+    </form>
+</div>

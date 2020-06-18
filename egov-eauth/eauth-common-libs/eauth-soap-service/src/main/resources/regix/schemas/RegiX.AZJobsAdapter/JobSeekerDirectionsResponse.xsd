@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/AZ" xmlns="http://egov.bg/RegiX/AZ/JobSeekerDirectionsResponse" targetNamespace="http://egov.bg/RegiX/AZ/JobSeekerDirectionsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AZ" schemaLocation="AZCommon.xsd"/>
+	<xs:complexType name="DirectionData">
+		<xs:annotation>
+			<xs:documentation>Данни за насочване</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FreeWorkPlace" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Свободно работно място (номер)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Employer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Работодател</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JobPosition" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Длъжност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Състояние</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResultDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на резултат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JobSeekerDirectionsData">
+		<xs:annotation>
+			<xs:documentation>Данни за насочвания на търсещо работа лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="Directions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Насочвания на търсещо работа лице</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Direction" type="DirectionData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Насочванe на търсещо работа лице</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="JobSeekerPersonData" type="common:PersonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общи данни за физическо лице, водени в Регистъра на търсещите работа лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="JobSeekerDirectionsResponse" type="JobSeekerDirectionsData">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕГН/ЛНЧ за насочвания на търсещо работа лице - резултат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/Patents/PatentDetailsResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/Patents/PatentDetailsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<!-- ====================================================================== -->
+	<!-- Root element 																															 -->
+	<!-- ====================================================================== -->
+	<xs:element name="REG_UM_PATENT_PatentDetails_Response">
+		<xs:annotation>
+			<xs:documentation xml:lang="bg">TradeMarkDetails - Root element; съдържа един или повече елемента от тип TradeMarkType</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element name="PatentDetails" type="PatentDetailsType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="PatentDetailsType">
+		<xs:sequence minOccurs="0">
+			<xs:element name="Patent" type="PatentType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Съдържа данни за един патент </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PatentType">
+		<xs:sequence>
+			<!-- Заявителски номер-->
+			<xs:element name="ApplicationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заявителски номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Дата на заявяване-->
+			<xs:element name="ApplicationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на заявяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Регистров номер номер -->
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистров номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Дата на регистрация -->
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Дата на изтичане на срока на закрила (или само "срок на закрила")-->
+			<xs:element name="ExpiryDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на изтичане на срока на закрила</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Статус (правен статус) - изброяване-->
+			<xs:element name="PatentCurrentStatusCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус (правен статус)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Дата на придобиване на текущия правен статус-->
+			<xs:element name="PatentCurrentStatusDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на придобиване на текущия правен статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Заглавие на патента -->
+			<xs:element name="PatentTitle" type="TextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заглавие на патента</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Описание (абстракт) - свободен текст, незадължително -->
+			<xs:element name="PatentDescription" type="TextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание (абстракт) - свободен текст, незадължително</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Тип на патента  - изброяване -->
+			<xs:element name="PatentKind" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на патента</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<!-- Графични изображения на патента -->
+			<xs:element name="PatentRepresentationSheetDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Графични изображения на патента</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PatentViews" type="ViewType" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element name="Dummy" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>-->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- Класове съгласно Международната Патентна Класификация (МПК) -->
+			<xs:element name="IPCClassDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Класове съгласно Международната Патентна Класификация (МПК)</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="IPCClass" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Код на класа</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="IPCName" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Име на класа</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- конвенционен приоритет -->
+			<xs:element name="PriorityDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Конвенционен приоритет</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Priority" type="PriorityType" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element name="Dummy"  type="xs:string" minOccurs="0" maxOccurs="unbounded"/>-->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- изложбен приоритет -->
+			<xs:element name="ExhibitionPriorityDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Иложбен приоритет</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExhibitionPriority" type="ExhibitionPriorityType" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element name="Dummy"  type="xs:string" minOccurs="0" maxOccurs="unbounded"/>-->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- данни за публикации в бюлетина на Патентно ведомство -->
+			<xs:element name="PublicationDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за публикации в бюлетина на Патентно ведомство</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Publication" type="PublicationType" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element name="Dummy"  type="xs:string" minOccurs="0" maxOccurs="unbounded"/>-->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--данни за заявителите-->
+			<xs:element name="ApplicantDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за заявителите</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Applicant" type="ApplicantType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- данни за представителите по индустриална собственост (ПИС) -->
+			<xs:element name="RepresentativeDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за представителите по индустриална собственост (ПИС) </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Representative" type="RepresentativeType" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!-- данни за изобретател(и) -->
+			<xs:element name="InventorDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за изобретател(и)</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Inventor" type="InventorType" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element name="Dummy"  type="xs:string" minOccurs="0" maxOccurs="unbounded"/>-->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PatentCurrentStatusCodeType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="Filed"/>
+			<xs:enumeration value="Withdrawn"/>
+			<xs:enumeration value="Rejected"/>
+			<xs:enumeration value="Registered"/>
+			<xs:enumeration value="Cancelled"/>
+			<xs:enumeration value="Expired"/>
+			<xs:enumeration value="Undefined"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TextType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="languageCode" type="xs:language" use="optional"/>
+				<xs:attribute name="sequenceNumber" type="xs:integer" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="PatentKindType">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="NationalPatent"/>
+			<xs:enumeration value="SPCPatent"/>
+			<xs:enumeration value="NationalUtilityModel"/>
+			<xs:enumeration value="SPCUtilityModel"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ViewType">
+		<xs:sequence>
+			<xs:element name="ViewIdentifier" type="xs:token" minOccurs="0"/>
+			<xs:element name="ViewFileFormat" type="FileFormatType" minOccurs="0"/>
+			<xs:element name="ViewTitle" type="TextType" minOccurs="0"/>
+			<xs:element name="ViewBinary" type="xs:base64Binary" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FileFormatType">
+		<xs:union memberTypes="xs:token">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="JPEG"/>
+					<xs:enumeration value="TIFF"/>
+					<xs:enumeration value="PNG"/>
+					<xs:enumeration value="GIF"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:complexType name="PriorityType">
+		<xs:sequence>
+			<xs:element name="PriorityCountryCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Държава на приоритет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PriorityNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на приоритет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PriorityDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на приоритет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : ExhibitionPriorityType.xsd                               -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="ExhibitionPriorityType">
+		<xs:sequence>
+			<xs:element name="ExhibitionCountryCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Държава на приоритет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExhibitionCityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExhibitionName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на изложба</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExhibitionDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на изложба</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Comment" type="TextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Коментар</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : PublicationType.xsd                                      -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="PublicationType">
+		<xs:sequence>
+			<xs:element name="PublicationIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на бюлетин</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublicationSection" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Раздел в бюлетина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublicationSubsection" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подраздел в бюлетина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublicationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на публикация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : RepresentativeType.xsd                                   -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="RepresentativeType">
+		<xs:sequence>
+			<xs:element name="RepresentativeIdentifier" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на ПИС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RepresentativeNationalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RepresentativeLegalEntity" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на ПИС (физическо/юридическо лице)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RepresentativeAddressBook" type="AddressBookType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : AddressBookType.xsd                                      -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="AddressBookType">
+		<xs:sequence>
+			<xs:element name="FormattedNameAddress" type="FormattedNameAddressType" minOccurs="0"/>
+			<xs:element name="ContactInformationDetails" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Phone" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Телефон</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Fax" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Факс</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Email" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Е-mail адрес</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="URL" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Уебсайт</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OtherElectronicAddress" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Друг електронен адрес</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : FormattedNameAddressType.xsd                             -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="FormattedNameAddressType">
+		<xs:sequence>
+			<xs:element name="Name" type="NameType" minOccurs="0"/>
+			<xs:element name="Address" type="AddressType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : NameType.xsd                                             -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="NameType">
+		<xs:sequence>
+			<xs:element name="FormattedName" type="FormattedNameType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : FormattedNameType.xsd                                        -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="FormattedNameType">
+		<xs:sequence>
+			<xs:element name="NamePrefix" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Префикс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Презиме</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecondLastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Втора фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на организация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : ApplicantType.xsd                                        -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="ApplicantType">
+		<xs:sequence>
+			<xs:element name="ApplicantIdentifier" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Вътрешно-системен идентификатор </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ApplicantNationalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност(код)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ApplicantAddressBook" type="AddressBookType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : InventorType.xsd                                        -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="InventorType">
+		<xs:sequence>
+			<xs:element name="InventorNationalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InventorLegalEntity" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на изобретател (физическо/юридическо лице)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InventorAddressBook" type="AddressBookType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : AddressType.xsd                                          -->
+	<!-- Author      : TM-XML WG                                                -->
+	<!-- Version     : 1.3                                                      -->
+	<!-- Last Update : 2009-10-23                                               -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="AddressType">
+		<xs:sequence>
+			<xs:element name="FormattedAddress" type="FormattedAddressType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ====================================================================== -->
+	<!-- Filename    : FormattedAddressType.xsd                                        -->
+	<!-- ====================================================================== -->
+	<xs:complexType name="FormattedAddressType">
+		<xs:sequence>
+			<xs:element name="AddressStreet" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressCity" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressCounty" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Държава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressState" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Щат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressPostcode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пощенски код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FormattedAddressCountryCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Двубуквен код на държава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

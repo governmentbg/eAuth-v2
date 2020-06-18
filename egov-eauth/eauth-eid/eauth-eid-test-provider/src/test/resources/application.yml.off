@@ -1,0 +1,66 @@
+server.port: 8230
+
+debug: true
+
+spring:
+   datasource:
+   #   type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      name:
+      username: sa
+      password: sa
+   jpa:
+      show-sql: true
+      database: h2
+      hibernate:
+         use-new-id-generator-mappings: true
+         ddl-auto: update
+      properties: 
+         hibernate:
+#            format_sql: true
+            show_sql: true   
+   #Actuator credentiials
+   security:
+      user:
+         name: actuator
+         password: actuatorpassword
+
+# EGN, EMAIL or PHONE
+eid.provider.identity.type: egn
+
+#Spring security extra loging
+logging.level.org.springframework:
+   security: DEBUG
+   web: DEBUG
+   web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+
+#database-property-source.schema: 
+#db_property_source: testdb
+
+
+##################################
+############ ACTUATOR ############
+#management.endpoint.<id>.enabled#
+management:
+   endpoints:
+      enabled-by-default: true
+      web.exposure:
+         include: '*'
+         exclude: beans #, health, info
+   endpoint:
+      health:
+         enabled: true
+         show-components: always  #when-authorized, always, never
+         show-details: always #when-authorized, always, never
+      info.enabled: true
+      shutdown.enabled: false
+      auditevents.enabled: true
+info:
+   app:
+      name: Test Identity Provider
+      description: Test IdP
+      version: 0.0.1-snapshot
+#                                 #
+###################################
+            

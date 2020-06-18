@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "GenericApiResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "default": true
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "default": 0
+        },
+        "message": {
+          "type": "string",
+          "default": ""
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    },
+    "User": {
+	  "type": "object",
+	  "properties": {
+	    "id": {
+	      "type": "integer",
+	      "format": "int64"
+	    },
+	    "names": {
+	      "type": "string"
+	    },
+	    "email": {
+	      "type": "string"
+	    },
+	    "phoneNumber": {
+	      "type": "string"
+	    },
+	    "preferred2FA": {
+	      "$ref": "#/definitions/OTPMethod"
+	    },"address": {
+	      "$ref": "./address.json#/definitions/Address"
+	    }
+	  }
+    },
+    "OTPMethod": {
+		"type": "string",
+		"enum": [
+		  "EMAIL",
+		  "TOTP",
+		  "SMS"
+		]
+	},
+	"FullProfile": {
+	    "type": "object",
+	   	"properties": {
+		    "user": {
+	 			"$ref": "#/definitions/User"
+	 		},
+		    "attributes": {
+	 			"$ref": "#/definitions/UserАttributes"
+	 	    }
+	  }
+  	},
+	"UserАttributes": {
+	    "type": "object",
+	    "additionalProperties": {
+			"type": "string"
+	  }
+	}
+  }
+}

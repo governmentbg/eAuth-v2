@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/RNSearchResponse" targetNamespace="http://egov.bg/RegiX/MP/RNSearchResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RNSearchRequestType">
+		<xs:sequence>
+			<xs:element name="Identifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕНГ/Булстат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InvolvеmentID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на тип участие на страната</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RNSearchRequest" type="RNSearchRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за вписани обстоятелства в Регистъра на производствата по несъстоятелност</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/GIT/RNP/PenalProvisionMediatorActRequest" targetNamespace="http://egov.bg/RegiX/GIT/RNP/PenalProvisionMediatorActRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PenalProvisionMediatorActType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка по ЕИК/БУЛСТАТ за наказателни постановления във връзка с посредническа дейност за период</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IntruderIdentifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕИК или Булстатна нарушител </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Начална дата на период за търсене на НП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Крайна дата на период за търсене на НП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PenalProvisionRelation" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>НП във връзка с</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PenalProvisionMediatorActRequest" type="PenalProvisionMediatorActType">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за наказателни постановления във връзка с посредническа дейност за период</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

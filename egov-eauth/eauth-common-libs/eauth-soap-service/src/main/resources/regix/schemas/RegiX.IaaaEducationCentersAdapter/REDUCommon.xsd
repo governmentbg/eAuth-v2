@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Регистър за издадените удостоверения за регистрация за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.
+1	Справка за по ЕИК.
+По ЕИК/БУЛСТАТ справката връща данни за последните издадени разрешения (със статус действащо, изтекло или отнето) за регистрацията на центрове за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им. 
+Структура на резултата:
+Списък от обекти от тип REDU_EducationCenter (с добавен атрибут за статус). За всяко разрешение да има списъци от обекти от типовете EducationCenterVehicles и EducationCenterTeachers, като съответно от тези класове ще отпаднат атрибутите, които ги има в класа REDU_EducationCenter за център за обучение.
+От така дефинираната справка, чрез механизмите за филтриране на резултата ТехноЛогика ще реализира следните услуги за извличане на данни:
+•	Справка за регистрация на фирма по ЕИК (Справка 1 от първоначалния модел);
+•	Справка по ЕИК за регистрирани преподаватели (Справка 2 от първоначалния модел);
+•	Справка по ЕИК за регистрирани учебни ППС (Справка 5 от първоначалния модел).
+2	Справка по лице за вписвания в разрешителни за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.
+По ЕГН/ЛНЧ справката връща списък с данни за действащи разрешителни за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.
+Структура на резултата:
+Обект от тип EducationCenterTeachers и списък с обекти REDU_EducationCenter (с добавен атрибут за статус). Забележка: в случай, че едно лице може да бъде преподавател само в един център за обучение списъкът с обекти REDU_EducationCenter отпада и се връща само един обект REDU_EducationCenter.
+Това е Справка 4 от първоначалния модел.
+3	Справка по ЕИК и период за брой обучени лица в център за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.
+По ЕИК/БУЛСТАТ и период справката връща брой записани лица в център за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.
+Структура на резултата:
+Списък от обекти REDU_EducationCenter и за всеки център брой обучавани лица за периода.
+Това е Справка 7 от първоначалния модел.
+4	Справка по ЕГН/ЛНЧ за придобити категории за управление на ППС.
+По ЕГН/ЛНЧ справката връща списък с придобити категории за управление на ППС.
+Структура на резултата:
+Списък с категории, които лицето притежава към момента на справката с данни за дата на придобиване на всяка категория.
+Това е Справка 8 от първоначалния модел.
+От първоначалния модел отпадат:
+Справка 3; Справка 6 и Справка 9.
+.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="InstructorDto">
+		<xs:sequence>
+			<xs:element name="SubjectFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пълното име на инструктор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubjectIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EГН на инструктор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastQualificationCertificateNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на последно удостоверения за професионална квалификация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastQualificationCertificateIssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване на последно удостоверения за професионална квалификация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastQualificationCertificateIssuedBy" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Издадено от на последно удостоверения за професионална квалификация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastDrivingLicenceCertificateNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на последно издадена шофьорска книжка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastDrivingLicenceCertificateIssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издавне на последно издадена шофьорска книжка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastDrivingLicenceCertificateCategories" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Категории от последно издадена шофьорска книжка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExamModuleNames" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Притежавание модули за обучение </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExamModuleName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PermitDto">
+		<xs:sequence>
+			<xs:element name="Number" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на фирмата от разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК/БУЛСТАТ на фирмата от разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagerFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Има на управител на фирмата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ManagerIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН на управител на фирмата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на фирмата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PermitType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на разрешението (теория/практика/теория и практика)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване на разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на валидност на разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CeaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на прекратяване на разрешението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TechAssistantFullName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пълно име на технически сътрудник></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TechAssistantIdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН не технически сътрудник</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgUnitShortName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на Регионалната дирекция в която работи разрешението></xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на разрешението (издадено/подписано/прекратено)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExamRoomsCount" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой кабинети за даденото разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SeatPlacesCount" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой места за обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExamSeatsCount" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой места за изпит</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VehicleDto">
+		<xs:sequence>
+			<xs:element name="RegNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационне номер на учебни ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Make" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Марка и модел на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ВИН/Рама на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Categories" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Списък с категории на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProtocolNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на протокол за учебна дейност на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProtocolDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на протокол за учебна дейност на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaximumDesignSpeed" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Конструктивна максимална скорост (км/ч)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaxPermittedDefinedMass" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Допустима макс. маса (kg)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SeatPlaces" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой места за сядане + място на водача</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Width" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Широчина на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Length" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дължина на ППС</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Gears" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой предавки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HasABS" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дали ППС има ABS система</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HasTachograph" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дали ППС има тахограф</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CargoDepartmentWidth" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Широчина на товарното отделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CargoDepartmentHeight" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Височина на товарното отделение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaxPower" type="xs:short" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Максимална мощност (kW)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code78" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дали ППС е по чл. 78 (автоматична скоростна кутия)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EngineCapacity" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обем на двигателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PowerToWeightRatio" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отношение мощност/тегло (kW/kg)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CertificateNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на удостоверение за обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CertificateDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване на удостоверение за обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PermitCertificateDto">
+		<xs:sequence>
+			<xs:element name="PermitCertificateNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на удостоверение за работа в разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PermitCertificateIssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване на удостоверение за работа в разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExamTypePermission" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на удостоверение за работа в разрешение (теория/практика/теория и практика)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

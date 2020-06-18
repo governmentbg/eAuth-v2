@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MT/TOTAByEIKResponse" targetNamespace="http://egov.bg/RegiX/MT/TOTAByEIKResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="TOTAByEIKResponse" type="Tota">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за регистрация на туроператор/туристически агент_Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="Tota">
+		<xs:sequence>
+			<xs:element name="EIK" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на юридическото лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TourOperationType" type="TypeEnum" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид туристическа дейност(туроператор;туристически агент;и двете.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Registration" type="RegistrationType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrderChanges" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заповеди за промяна</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="OrderChange" type="OrderType" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Заповед за промяна</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LicenseCancellationOrder" type="OrderType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заповед за прекратяване на дейността</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="License" type="LicenseType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лиценз</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Offices" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за офиси</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Office" type="Office" nillable="true" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Офис</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TO"/>
+			<xs:enumeration value="TA"/>
+			<xs:enumeration value="TOTA"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OrderType">
+		<xs:sequence>
+			<xs:element name="Number" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на заповед</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Date" type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на заповед</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegistrationType">
+		<xs:sequence>
+			<xs:element name="RegNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateIssued" type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Order" type="OrderType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заповед за регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LicenseType">
+		<xs:sequence>
+			<xs:element name="LicenseIssuedOrderNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на заповед за издаване на лиценз</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenseIssuedOrderDate" type="xs:date" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на заповед за издаване на лиценз</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Order" type="OrderType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Заповед</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Office">
+		<xs:sequence>
+			<xs:element name="OfficePopName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място на офис</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OfficeAddress" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на офис</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OfficePhone" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон на офис</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

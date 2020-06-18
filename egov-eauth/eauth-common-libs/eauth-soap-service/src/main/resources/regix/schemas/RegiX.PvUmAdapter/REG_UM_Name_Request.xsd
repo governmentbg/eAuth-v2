@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/UM/NameRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/UM/NameRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="getUtilityModelByName" type="getUtilityModelByNameType">
+		<xs:annotation>
+			<xs:documentation>Справка по име на полезен модел</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="getUtilityModelByNameType">
+		<xs:sequence>
+			<xs:element name="UmodelName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Име на полезен модел</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/Patents/StatusAppDateRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/Patents/StatusAppDateRequest" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:element name="getPatentsByStatAppDate" type="getPatentsByStatAppDateType">
+		<xs:annotation>
+			<xs:documentation>Справка по правен статус и дата на патент</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="getPatentsByStatAppDateType">
+		<xs:sequence>
+			<xs:element name="LegalStatus" type="PatentCurrentStatusCodeType1">
+				<xs:annotation>
+					<xs:documentation>Правен статус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AppDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата на патент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PatentCurrentStatusCodeType1">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="Registered"/>
+			<xs:enumeration value="Registration cancelled"/>
+			<xs:enumeration value="Expired"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

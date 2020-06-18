@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/GIT/RNP" targetNamespace="http://egov.bg/RegiX/GIT/RNP" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Payment" type="PaymentType"/>
+	<xs:simpleType name="PaymentType">
+		<xs:annotation>
+			<xs:documentation>Вид плащане по НП</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Single">
+				<xs:annotation>
+					<xs:documentation>Еднократно плащане</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Delayed">
+				<xs:annotation>
+					<xs:documentation>Отсрочено плащане</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FinesAndPenaltiesList">
+		<xs:annotation>
+			<xs:documentation>Списък с данни по глоби и имуществени санкции</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="FinesAndPenalties" type="FinesAndPenalties" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FinesAndPenalties">
+		<xs:annotation>
+			<xs:documentation>Суми по глоби и имуществени санкции</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="PenalProvision">
+		<xs:annotation>
+			<xs:documentation>Данни за наказателно постановление</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PenalProvisionNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на наказателно постановление</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Intruder" type="EntityData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нарушител</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SanctionType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на санкцията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentIssuer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Издател на НП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SanctionSizeChanged" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изменен размер на санкция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SanctionSize" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер на санкцията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SanctionSizeText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер на санкцията с думи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ViolationPart" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нарушение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ViolationChapter" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нарушение - Глава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ViolationSection" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нарушение - Секция</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ViolationText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нарушение - Текст</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PenalProvisionEnforcementDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на влизане в сила на НП</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityData">
+		<xs:annotation>
+			<xs:documentation>Данни за юридическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Identifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК или Булстат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

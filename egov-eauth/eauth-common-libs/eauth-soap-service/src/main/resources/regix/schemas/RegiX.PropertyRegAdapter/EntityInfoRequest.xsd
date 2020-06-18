@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg/EntityInfoRequest" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg/EntityInfoRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="EntityInfoRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка по персонална партида на юридическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EIK" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>От дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>До дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EntityInfoRequest" type="EntityInfoRequestType"/>
+</xs:schema>

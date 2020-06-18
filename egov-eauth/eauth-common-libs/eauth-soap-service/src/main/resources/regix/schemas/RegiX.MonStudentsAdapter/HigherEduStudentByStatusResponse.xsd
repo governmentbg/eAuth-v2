@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/MON/HigherEdu/Common" xmlns="http://egov.bg/RegiX/MON/HigherEdu/HigherEduStudentByStatusResponse" targetNamespace="http://egov.bg/RegiX/MON/HigherEdu/HigherEduStudentByStatusResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/MON/HigherEdu/Common" schemaLocation="MONCommon.xsd"/>
+	<xs:element name="HigherEduStudentByStatusResponse">
+		<xs:annotation>
+			<xs:documentation>Справка за всички студенти или докторанти със статус "действащ" и "отчислен с право на защита", по подаден идентификатор - резултат</xs:documentation>
+		</xs:annotation>
+				<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="StudentData" type="common:StudentData" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

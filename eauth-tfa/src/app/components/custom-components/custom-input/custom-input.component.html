@@ -1,0 +1,10 @@
+<mat-form-field appearance="outline">
+    <mat-label>{{label | customTranslate:lang}}</mat-label>
+    <input 
+        matInput 
+        [placeholder]="label | customTranslate:lang"
+        [name]="attributeId"
+        [value]="value"
+        [type]="getAuthAttributeType()"
+        (change)="inputChange()">
+</mat-form-field>

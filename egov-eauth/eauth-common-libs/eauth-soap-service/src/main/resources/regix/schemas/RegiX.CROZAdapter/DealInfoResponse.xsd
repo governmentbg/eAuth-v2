@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/CROZ/CROZ/DealInfoResponse" xmlns:cr="http://egov.bg/RegiX/CROZ/CROZ" targetNamespace="http://egov.bg/RegiX/CROZ/CROZ/DealInfoResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/CROZ/CROZ" schemaLocation="CROZCommon.xsd"/>
+	<xs:complexType name="DealInfoDataType">
+		<xs:annotation>
+			<xs:documentation>Вписванията във връзка с определена сделка, запор на имущество или решение на съда по несъстоятелност</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="deal" type="cr:DealType" minOccurs="0"/>
+			<xs:element name="synchronizationDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на актуалност на данните</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mode" type="xs:int" minOccurs="0"/>
+			<xs:element name="isOAIncluded" type="xs:string" minOccurs="0"/>
+			<xs:element name="archiveLikeFilter" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DealInfoResponse" type="DealInfoDataType"/>
+</xs:schema>

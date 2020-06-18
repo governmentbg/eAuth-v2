@@ -1,0 +1,394 @@
+openapi: 3.0.2
+info:
+  description:  >-
+    Simple API for Identity vendor integration.<br/> Re-use similar
+    Authentication as Vendor servers <br/> <hr> <br /> <b>Each call must provide
+    an Authorization Header parameter</b> <br />On every request you have to set
+    a HTTP header parameter "authorize_key". Below you can find an example, how
+    to generate such a parameter. <h4>EXAMPLE</h4> <i><u>Input Data</u></i> <br
+    />Vendor Key - 7f4b9ef3-298d-4ced-8656-a5d8b7f96666 <br />Vendor ID -
+    ahZsmRHbDHL6TeED <br />Each Vendor receive its unique Key and ID provided by
+    DAEU. <br /> <br />DATA (the request you want to send through the API) <br
+    />{"vendorID":"ahZsmRHbDHL6TeED","userIdentificationNumber":"8611048980"}
+    <br /> <i><u>Generate "authorize_key" header</u></i> <br />DATA_TO_HEX <br
+    />7b2276656e646f724e756d626572223a2261685a736d52486244484c3654654544222c22757
+    <br
+    />365724964656e74696669636174696f6e4e756d626572223a2238363131303438393830227d
+    <br /> <br />VENDOR_KEY_2_SHA256 = SHA256(VENDOR_KEY) <br
+    />05f1a4f713f589ec6126e6161255649eca830a32ce55f3ec2fa9268c9add8d69 <br />
+    <br />authorize_key = HMAC(SHA256, DATA_TO_HEX, VENDOR_KEY_2_SHA256) <br
+    />c38babb38a5498deae40e8d71c101156242ab6a6f019290d16b62e0da9ad2cc2<br />
+
+  version: 1.1.0
+  title: RestFul eAuth API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: strahil.vitkov@bul-si.bg
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: eAuth API
+    description: Prototype for service API
+    externalDocs:
+      description: Find out more about our store
+      url: https://eauthn.egov.bg
+paths:
+  /exIdent/inquiry:
+    post:
+      tags:
+        - inquiry
+      summary: Initialize Authentication at IP
+      description: Initialize Authentication at IP
+      operationId: identityInquiry
+      security:
+        - api_key: []
+#      parameters:
+#        - in: header
+#          name: authorize_key
+#          description: Calculated authorization Key
+#          required: true
+#          schema:
+#            type: string
+#            format: base64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthenticationRequest"
+        description: Authentication Request
+        required: true
+      responses:
+        "200":
+          description: Request accepted successfuly
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InquiryResult"
+        "400":
+          description: Invalid data supplied
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "405":
+          description: Invalid request
+        "454":
+          description: Incorrect coverage
+  "/exIdent/v1/callback/{relyingPartyRequestID}":
+    put:
+      tags:
+        - callback
+      summary: Update an existing authentication request
+      description: Called if needed
+      operationId: identityCallback
+      security:
+        - api_key: []
+      parameters:
+#        - in: header
+#          name: authorize_key
+#          description: Calculated authorization Key
+#          required: true
+#          schema:
+#            type: string
+#            format: base64
+        - name: relyingPartyRequestID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExtraAttributes"
+        description: Additional Authentication paramenters
+        required: true
+      responses:
+        "400":
+          description: Invalid data supplied
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "405":
+          description: Invalid request
+        "438":
+          description: Issuer not found
+        "454":
+          description: Incorrect coverage
+  "/exIdent/signed/responce/{relyingPartyRequestID}":
+    get:
+      tags:
+        - responce
+      summary: Get authentication result
+      description: Multiple calls are possible until retrieving the result
+      operationId: getAunthentication
+      security:
+        - api_key: []
+      parameters:
+#        - in: header
+#          name: authorize_key
+#          description: Calculated authorization Key
+#          required: true
+#          schema:
+#            type: string
+        - name: relyingPartyRequestID
+          in: path
+          description: Correlation ID genereate on initial request
+          required: true
+          schema:
+            type: string
+            format: base64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthenticationResponse"
+        "400":
+          description: Invalid status value
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "405":
+          description: Invalid request
+        "438":
+          description: Issuer not found
+        "451":
+          description: Responce Not Ready
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseStatus"
+          
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://bul-si.bg/swagger-ui/
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: authorize_key
+      in: header
+  schemas:
+    AuthenticationRequest:
+      type: object
+      required:
+        - requestedDestination
+        - requestProvider
+      properties:
+        requestedDestination:
+          type: string
+        requestProvider:
+          type: string
+        relayState:
+          type: string
+        vendorId:
+          type: string
+        levelOfAssurance:
+          $ref: "#/components/schemas/LevelOfAssurance"
+        user:
+          $ref: "#/components/schemas/UserAuthData"
+        additionalAttributes:
+          $ref: "#/components/schemas/AttributeMap"
+    ExtraAttributes:
+      type: object
+      properties:
+        vendorId:
+          type: string
+        attributes:
+          $ref: "#/components/schemas/AttributeMap"
+    AttributeMap:
+      type: object
+      additionalProperties:
+        type: string
+        xml:
+          name: atribute
+          wrapped: true
+    LevelOfAssurance:
+      type: string
+      description: Available standart EU assurance level
+      enum:
+        - LOW
+        - SUBSTANTIAL
+        - HIGH
+    AuthenticationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        relayState:
+          type: string
+        issuer:
+          type: string
+        clientIpAddress:
+          type: string
+        subject:
+          $ref: "#/components/schemas/IdentityData"
+        inResponseToId:
+          type: string
+        levelOfAssurance:
+          $ref: "#/components/schemas/LevelOfAssurance"
+        attributes:
+          type: string
+    ResponseStatus:
+      type: object
+      properties:
+        failure:
+          type: boolean
+        statusCode:
+          type: string
+        statusMessage:
+          type: string
+        subStatusCode:
+          type: string
+    UserAuthData:
+      type: object
+      description: Provide user authentication data id needed
+      required:
+        - identityString
+        - authenticationString
+      properties:
+        identityString:
+          type: string
+        authenticationString:
+          type: string
+          format: base64
+    UserData:
+      type: object
+      properties:
+        name:
+          type: string
+        identificationNumber:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    IdentityData:
+      type: object
+      properties:
+        identified:
+          $ref: "#/components/schemas/UserData"
+        additionalAttributes:
+          $ref: "#/components/schemas/AttributeMap"
+    InquiryResult:
+      type: object
+      description: Holds authentication polling data
+      properties:
+        relyingPartyRequestID:
+          type: string
+          format: base64
+        validity:
+          type: string
+          format: date-time
+        neededCallbackAttributes:
+          type: array
+          xml:
+            name: attribute
+            wrapped: true
+          items:
+            type: string
+    CommonAuthException:
+      type: object
+      properties:
+        code:
+          type: string
+        error-message:
+          type: string    
+      xml:
+        name: authException
+        wrapped: true
+      required:
+        - code
+        - error-message                  
+
+  responses:
+    UnauthorizedError:
+      description: API key is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+    409_Conflict:
+      description: The user might be able to resolve the conflict and resubmit the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    410_Gone:
+      description: Resource is no longer available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+
+    401_Unauthorized:
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    403_Refusesed:       # Can be referenced as '#/components/responses/403Refusesed'
+      description: Server refuses to authorize this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    404_NotFound:       # Can be referenced as '#/components/responses/404NotFound'
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    500_ServerError:
+      description: The server encountered an unexpected exception.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    501_NotImplemented:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    502_IntegrationError:
+      description: Received an invalid response from an inbound server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    503_ServiceUnavailable:
+      description: The The server is currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+            

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg/GetSitesRequest" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg/GetSitesRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="GetSitesRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за службите по вписвания</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dummy" type="xs:string" minOccurs="0" maxOccurs="0">
+		  </xs:element>			
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetSitesRequest" type="GetSitesRequestType"/>
+</xs:schema>

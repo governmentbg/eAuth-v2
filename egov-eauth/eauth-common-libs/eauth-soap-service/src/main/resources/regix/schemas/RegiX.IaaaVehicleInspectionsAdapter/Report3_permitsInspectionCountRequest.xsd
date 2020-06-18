@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitsInspectionCountReportRequest" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitsInspectionCountReportRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Справка по ЕИК за обслужени автомобили за период</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitsInspectionCountRequestType">
+		<xs:sequence>
+			<xs:element name="IdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК/БУЛСТАТ на търсеното фирма с пункт за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата ОТ която е справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата ДO която е справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PermitsInspectionCountRequest" type="PermitsInspectionCountRequestType"/>
+</xs:schema>

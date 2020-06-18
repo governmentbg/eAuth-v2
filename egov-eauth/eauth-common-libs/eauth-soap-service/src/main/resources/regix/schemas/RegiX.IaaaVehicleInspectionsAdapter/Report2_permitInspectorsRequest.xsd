@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitInspectorsRequest" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitInspectorsRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Справка по лице за вписвания като председател на комисия/технически специалист в регистрирани пунктове за технически преглед.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitInspectorsRequestType">
+		<xs:sequence>
+			<xs:element name="IdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН на търсеният специалист в пункт за технически преглед</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PermitInspectorsRequest" type="PermitInspectorsRequestType">
+	</xs:element>
+</xs:schema>

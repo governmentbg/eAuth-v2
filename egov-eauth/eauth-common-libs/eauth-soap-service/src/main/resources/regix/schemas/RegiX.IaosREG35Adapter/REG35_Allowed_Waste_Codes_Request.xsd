@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35/AllowedWasteCodesRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REG35/AllowedWasteCodesRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="REG35_Allowed_Waste_Codes_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка за разрешени кодове на отпадъци от дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StageNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Номер на площадка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG35_Allowed_Waste_Codes_Request" type="REG35_Allowed_Waste_Codes_Request"/>
+</xs:schema>

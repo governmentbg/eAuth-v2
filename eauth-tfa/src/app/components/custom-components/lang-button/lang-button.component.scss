@@ -1,0 +1,24 @@
+.lang-btn {
+    border: none;
+    background-color: transparent;
+    width: 50px;
+    padding: 0;
+    .icon {
+        width: 100%;
+    }
+
+    @media (max-width: 414px) {
+        width: 29px;
+    }
+}
+
+.lang-btn:focus {
+    outline: none;
+}
+
+.lang-btn:hover {
+    border-radius: 200px 200px 200px 200px;
+    -moz-border-radius: 200px 200px 200px 200px;
+    -webkit-border-radius: 200px 200px 200px 200px;
+    border: 5px solid #d2dde2;
+}

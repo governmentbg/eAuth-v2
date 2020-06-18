@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>bg.bulsi</groupId>
+		<artifactId>eauth-ui-rest-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<packaging>jar</packaging>
+
+	<artifactId>eauth-ui-rest-api-dto</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/../eauth-ui-spec/eauth-ui-api.yaml</inputSpec>
+							<language>spring</language>
+							<withXml>true</withXml>
+
+							<!--<templateDirectory>${project.basedir}/../spec/templates/</templateDirectory> -->
+							<output>${project.build.directory}/generated-sources</output>
+							<apiPackage>${default.package}.api</apiPackage>
+							<modelPackage>${default.package}.api.dto</modelPackage>
+							<!--<invokerPackage>${default.package}.api.handler</invokerPackage> -->
+
+							<ignoreFileOverride>${project.basedir}/../eauth-ui-spec/.swagger-codegen-ignore</ignoreFileOverride>
+
+							<generateSupportingFiles>false</generateSupportingFiles>
+
+							<generateApis>false</generateApis>
+
+							<configOptions>
+								<title>CRC Rest Service</title>
+								<!--<interfaceOnly>true</interfaceOnly> -->
+								<swaggerDocketConfig>true</swaggerDocketConfig>
+
+								<basePackage>${default.package}</basePackage>
+								<configPackage>${default.package}.config</configPackage>
+
+								<java8>true</java8>
+								<useOptional>true</useOptional>
+								<delegatePattern>true</delegatePattern>
+								<useBeanValidation>true</useBeanValidation>
+								<serializableModel>true</serializableModel>
+							</configOptions>
+
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

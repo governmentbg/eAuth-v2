@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/GVA" targetNamespace="http://egov.bg/RegiX/GVA" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="AeronauicalMeansBurden">
+		<xs:annotation>
+			<xs:documentation>Данни за тежест върху въздухоплавателно средство</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InputDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на вписване на тежест</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BurdenType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид тежест (залог, запор)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsActive" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Активна тежест (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Declarator" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на заявител</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OwnerData">
+		<xs:annotation>
+			<xs:documentation>Данни за собственост върху въздухоплавателно средство</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OwnerID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на собственик - ЕИК/БУЛСТАТ/ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnerName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на собственик</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AeronauticalMeans">
+		<xs:annotation>
+			<xs:documentation>Данни за въздухоплавателно средство в Регистъра на гражданските въздухоплавателни средства на ГВА</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Manufacturer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Производител - наименование</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AIRCategory" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>AIR категория</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ICAO" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ICAO</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BGModelName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Модел ВС на български език</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ENModelName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Модел ВС на английски език</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MSNSerialNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>MSN (сериен номер на ВС)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationSign" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен знак</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastRegistration" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Последна регистрация (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActiveRegistration" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Активна регистрация (да/не)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на оператор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatorName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на оператор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence minOccurs="0">
+				<xs:element name="BurdensData" type="AeronauicalMeansBurden" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Данни за тежести върху въздухоплавателно средство</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

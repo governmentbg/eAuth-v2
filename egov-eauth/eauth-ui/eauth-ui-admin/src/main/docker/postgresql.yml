@@ -1,0 +1,11 @@
+version: '2'
+services:
+  eauthadmin-postgresql:
+    image: postgres:11.3
+    # volumes:
+    #     - ~/volumes/jhipster/EauthAdmin/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=EauthAdmin
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432

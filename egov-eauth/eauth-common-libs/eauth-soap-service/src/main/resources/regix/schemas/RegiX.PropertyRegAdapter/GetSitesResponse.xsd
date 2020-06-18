@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg/GetSitesResponse" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg/GetSitesResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="site">
+    <xs:annotation>
+      <xs:documentation>Данни за служба по вписвания</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="siteID" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Идентификатор</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="siteName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetSitesResponseType">
+    <xs:annotation>
+      <xs:documentation>Списък от служби по вписвания</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="site" type="site" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:element name="GetSitesResponse" type="GetSitesResponseType"/>
+</xs:schema>

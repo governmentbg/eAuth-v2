@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 (http://www.altova.com) by Dobromir Zlatev (Technologica) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/StageInfoByWasteCodeResponse" xmlns:common="http://egov.bg/RegiX/IAOS/REG35Reg/Common" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/StageInfoByWasteCodeResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/REG35Reg/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="REG35_Stage_Info_By_Waste_Code_Response" type="REG35_Stage_Info_By_Waste_Code_Response"/>
+	<xs:complexType name="REG35_Stage_Info_By_Waste_Code_Response">
+		<xs:annotation>
+			<xs:documentation>
+        Отговор на справка за извличане на информация за площадки по операция с отпадък в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие.
+        Справката връща информация за разрешението и площадките ако такава е налична в регистъра.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationByWasteCode" minOccurs="0" maxOccurs="999"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationByWasteCode">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthType" type="common:AuthorizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на регистрацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactPerson" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лице за контакт на площадката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон на лицето за контакт на площадката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Stage" type="common:StageInfo" minOccurs="0" maxOccurs="999"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

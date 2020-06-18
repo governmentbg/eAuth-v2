@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROOil/TradeMarksRequest" targetNamespace="http://egov.bg/RegiX/IAOS/MROOil/TradeMarksRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="MRO_OIL_Trade_Marks_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на Справка за търговски марки в Регистъра на лицата, които пускат на пазара масла. 
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="MRO_OIL_Trade_Marks_Request" type="MRO_OIL_Trade_Marks_Request"/>
+</xs:schema>

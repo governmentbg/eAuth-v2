@@ -1,0 +1,19 @@
+.verified-container {
+    display: flex;
+
+    .verified-message {
+        display: flex;
+        flex-direction: column;
+        margin: 20px auto;
+
+        .verified-succes-logo {
+            width: 150px;
+            margin: 10px auto;
+        }
+
+        .home-btn {
+            width: 200px;
+            margin: 0 auto;
+        }
+    }
+}

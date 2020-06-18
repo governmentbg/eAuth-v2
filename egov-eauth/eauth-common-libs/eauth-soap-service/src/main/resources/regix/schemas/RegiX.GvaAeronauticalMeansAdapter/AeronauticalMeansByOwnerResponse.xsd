@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GVA" xmlns="http://egov.bg/RegiX/GVA/AeronauticalMeansByOwnerResponse" targetNamespace="http://egov.bg/RegiX/GVA/AeronauticalMeansByOwnerResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GVA" schemaLocation="GVACommon.xsd"/>
+	<xs:element name="AeronauticalMeansByOwnerResponse">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ/ЕГН/ЛНЧ за вписани на името на лицето въздухоплавателни средства - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OwnerID" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор на собственик на въздухоплавателно средство - ЕИК/БУЛСТАТ/ЕГН/ЛНЧ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="OwnerName" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Наименование на собственик на въздухоплавателно средство</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:sequence minOccurs="0">
+					<xs:element name="OwnerAeronauticalMeans" type="common:AeronauticalMeans" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Въздухоплавателни средства на собственик</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

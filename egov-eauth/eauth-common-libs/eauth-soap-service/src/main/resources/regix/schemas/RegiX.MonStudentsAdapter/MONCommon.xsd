@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MON/HigherEdu/Common" targetNamespace="http://egov.bg/RegiX/MON/HigherEdu/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="StudentData">
+		<xs:annotation>
+			<xs:documentation>Данни за студент или докторант в Регистъра на действащите и прекъснали студенти и докторанти на МОН</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StudentIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на студент/докторант - ЕГН/ЛНЧ/Друг вид идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лично име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бащино име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nationality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HigherSchoolName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пълно наименование на висшето училище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HigherSchollLocation" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място на висшето училище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FacultyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на факултета/филиала/колежа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationalYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Учебна година на начало на обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Semester" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Семестър</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AcquiredDegree" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Квалификационна степен  - ОКС (професионален бакалавър, бакалавър, магистър) или ОНС (доктор)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProfessionalField" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Професионално направление</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Subject" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Специалност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationalCourse" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Курс на обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationalForm" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Форма на обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StudentStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на студента/докторанта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FacultyNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Факултетен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на актуализация на данните в регистъра на МОН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,1 @@
+INSERT INTO identity VALUES (1, true, now(), null, 'admin@bul-si.bg', 'Админ Админ', '1010101010', '$2a$10$KzZ7T6NnymJ8CzSRW.QsLe852FZ5TsghxX/T6XC7GqpT/XnWTouL2', 'admin', '+359888888888');

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AM/ZADS/RegistrationInfoResponse" targetNamespace="http://egov.bg/RegiX/AM/ZADS/RegistrationInfoResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="EconomyOperatorType">
+		<xs:sequence>
+			<xs:element name="Status" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус - валидна, прекратена, отказана регистрация </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancellationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на прекратяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CancellationReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основание за прекратяване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RejectionDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на отказ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RejectionReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основание за отказ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид ик.оператор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид или тип на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>№ на регистрация </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="ExciseNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Акцизен номер</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CustomsOffice" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Митническо управление</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DomicileOffice" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Митническо седалище</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Warehouse" type="WarehouseInfoType" minOccurs="0"/>
+			<xs:element name="ExciseProducts" type="ExciseProductsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegistrationInfoResponse" type="RegistrationInfoResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за статут на лице по ЗАДС</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="WarehouseInfoType">
+		<xs:annotation>
+			<xs:documentation>Склад</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="WarehouseName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на данъчен склад</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WarehouseType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип склад (произв. и складиране или само складиране)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WarehouseGroup" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид стоки (групите)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WarehouseAddress" type="AddressType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressType">
+		<xs:annotation>
+			<xs:documentation>Адрес</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="City" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Град</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CountryCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на държава</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Municipality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Postcode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пощенски код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Region" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регион</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Streetname" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Streetnumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EconomyOperatorsType">
+		<xs:sequence>
+			<xs:element name="EconomyOperator" type="EconomyOperatorType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegistrationInfoResponseType">
+		<xs:sequence>
+			<xs:element name="Name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на ю.лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EconomyOperators" type="EconomyOperatorsType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExciseProductType">
+		<xs:sequence>
+			<xs:element name="Category" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид или категория на акцизната стока –групи стоки- аклкохол, тютюн, енергийни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TradeName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Търговско наименование(марка)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CNCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код  по КН (код по Комбинираната Номенклатура)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExciseProductsType">
+		<xs:sequence>
+			<xs:element name="ExcieProduct" type="ExciseProductType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

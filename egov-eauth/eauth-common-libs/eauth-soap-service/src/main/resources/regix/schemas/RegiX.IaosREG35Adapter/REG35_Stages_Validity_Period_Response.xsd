@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35/StagesValidityPeriodResponse" xmlns:common="http://egov.bg/RegiX/IAOS/REG35/Common" targetNamespace="http://egov.bg/RegiX/IAOS/REG35/StagesValidityPeriodResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/REG35/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="REG35_Stages_Validity_Period_Response" type="REG35_Stages_Validity_Period_Response"/>
+	<xs:complexType name="REG35_Stages_Validity_Period_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка за проверка за период на валидност на площадки за дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА по РИОСВ в Регистър на площадки за дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА.
+Справката връща информация за началната и крайна дата на валидност на площадката.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationStagesValidityPeriod" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationStagesValidityPeriod">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthType" type="common:AuthorizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на регистрацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начална дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Крайна дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="common:AuthState35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="Waste" type="common:StageWaste" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Отпадък</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

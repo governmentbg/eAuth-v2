@@ -1,0 +1,81 @@
+node {
+      stage('Copy files') {
+
+            echo "Copy files  ${service_name} "
+
+            ws('workspace/eauth-parent') {
+
+            sshPublisher(publishers: [sshPublisherDesc(
+            configName: "${eauth_env}",
+            transfers: [sshTransfer(cleanRemote: false,
+            excludes: '',
+            execCommand: '''
+
+                ''',
+            execTimeout: 120000,
+            flatten: true,
+            makeEmptyDirs: false,
+            noDefaultExcludes: false,
+            patternSeparator: '[, ]+',
+            remoteDirectory: '',
+            remoteDirectorySDF: false,
+            removePrefix: '', sourceFiles: 'echo ${path_to_jar}'  )],
+            usePromotionTimestamp: false,
+            useWorkspaceInPromotion: false,
+            verbose: false)])
+
+            sshPublisher(publishers: [sshPublisherDesc(
+            configName: "${eauth_env}",
+            transfers: [sshTransfer(cleanRemote: false,
+            excludes: '',
+            execCommand: '''
+
+                ''',
+            execTimeout: 120000,
+            flatten: true,
+            makeEmptyDirs: false,
+            noDefaultExcludes: false,
+            patternSeparator: '[, ]+',
+            remoteDirectory: '',
+            remoteDirectorySDF: false,
+            removePrefix: '', sourceFiles: 'jenkins/deploy-script.sh')],
+            usePromotionTimestamp: false,
+            useWorkspaceInPromotion: false,
+            verbose: false)])
+
+
+            echo "Copy files ${service_name} service finished"
+            }
+           stage("Deploy service ${service_name}") {
+
+           echo "Deploy  ${service_name}"
+
+            sshPublisher(publishers: [sshPublisherDesc(
+            configName: "${eauth_env}",
+            transfers: [sshTransfer(cleanRemote: false,
+            excludes: '',
+            execCommand: '''
+            cd /var/${service_name}
+                echo ${bulsiadmin_pass} |  sudo -S  chmod +x /home/bulsiadmin/deploy-script.sh
+                cd /var/${service_name}
+                echo ${bulsiadmin_pass} |  sudo -S /home/bulsiadmin/deploy-script.sh ${service_name} ${jar_name}
+                ''',
+            execTimeout: 120000,
+            flatten: true,
+            makeEmptyDirs: false,
+            noDefaultExcludes: false,
+            patternSeparator: '[, ]+',
+            remoteDirectory: '',
+            remoteDirectorySDF: false,
+            removePrefix: '', sourceFiles: '')],
+            usePromotionTimestamp: false,
+            useWorkspaceInPromotion: false,
+            verbose: false)])
+
+            echo "Deploy ${service_name} service finished"
+
+    }
+
+    }
+
+}

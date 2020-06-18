@@ -1,0 +1,82 @@
+#change tomcat def port
+server:
+   port: 8210
+   servlet:
+      session:
+         cookie:
+            name:  profileId
+            domain: egov.bg
+            http-only: true
+            path: /
+            secure: false
+##SSL: old: keytool -genkeypair -alias eauth-profile -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore eauth-profile.p12 -validity 3650
+## new: openssl pkcs12 -export -in egov.pem -inkey egov.key -name egov > egov.p12
+## The format used for the keystore. It could be set to JKS in case it is a JKS file
+#   ssl:
+#      key-store-type: PKCS12
+## The path to the keystore containing the certificate
+#      key-store: classpath:credentials/egov.p12
+## The password used to generate the certificate
+#      key-store-password: changeit
+## The alias mapped to the certificate
+#      key-alias: egov
+            
+#eauth security
+#ISP address
+eauth:
+   security:
+      provider:
+         authentication-responce-url: http://eauth.egov.bg:8083/login
+         #Autorization entry point
+         eauth-entry-point-path: /eaft/authorize
+   
+         #ISP return SAML response to this URL
+         id-secret: NWKNjXLRdRNjhjgTcRssMmMskbxFrRJWvjWMw7wbVCcHJxKtvf74KzrJRg4hfFhj
+         responce-receiver-path: /eaft/callback
+         #
+         redirect-to-error: http://localhost:8082/error2
+         redirect: http://localhost:4201/register
+      #
+      jwt.token-secret: NWhHrNKVhKqJc9ctfvXdmkdvc3z7p3vMpMMxRXXRs3RrjWfHrWVf49CW43PwwXT7
+      jwt.token-expiration-msec: 1800000
+
+   ###data source configuration
+   datasource:
+      url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+      #spring.batch.initialize-schema: always
+      username: bulsiadmin
+      password: bulsivirtual
+      driver-class-name: org.postgresql.Driver
+      sql-script-encoding: utf-8
+#hibernate properties configuration
+spring:
+   jpa:
+      properties:
+         hibernate:
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
+            #default_schema: profile
+            show_sql: true
+      hibernate:
+         use-new-id-generator-mappings: true
+         ddl-auto: update
+      ###jpa properties configuration
+      show-sql: true
+      database: postgresql
+   freemarker:
+      template-loader-path: classpath:/templates
+      suffix: .ftlh
+
+#Spring security extra loging
+logging:
+   level:
+      org.springframework:
+         security: DEBUG
+         #logging.level.org.springframework.web: DEBUG
+         web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+
+##trust store location
+#trust:
+#   store: 
+#      classpath:credentials/egov.p12
+#      password: changeit
+

@@ -1,0 +1,48 @@
+# ---------------------------------------------------------------------
+database-property-source:
+  schema: public
+# ---------------------------------------------------------------------
+server:
+  port: 8110
+spring:
+  application:
+    name: email_2fa
+  profiles:
+    include: actuator
+
+spring.datasource:
+  url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+  username: bulsiadmin
+  password: bulsivirtual
+  driver-class-name: org.postgresql.Driver
+  sql-script-encoding: utf-8
+
+# ---------------------------------------------------------------------
+## Mail
+# ---------------------------------------------------------------------
+spring.mail:
+  host: mail.bul-si.bg
+  port: 465
+  protocol: smtp
+  username: eauth-test@bul-si.bg
+  password: test2eauth1
+  properties:
+    mail.smtp.auth: true
+    mail.smtp.ssl.enable: true
+    mail.smtp.ssl.trust: '*'
+    mail.smtp.sendpartial: true
+    mail.smtp.starttls.required: true
+    mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+    mail.debug: false
+
+# ---------------------------------------------------------------------
+## thymeleaf
+# ---------------------------------------------------------------------
+spring.thymeleaf:
+  encoding: UTF-8
+  mode: HTML
+  prefix: classpath:/templates/
+
+#spring:
+#  hazelcast:
+#    config: classpath:/hazelcast.xml

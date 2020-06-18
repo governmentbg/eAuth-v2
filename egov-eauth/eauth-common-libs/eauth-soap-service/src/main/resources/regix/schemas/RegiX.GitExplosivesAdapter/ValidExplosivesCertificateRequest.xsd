@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/GIT/RVM/ValidExplosivesCertificateRequest" targetNamespace="http://egov.bg/RegiX/GIT/RVM/ValidExplosivesCertificateRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ValidExplosivesRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка за валидни свидетелства за работа с взривни материали</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Identifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕГН или ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ValidExplosivesCertificateRequest" type="ValidExplosivesRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за валидни свидетелства за работа с взривни материали - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

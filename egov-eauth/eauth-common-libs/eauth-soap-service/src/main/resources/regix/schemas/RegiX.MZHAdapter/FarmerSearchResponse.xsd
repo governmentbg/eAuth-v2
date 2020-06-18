@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://egov.bg/RegiX/MZH/FarmerSearchResponse"
+xmlns="http://egov.bg/RegiX/MZH/FarmerSearchResponse" 
+xmlns:common="http://egov.bg/RegiX/MZH" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/MZH" schemaLocation="MZHCommon.xsd"/>
+	<xs:complexType name="FarmerType">
+		<xs:sequence>
+			<xs:element name="AdministrativeData" type="common:AdministrativeDataType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Административни данни</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+			<xs:element name="Lands" type="common:LandsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Земеделски земи</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+			<xs:element name="Crops" type="common:CropsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отглеждани култури</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+			<xs:element name="Animals" type="common:AnimalsType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Отглеждани животни</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Farmer" type="FarmerType">
+		<xs:annotation>
+			<xs:documentation>Земеделски производител</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

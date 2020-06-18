@@ -1,0 +1,25 @@
+#JPA Datasource
+spring.datasource.url=jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+spring.datasource.username=bulsiadmin
+spring.datasource.password=bulsivirtual
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.sql-script-encoding=utf-8
+database-property-source.schema=public
+
+#hibernate properties configuration
+spring.jpa.properties.hibernate.default_schema=sms
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQL94Dialect
+spring.jpa.hibernate.use-new-id-generator-mappings=true
+
+###jpa properties configuration
+spring.jpa.show-sql=true
+spring.jpa.database=postgresql
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+#logging.level.org.springframework.web=debug
+
+#change tomcat def port
+server.port=8120
+
+spring.profiles.include=actuator

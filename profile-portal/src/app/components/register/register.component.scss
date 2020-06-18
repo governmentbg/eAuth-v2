@@ -1,0 +1,57 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    padding-top: 20px;
+    width: 20%;
+    margin: 2% auto;
+}
+
+.register-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    margin-left: 0;
+}
+
+.register-button-wrapper {
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.register-img-wrapper {
+    margin: 0 auto;
+    width: 300px;
+    display: flex;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.register-img {
+    margin: auto;
+}
+
+.authTypes {
+    display: flex;
+    margin-bottom: 10px;
+    
+    .authType {
+        padding-right: 10px;
+        margin: 9px auto;
+    }
+}
+
+.shadow {
+    -moz-box-shadow:    inset 0 0 10px #dbd9d9;
+    -webkit-box-shadow: inset 0 0 10px #dbd9d9;
+    box-shadow:         inset 0 0 10px #dbd9d9;
+ }
+
+mat-form-field.mat-form-field {
+    font-size: 12px;
+}
+
+ .radio-group {
+    margin: 0 auto;
+ }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MZH/FarmerSearchRequest" targetNamespace="http://egov.bg/RegiX/MZH/FarmerSearchRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="FarmerSearchRequest" type="FarmerSearchParametersType">
+		<xs:annotation>
+			<xs:documentation>Параметри на справката за земеделски производител</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="FarmerSearchParametersType">
+		<xs:sequence>
+			<xs:element name="Parameter" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни, идентифициращи земеделския производител – ЕГН, ЕИК или БУЛСТАТ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35/LicensesByEIKWasteCodeWasteOperationRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REG35/LicensesByEIKWasteCodeWasteOperationRequest" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:common="http://egov.bg/RegiX/IAOS/REG35/Common">
+  <xs:import namespace="http://egov.bg/RegiX/IAOS/REG35/Common" schemaLocation="common_types.xsd" />
+	<xs:complexType name="REG35_Licenses_By_EIK_Waste_Code_Waste_Operation_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка по код на отпадък и операция с отпадък на площадки за дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА в Регистър на площадки за дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EIK" type="common:Bulstat">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WasteCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Код на отпадък</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WasteOperation" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Операция с отпадък</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG35_Licenses_By_EIK_Waste_Code_Waste_Operation_Request" type="REG35_Licenses_By_EIK_Waste_Code_Waste_Operation_Request"/>
+</xs:schema>

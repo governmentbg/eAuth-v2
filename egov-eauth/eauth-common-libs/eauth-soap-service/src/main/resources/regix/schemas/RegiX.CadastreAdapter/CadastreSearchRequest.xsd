@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Cadastre/CadastreSearchRequest" targetNamespace="http://egov.bg/RegiX/Cadastre/CadastreSearchRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="AddressType">
+		<xs:sequence>
+      <xs:element name="Region" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Област</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="Municipality" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Община</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="Ekatte" type="xs:string" minOccurs="0">
+       </xs:element>
+			<xs:element name="EkatteName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Име на населеното място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="Place" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Местност</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="Street" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Улица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="StreetNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер на улица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CadastreSearchRequestType">
+		<xs:sequence>
+			<xs:element name="Address" type="AddressType" minOccurs="0"/>
+			<xs:element name="CadNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="UseTypeID" type="xs:int" nillable="true" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CadastreSearchRequest" type="CadastreSearchRequestType"/>
+</xs:schema>

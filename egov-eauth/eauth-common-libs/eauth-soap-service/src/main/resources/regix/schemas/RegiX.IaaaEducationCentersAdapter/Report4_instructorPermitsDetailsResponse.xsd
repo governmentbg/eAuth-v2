@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitsInstructorsReportResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/EducationCenters" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitsInstructorsReportResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/EducationCenters" schemaLocation="REDUCommon.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка по лице за вписвания в разрешителни за организиране на курсове за обучение на водачи за придобиване на квалификация и за усъвършенстване на познанията им.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="InstructorPermitDto">
+		<xs:sequence>
+			<xs:element name="Permit" type="PermitWithVehiclesDto" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разрешение на преоподавателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Certificates" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Удостоверение за работа в разрешение</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Certificate" type="common:PermitCertificateDto" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PermitWithVehiclesDto">
+		<xs:complexContent>
+			<xs:extension base="common:PermitDto">
+				<xs:sequence>
+					<xs:element name="Vehicles" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Учебни ППС</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Vehicle" type="common:VehicleDto" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="InstructorWithPermitsDto">
+		<xs:complexContent>
+			<xs:extension base="common:InstructorDto">
+				<xs:sequence>
+					<xs:element name="InstructorPermits" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Списък с разрешенията на преподавателите</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="InstructorPermit" type="InstructorPermitDto" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PermitsInstructorsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Instructor" type="InstructorWithPermitsDto" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

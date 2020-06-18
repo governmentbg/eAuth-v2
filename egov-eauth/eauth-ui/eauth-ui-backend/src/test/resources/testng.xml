@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="testngSuite">
+	<test name="testngTest">
+		<groups>
+			<define name="all">
+				<include name="tfaServiceTest" />
+				<include name="propertiesContextTest" />
+				<include name="clientTest" />
+				<include name="userPasswTest" />
+			</define>
+			<run>
+				<include name="all" />
+				<exclude name="brokenTest" />
+				<exclude name="pause" />
+			</run>
+		</groups>
+		<classes>
+			<class name="bg.bulsi.egov.idp.tfa.TfaServiceTestNg" />
+			<class name="bg.bulsi.egov.idp.client.TestPropertyContext"></class>
+			<class name="bg.bulsi.egov.idp.client.ClientTest"></class>
+			<class name="bg.bulsi.egov.idp.client.UserTest"></class>
+			<class name="bg.bulsi.egov.idp.client.UserPasswTest"></class>
+		</classes>
+	</test>
+</suite>  

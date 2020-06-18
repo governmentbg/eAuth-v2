@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GVA" xmlns="http://egov.bg/RegiX/GVA/AeronauticalMeansByOwnerRequest" targetNamespace="http://egov.bg/RegiX/GVA/AeronauticalMeansByOwnerRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GVA" schemaLocation="GVACommon.xsd"/>
+	<xs:complexType name="AeronauticalMeansByOwnerType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка по ЕИК/БУЛСТАТ/ЕГН/ЛНЧ за вписани на името на лицето въздухоплавателни средства</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OwnerID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на собственик на въздухоплавателно средство - ЕИК/БУЛСТАТ/ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AeronauticalMeansByOwnerRequest" type="AeronauticalMeansByOwnerType">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ/ЕГН/ЛНЧ за вписани на името на лицето въздухоплавателни средства - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

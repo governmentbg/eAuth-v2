@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/StagesByRegNumberAndWasteCodeResponse" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/StagesByRegNumberAndWasteCodeResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="REG35_Stages_By_Reg_Number_And_Waste_Code_Response" type="REG35_Stages_By_Reg_Number_And_Waste_Code_Response"/>
+  <xs:complexType name="REG35_Stages_By_Reg_Number_And_Waste_Code_Response">
+    <xs:annotation>
+      <xs:documentation>
+        Отговор на справка за площадки по код на отпадъка в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие.
+        Справката връща информация за площадките, имащи разрешение за извършване на дейности със зададените отпадъци ако такава е налична в регистъра.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Authorization" type="AuthorizationRegNumberWasteCode" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AuthorizationRegNumberWasteCode">
+    <xs:annotation>
+      <xs:documentation>Authorization</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ContactPerson" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Лице за контакт на площадката</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Phone" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Телефон на лицето за контакт на площадката</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Stage" type="Stage" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Площадка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Stage">
+    <xs:annotation>
+      <xs:documentation>Stage</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StageAddress" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Адрес на площадка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StageNum" type="xs:string" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Номер на площадка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="WasteCode" type="xs:string" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Код на отпадък</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

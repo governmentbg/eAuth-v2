@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NOI/RO" targetNamespace="http://egov.bg/RegiX/NOI/RO" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="IdentifierType">
+		<xs:annotation>
+			<xs:documentation>Тип на идентификатор</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ЕГН"/>
+			<xs:enumeration value="ЛНЧ"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Test" type="IdentifierType"/>
+	<xs:complexType name="PaymentsWithDateType">
+		<xs:sequence>
+			<xs:element name="Payment" type="PaymentWithDateType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaymentsWithRegDate">
+		<xs:sequence>
+			<xs:element name="PaymentByDate" type="PaymentsWithRegType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Плащания за дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaymentsWithRegType">
+		<xs:sequence>
+			<xs:element name="RegNumberDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Входящ номер и дата на регистрацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="PaymentsByType" type="BenefitPayments" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Плащания по вид</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaymentWithDateType">
+		<xs:sequence>
+			<xs:element name="BenefitType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на обезщетението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitMonth" type="xs:gMonth" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Месец от периода на обезщетението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitYear" type="xs:gYear" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Година от период на обезщетението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изплатена сума</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitDatePayment" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BenefitPayments">
+		<xs:sequence>
+			<xs:element name="PaymentByType" type="BenefitPaymentType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Плащане по вид</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BenefitPaymentType">
+		<xs:sequence>
+			<xs:element name="BenefitType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на обезщетението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Payments" type="Payment" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Плащания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Payment">
+		<xs:sequence>
+			<xs:element name="Payment" type="PaymentType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Плащане</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaymentType">
+		<xs:sequence>
+			<xs:element name="BenefitMonth" type="xs:gMonth" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Месец от периода на обезщетението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitYear" type="xs:gYear" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Година от период на обезщетението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BenefitAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Изплатена сума</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/StagesByRegNumberAndWasteCodeRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/StagesByRegNumberAndWasteCodeRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="REG35_Stages_By_Reg_Number_And_Waste_Code_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка за площадки по код на отпадъка в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WasteCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Код на отпадък</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG35_Stages_By_Reg_Number_And_Waste_Code_Request" type="REG35_Stages_By_Reg_Number_And_Waste_Code_Request"/>
+</xs:schema>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/MZH" xmlns="http://egov.bg/RegiX/MZH/PastureMeadowLandDetailResponse" targetNamespace="http://egov.bg/RegiX/MZH/PastureMeadowLandDetailResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="BeneficiaryTypes">
+		<xs:annotation>
+			<xs:documentation>Вид ползвател</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>гражданин</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>държавата (няма да се ползва)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>община (няма да се ползва)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>чужда гражданин</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>чуждо юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>едноличен търговец</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PastureMeadowLandDetailData">
+		<xs:annotation>
+			<xs:documentation>Данни за пасище, мера или ливада на ползвател</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="BeneficiaryName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на ползвател</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BeneficiaryType" type="BeneficiaryTypes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид ползвател</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DistrictCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="District" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област на пасище, мера или ливада</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MunicipalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Municipality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Ekatte" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕКАТТЕ на населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SettlementType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид нас.място(напр. гр.;с.;ман.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Settlement" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място(землище)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AreaDetails" type="AreaDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Детайли за площ на пасищe, мерa или ливадa </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReportDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на снемане на данните от регистъра</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PastureMeadowLandDetailResponse">
+		<xs:annotation>
+			<xs:documentation>Справка за ползване на пасища, мери и ливади - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BeneficiaryIdentifier" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор на ползвател - ЕГН/ЛНЧ/ЕИК/БУЛСТАТ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PastureLands" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Пасища, мери или ливади на ползвател</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="PastureLand" type="PastureMeadowLandDetailData" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Пасищe, мерa или ливадa на ползвател</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AreaDetails">
+		<xs:sequence>
+			<xs:element name="Acreage" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CategoryBreakdown" type="CategoryBreakdown" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разбивка на общата площ по категории на земята </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OwnershipBreakdown" type="OwnershipBreakdown" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разбивка по вид собственост</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LandRightsBreakdown" type="LandRightsBreakdown" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Разбивка на  по право на ползване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CategoryBreakdown">
+		<xs:sequence>
+			<xs:element name="Area_1_7" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка земи от 1 до 7 категория</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area_8_10" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка земи от 8 до 10 категория</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OwnershipBreakdown">
+		<xs:sequence>
+			<xs:element name="Area_DPF" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка земи от ДПФ (държавни).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area_OPF" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка земи от ОПФ (общински).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area_PRIV" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка земи частна собственост.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LandRightsBreakdown">
+		<xs:sequence>
+			<xs:element name="Area_CONT" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка от договори.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Area_PERS" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща площ в дка лична собственост.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

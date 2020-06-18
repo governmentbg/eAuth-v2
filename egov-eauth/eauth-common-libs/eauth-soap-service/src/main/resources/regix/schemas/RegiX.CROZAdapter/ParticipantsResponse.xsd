@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/CROZ/CROZ/ParticipantsResponse" xmlns:cr="http://egov.bg/RegiX/CROZ/CROZ" targetNamespace="http://egov.bg/RegiX/CROZ/CROZ/ParticipantsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/CROZ/CROZ" schemaLocation="CROZCommon.xsd"/>
+	<xs:complexType name="ParticipantsDataType">
+		<xs:annotation>
+			<xs:documentation>Участници</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="participantsList" type="cr:participantsArray" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ParticipantsResponse" type="ParticipantsDataType"/>
+</xs:schema>

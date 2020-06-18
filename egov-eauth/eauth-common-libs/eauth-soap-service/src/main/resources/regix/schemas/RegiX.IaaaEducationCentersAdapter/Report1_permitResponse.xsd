@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitsResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/EducationCenters" targetNamespace="http://egov.bg/RegiX/Iaaa/EducationCenters/PermitsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/EducationCenters" schemaLocation="REDUCommon.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка по ЕИК за последните издадени разрешения</xs:documentation>
+	</xs:annotation>
+	<xs:element name="PermitResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Permits" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Списък с разрешенията на дадена фирма</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Permit" type="common:PermitDto" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

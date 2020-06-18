@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAMA/RegistrationInfoByCharacteristicsRequest" targetNamespace="http://egov.bg/RegiX/IAMA/RegistrationInfoByCharacteristicsRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="MaximumLengthType">
+    <xs:annotation>
+      <xs:documentation>Максимална дължина</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="From" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>От</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="To" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>До</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegistrationInfoByCharacteristicsRequestType">
+		<xs:sequence>
+			<xs:element name="VesselType" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на кораб</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VesselSubType" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Модел на кораб</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HullNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на корпус</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EngineFuel" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Гориво на двигателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EngineNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на двигател</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaxLength" type="MaximumLengthType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Максимална дължина, която се задава чрез интервал</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="RegistrationInfoByCharacteristicsRequest" type="RegistrationInfoByCharacteristicsRequestType">
+    <xs:annotation>
+      <xs:documentation>Справка за регистрация на кораб</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

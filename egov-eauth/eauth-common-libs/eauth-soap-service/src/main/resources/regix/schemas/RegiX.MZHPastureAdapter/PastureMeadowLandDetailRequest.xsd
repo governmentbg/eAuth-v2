@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/MZH" xmlns="http://egov.bg/RegiX/MZH/PastureMeadowLandDetailRequest" targetNamespace="http://egov.bg/RegiX/MZH/PastureMeadowLandDetailRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PastureMeadowLandDetailRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка с детайли за  за ползване на пасища, мери и ливади</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BeneficiaryIdentifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на ползвател - ЕГН/ЛНЧ/ЕИК/БУЛСТАТ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PastureMeadowLandDetailRequest" type="PastureMeadowLandDetailRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка с детайли за ползване на пасища, мери и ливади - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

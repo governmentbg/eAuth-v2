@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "bg.eauth.admin"
+    },
+    "jhipsterVersion": "6.1.2",
+    "applicationType": "monolith",
+    "baseName": "EauthAdmin",
+    "packageName": "bg.eauth.admin",
+    "packageFolder": "bg/eauth/admin",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZWM3MzUwNTMyZjMzMTU0NTJiOWFlM2U5MDY0MjAzMmJhOGNhNWYyZDM5ZTgwMjFiMmViNTRlNjg2Yjg4ZDI4YjQ3N2U4ZjEzMzZjODVjNjk5YzNlYTRiNjNkZjI3MDJkYTk4YjUyZWU4OWJlZjM3NTU4ZGE4ZmY2ZjRhYTc4Nzk=",
+    "useSass": true,
+    "clientPackageManager": "yarn",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": ["protractor"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false
+  }
+}

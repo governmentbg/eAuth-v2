@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GIT/RNP" xmlns="http://egov.bg/RegiX/GIT/RNP/PenalProvisionUnpaidFeeRequest" targetNamespace="http://egov.bg/RegiX/GIT/RNP/PenalProvisionUnpaidFeeRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GIT/RNP" schemaLocation="RNPCommon.xsd"/>
+  <xs:complexType name="PenalProvisionUnpaidFeeType" >
+    <xs:annotation>
+      <xs:documentation>Входни параметри на справка към Регистъра на наказателните постановления</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="IntruderIdentifier" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>ЕИК или Булстатна нарушител </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateFrom" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Начална дата на период за търсене на НП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateTo" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Крайна дата на период за търсене на НП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+	<xs:element name="PenalProvisionUnpaidFeeRequest" type="PenalProvisionUnpaidFeeType">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за наказателни постановления на основание неплатени трудови възнаграждения за период - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

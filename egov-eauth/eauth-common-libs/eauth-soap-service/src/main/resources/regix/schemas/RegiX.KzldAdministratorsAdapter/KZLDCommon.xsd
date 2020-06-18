@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/KZLD/Common" targetNamespace="http://egov.bg/RegiX/KZLD/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PersonalDataControllerRegister">
+		<xs:annotation>
+			<xs:documentation>Регистър, поддържан от администратор на лични данни</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="IndividualsCount" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой на физическите лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegisterName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на поддържания регистър</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на последна промяна в регистъра</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IndividualsCountText" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonalDataControllerData">
+		<xs:annotation>
+			<xs:documentation>Данни за администратора на лични данни, вписан в Регистъра на вписаните администратори на лични данни</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Identifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор - ЕИК/БУЛСТАТ/ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на администратора на лични данни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LegalForm" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Правна форма на администратора на лични данни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Location" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област/ Населено място на администратора на лични данни</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string" minOccurs="0"/>
+			<xs:element name="LocationCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

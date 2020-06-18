@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REGPapz/ProtectedAreaCategoryRequest" targetNamespace="http://egov.bg/RegiX/IAOS/REGPapz/ProtectedAreaCategoryRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="REG_PAPZ_Protected_Area_Category_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка по категория на защитена територия/зона в Регистър на защитените територии и зони в България.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AreaType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Тип на територията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CategoryName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Категория на защитената територия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="REG_PAPZ_Protected_Area_Category_Request" type="REG_PAPZ_Protected_Area_Category_Request"/>
+</xs:schema>

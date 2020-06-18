@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/ProtectedAreaCategoryResponce" targetNamespace="http://egov.bg/RegiX/IAOS/ProtectedAreaCategoryResponce" elementFormDefault="qualified">
+	<xs:element name="REG_PAPZ_Protected_Area_Category_Responce" type="REG_PAPZ_Protected_Area_Category_Responce"/>
+	<xs:complexType name="REG_PAPZ_Protected_Area_Category_Responce">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка по категория на защитена територия/зона в Регистър на защитените територии и зони в България.
+Справката връща данни за защитените територии/зони, попадащи в категорията.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+      <xs:element name="ProtectedAreas" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="999">
+            <xs:element name="ProtectedArea" type="ProtectedAreaType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  
+	<xs:complexType name="ProtectedAreaType">
+		<xs:sequence>
+			<xs:element name="AreaCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Код на защитената територия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AreaName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Наименование на защитената територия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DistName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PopName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegimeDescription" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Описание на режима</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegimeNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Номер на режим</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

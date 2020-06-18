@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PropertyActDetailList">
+		<xs:annotation>
+			<xs:documentation>Списък данни за вписвания, отбелязвания, заличавания за имот</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PropertyActDetail" type="PropertyActDetail" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Act">
+		<xs:annotation>
+			<xs:documentation>Вписване, отбелязване, заличаване (за физическо или юридическо лице)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IncomingRegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер от входящ рег</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IncomingRegistrationDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата от входящ рег</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DoubleRegisterNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер от дв. вх. рег</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BookTypeName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Книга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActTypeName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип акт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Volume" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Акт том</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Page" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Акт номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActYear" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Година</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Condition" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Условие</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConnectedActs" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Свързани актове</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LeftSide" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Страни - ляво</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RightSide" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Страни - дясно</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonalLotEntry">
+		<xs:annotation>
+			<xs:documentation>Данни по персонална партида</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Act" type="Act" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Впсиване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyData" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имот</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CadastreIdentificator" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кадастрален идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonalLotEntryList">
+		<xs:annotation>
+			<xs:documentation>Списък от данни по персонална партида</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonalLotEntry" type="PersonalLotEntry" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Запис персонална партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonLotData">
+		<xs:annotation>
+			<xs:documentation>Данни за внисани обстоятелсва за физическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RegistryAgency" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Служба по вписвания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonBasicData" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имена и ЕГН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalLotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Персонална партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalLotEntryList" type="PersonalLotEntryList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вписвания за конкретна партида на лицато</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityLotData">
+		<xs:annotation>
+			<xs:documentation>Данни за внисани обстоятелсва за юридическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RegistryAgency" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Служба по вписвания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EntityBasicData" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име и ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalLotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Персонална партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PersonalLotEntryList" type="PersonalLotEntryList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вписвания за конкретна партида на лицато</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonLotDataList">
+		<xs:annotation>
+			<xs:documentation>Списък от данни за внисани обстоятелсва за физическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonLotData" type="PersonLotData" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityLotDataList">
+		<xs:annotation>
+			<xs:documentation>Списък от данни за внисани обстоятелсва за юридическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EntityLotData" type="EntityLotData" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PropertyActDetail">
+		<xs:annotation>
+			<xs:documentation>Вписвания, отбелязвания, заличавания за имот</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Sequence" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пореден номер в справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Act" type="Act" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за акт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotPart" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Част от партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListBookNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>№ от описна книга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ListBookDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата от описна книга</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PropertyDetail">
+		<xs:annotation>
+			<xs:documentation>Данни за имот</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PropertyID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на имот</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OldLotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стара партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SiteID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на служба по вписване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CadastreNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кадастрален идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecondCadastreNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Втори кадастрален идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на имот</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DistrictName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на област</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MunicipalityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на община</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TerritorialUnitName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на населено място</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HousingEstate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Жилищен комплекс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NeighborhoodName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Квартал</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StreetNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на улица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Block" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Блок</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Entrance" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вход</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Floor" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Етаж</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Appartment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Апартамент</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PostBox" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пощенска кутия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Remark" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Описание</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PropertyDetailList">
+		<xs:annotation>
+			<xs:documentation>Списък от данни за имот</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PropertyDetail" type="PropertyDetail" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

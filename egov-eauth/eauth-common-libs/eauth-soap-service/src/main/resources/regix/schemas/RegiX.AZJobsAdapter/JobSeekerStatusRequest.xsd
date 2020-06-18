@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/AZ" xmlns="http://egov.bg/RegiX/AZ/JobSeekerStatusRequest" targetNamespace="http://egov.bg/RegiX/AZ/JobSeekerStatusRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AZ" schemaLocation="AZCommon.xsd"/>
+	<xs:complexType name="JobSeekerStatusRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка по ЕГН/ЛНЧ за статус на търсещо работа лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonalID" type="common:PersonalID">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на лице - ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="JobSeekerStatusRequest" type="JobSeekerStatusRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕГН/ЛНЧ за статус на търсещо работа лице - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

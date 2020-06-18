@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/SPC/RegNumberRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/SPC/RegNumberRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="getSPCByAppNum" type="getSPCByAppNumType">
+		<xs:annotation>
+			<xs:documentation>Справка по регистрационен номер на сертификат за допълнителна закрила</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="getSPCByAppNumType">
+		<xs:sequence>
+			<xs:element name="AppNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Номер на сертификат за допълнителна закрила</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

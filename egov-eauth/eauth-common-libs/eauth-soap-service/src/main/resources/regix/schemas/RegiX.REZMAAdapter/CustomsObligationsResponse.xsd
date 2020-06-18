@@ -1,0 +1,31 @@
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AM/REZMA/CustomsObligationsResponse" xmlns:common="http://egov.bg/RegiX/AM/REZMA" targetNamespace="http://egov.bg/RegiX/AM/REZMA/CustomsObligationsResponse"  elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AM/REZMA" schemaLocation="REZMACommon.xsd"/>
+	<xs:complexType name="CustomsObligationsResponseType">
+		<xs:annotation>
+			<xs:documentation>Митнически задължения</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UIN" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор: Булстат, ЕГН, ЕИК или ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име - на физическо или юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Obligations" type="common:ObligationsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Задължения</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CustomsObligationsResponse" type="CustomsObligationsResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за митнически задължения</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg/PropertyInfoResponse" xmlns:cm="http://egov.bg/RegiX/AV/PropertyReg" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg/PropertyInfoResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AV/PropertyReg" schemaLocation="PropertyRegCommon.xsd"/>
+	<xs:complexType name="PropertyInfoResponseType">
+		<xs:annotation>
+			<xs:documentation>Данни за справка по партида на имот</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>От дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>До дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyData" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за имот</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateOpened" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начална дата на партида</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CadastreNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кадастрален идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PropertyActDetailList" type="cm:PropertyActDetailList" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Впсивания, отбелясвания, заличавания</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PropertyInfoResponse" type="PropertyInfoResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка по партида на имот</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

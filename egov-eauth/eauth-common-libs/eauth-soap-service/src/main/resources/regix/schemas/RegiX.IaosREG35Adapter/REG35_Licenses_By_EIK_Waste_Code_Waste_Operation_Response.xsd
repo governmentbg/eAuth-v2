@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35/LicensesByEIKWasteCodeWasteOperationResponse" xmlns:common="http://egov.bg/RegiX/IAOS/REG35/Common" targetNamespace="http://egov.bg/RegiX/IAOS/REG35/LicensesByEIKWasteCodeWasteOperationResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/REG35/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="REG35_Licenses_By_EIK_Waste_Code_Waste_Operation_Response" type="REG35_Licenses_By_EIK_Waste_Code_Waste_Operation_Response"/>
+	<xs:complexType name="REG35_Licenses_By_EIK_Waste_Code_Waste_Operation_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка по код на отпадък и операция с отпадък на площадки за дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА в Регистър на площадки за дейности с ОЧЦМ, ИУЕЕО, ИУМПС и НУБА.
+Справката връща информация за разрешенията и площадките към тях за съответната организация, съдържащи комбинацията от код на отпадък и операция.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationWasteCodeWasteOperation" minOccurs="0" maxOccurs="999"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationWasteCodeWasteOperation">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthType" type="common:AuthorizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип на регистрацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="State" type="common:AuthState35" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на разрешение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="Stage" type="StageWasteNum" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Площадка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StageWasteNum">
+		<xs:annotation>
+			<xs:documentation>Stage</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StageAddress" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес на площадка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StageNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на площадка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="Waste" type="common:StageWaste" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Отпадък</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

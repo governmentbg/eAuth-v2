@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/MZH" xmlns="http://egov.bg/RegiX/MZH/PastureMeadowLandResponse" targetNamespace="http://egov.bg/RegiX/MZH/PastureMeadowLandResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PastureMeadowLandData">
+		<xs:annotation>
+			<xs:documentation>Данни за пасище, мера или ливада на ползвател</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="District" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област на пасище, мера или ливада</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Municipality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Territory" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Землище </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Acreage" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Площ в дка</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReportDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на снемане на данните от регистъра</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PastureMeadowLandResponse">
+		<xs:annotation>
+			<xs:documentation>Справка за ползване на пасища, мери и ливади - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BeneficiaryIdentifier" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Идентификатор на ползвател - ЕГН/ЛНЧ/ЕИК/БУЛСТАТ</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="BeneficiaryName" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Наименование на ползвател</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="BeneficiaryType" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Вид ползвател</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PastureLands" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Пасища, мери или ливади на ползвател</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="PastureLand" type="PastureMeadowLandData" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Пасищe, мерa или ливадa на ползвател</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,67 @@
+openapi: 3.0.1
+info:
+  title: Profile API
+  description: API description in Markdown.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api'
+    description: Profile REST API endpoint
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+
+paths:
+  /user:
+    put:
+      summary: create user
+      operationId: createProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './user.json#/definitions/User'
+        required: true
+      responses:
+         '201':
+          description: Created
+         '200':
+          description: OK
+    get:
+      summary: Returns user by egn
+      operationId: getProfile
+      responses:
+        '200':    # status code
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: './user.json#/definitions/FullProfile'
+
+  # ---------------------------------------------------------------------
+  # EKATTE
+  # ---------------------------------------------------------------------
+  /ekatte/place:
+    post:
+      summary: Get EKATTEs by place name
+      operationId: getByPlace
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './address.json#/definitions/EkatteReq'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: './address.json#/definitions/Ekatte'
+        404:
+          description: Not Found
+                

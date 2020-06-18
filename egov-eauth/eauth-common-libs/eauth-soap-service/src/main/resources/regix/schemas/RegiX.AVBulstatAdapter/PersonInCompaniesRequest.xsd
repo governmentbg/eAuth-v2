@@ -1,0 +1,16 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/BULSTAT/PersonInCompaniesRequest" targetNamespace="http://egov.bg/RegiX/AV/BULSTAT/PersonInCompaniesRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PersonInCompaniesRequestType">
+		<xs:sequence>
+			<xs:element name="EGN" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕГН / ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PersonInCompaniesRequest" type="PersonInCompaniesRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за вписани в Регистър БУЛСТАТ обстоятелства</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

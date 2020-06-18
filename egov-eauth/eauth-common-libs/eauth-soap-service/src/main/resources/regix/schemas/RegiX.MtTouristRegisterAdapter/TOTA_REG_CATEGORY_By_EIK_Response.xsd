@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MT/ObjectCategoryByEIKResponse" xmlns:common="http://egov.bg/RegiX/MT/Common" targetNamespace="http://egov.bg/RegiX/MT/ObjectCategoryByEIKResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/MT/Common" schemaLocation="CommonTypes.xsd"/>
+	<xs:element name="ObjectCategoryByEIKResponse" type="TouristObjectArray">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за категоризация на обекти_Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TouristObjectArray">
+		<xs:sequence>
+			<xs:element name="Objects" type="TouristObject" nillable="true" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Обекти</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TouristObject">
+		<xs:sequence>
+			<xs:element name="SiteName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на обекта</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Adress" type="common:ContactType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SiteKind" type="TouristObjectKindEnum" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид – места за настаняване или заведения за хранене и развлечение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SiteType " type="xs:string" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Тип – апартаменти за гости, бунгала, вили и т.н.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SiteSubType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Подтип</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Category" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дадена категория – 1*, 2*, 3*, 4*, 5*;</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Capacity" type="common:CapacityType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Определен капацитет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RoomsNumber " type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Определен брой стаи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BedsNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Определен брой легла</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkTime" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Времетраене на работата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Subobjects" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Subobject" type="common:TouristSubobjectType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Certificate" type="common:CertificateType" nillable="true" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Удостоверение за категория</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EIK" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="TouristObjectKindEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Accommodation"/>
+			<xs:enumeration value="Entertainment"/>
+      <xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

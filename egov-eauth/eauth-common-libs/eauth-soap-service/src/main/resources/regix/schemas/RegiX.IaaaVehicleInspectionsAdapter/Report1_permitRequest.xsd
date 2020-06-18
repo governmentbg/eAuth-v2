@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitsRequest" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitsRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>Справка за статус на регистрацията по ЕИК </xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitRequestType" >
+		<xs:sequence>
+			<xs:element name="IdentNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК/БУЛСТАТ на търсеното фирма с пунк за технически прегледи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PermitRequest" type="PermitRequestType">
+	</xs:element>
+</xs:schema>

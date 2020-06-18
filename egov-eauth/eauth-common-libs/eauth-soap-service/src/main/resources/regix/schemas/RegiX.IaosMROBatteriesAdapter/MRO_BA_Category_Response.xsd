@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROBatteries/CategoryResponse" targetNamespace="http://egov.bg/RegiX/IAOS/MROBatteries/CategoryResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="MRO_BA_Category_Response" type="MRO_BA_Category_Response"/>
+	<xs:complexType name="MRO_BA_Category_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка за вид батерии и акумулатори по ЕИК в Регистър на лицата, които пускат на пазара батерии и акумулатори, включително вградени в уреди и моторни превозни средства.
+Справката връща информация за вида на батерии и акумулатори на организацията, вписана в регистъра. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationCategory" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationCategory">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BACategories" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид батерии и акумулатори</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="10">
+						<xs:element name="BACategory" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Вид батерии и акумулатори</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

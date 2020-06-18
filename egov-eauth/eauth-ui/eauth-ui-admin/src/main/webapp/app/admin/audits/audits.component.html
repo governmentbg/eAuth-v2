@@ -1,0 +1,70 @@
+<div *ngIf="audits">
+    <h2 id="audits-page-heading">Одит</h2>
+
+    <div class="row">
+        <div class="col-md-10">
+            <h4>Филтрирай по дата</h4>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">От</span>
+                </div>
+                <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" (ngModelChange)="transition()" required/>
+
+                <div class="input-group-append" style="margin-left: 10px">
+                    <span class="input-group-text">До</span>
+                </div>
+                <input type="date" class="form-control" name="end" [(ngModel)]="toDate" (ngModelChange)="transition()" required/>
+                <div class="input-group-append" style="margin-left: 10px">
+                    <span class="input-group-text">Модул</span>
+                </div>
+                <select class="form-control" name="origin" [(ngModel)]="auditOrigin" (ngModelChange)="transition()">
+                    <option *ngFor="let type of originTypes" [value]="type">{{type}}</option>
+                </select>
+                <!-- <input type="text" class="form-control" name="eventType" [(ngModel)]="auditOrigin" (ngModelChange)="transition()" required/> -->
+                <div class="input-group-append" style="margin-left: 10px">
+                    <span class="input-group-text">Статус</span>
+                </div>
+                <select class="form-control" name="eventType" [(ngModel)]="auditEventType" (ngModelChange)="transition()">
+                    <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" *ngIf="audits?.length === 0">
+        <span>Няма намерен одит</span>
+    </div>
+    <div class="table-responsive" *ngIf="audits?.length > 0">
+        <table class="table table-sm table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="auditEventDate"><span>Дата</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="principal"><span>Потребител</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="auditEventType"><span>Статус</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="auditOrigin"><span>Audit Origin</span><fa-icon [icon]="'sort'"></fa-icon></th>
+                <th><span>Допълнителни данни</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let audit of audits">
+                <td><span>{{audit.auditEventDate| date:'medium'}}</span></td>
+                <td><small>{{audit.principal}}</small></td>
+                <td>{{audit.auditEventType}}</td>
+                <td>{{audit.auditOrigin}}</td>
+                <td>
+                    <span *ngIf="audit.data" ng-show="audit.data.message">{{audit.data.message}}</span>
+                    <span *ngIf="audit.data" ng-show="audit.data.remoteAddress"><span>Remote Address</span> {{audit.data.remoteAddress}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="audits?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

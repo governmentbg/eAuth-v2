@@ -1,0 +1,727 @@
+openapi: 3.0.0
+info:
+  title: TFA UI Rest API
+  description: API description for Frontend UI.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Profile REST API endpoint
+    variables:
+      protocol:
+        description: ''
+        default: http
+        enum:
+          - http
+          - https
+paths:
+  /tfa/send:
+    get:
+      operationId: sendCode
+      summary: Send code for authentication to default authentication method 
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: query
+          name: id
+          description: Not requred parameter just in case
+          schema:
+            type: string
+      responses: 
+        '201':
+          description: OK 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPresponse'
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '403':
+          $ref: '#/components/responses/403_Refusesed'
+        '409':
+          $ref: '#/components/responses/409_Conflict'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+
+
+  /tfa/resend:
+    put:
+      summary: Send new code for authentication 
+      operationId: resendCode
+      security:
+        - sessionAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodeRequest'
+        required: true
+      responses: 
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPresponse'
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '403':
+          $ref: '#/components/responses/403_Refusesed'
+        '409':
+          $ref: '#/components/responses/409_Conflict'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+          
+  /tfa/register-user:
+    put:
+      summary: Initialize user profile for selected authentication Method
+      operationId: registerUser
+      security:
+        - sessionAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      responses: 
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretMetadata'
+        '501':
+            description: Not Yet Implemented
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '403':
+          $ref: '#/components/responses/403_Refusesed'
+        '409':
+          $ref: '#/components/responses/409_Conflict'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+          
+  /tfa/validate:
+    post:
+      summary: Verify user OTP code.
+      operationId: validateCode
+      security:
+        - sessionAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodeData'
+        required: true
+      responses:
+        '200':    # status code
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    description: 'Message true/false.'
+                  message:
+                    type: string
+                    description: Validation message.
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '403':
+          $ref: '#/components/responses/403_Refusesed'
+        '409':
+          $ref: '#/components/responses/409_Conflict'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+
+  /tfa/otpmethod:
+    get:
+      summary: List OTP method available
+      operationId: listOTPMethods
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+           description: OK
+           content:
+             application/json:
+               schema:
+                 type: array
+                 items:
+                   $ref: '#/components/schemas/OTPMethod'
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+
+  /idp/start:
+    get:
+      summary: Get authentication session details.
+      operationId: getSessionDetails
+      deprecated: true
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    description: Deflated and encripted session data
+
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '404':
+          $ref: '#/components/responses/404_NotFound'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+  
+  /idp/provider:
+    get:
+      summary: List Identity Providers.
+      operationId: listProviders
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentityProvider'
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+  
+  /idp/provider/{id}:
+    get:
+      summary: Select specific Identity Provider by ID.
+      operationId: selectProvider
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the provider to get details for
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProvider'
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+          
+  /idp/login:
+    post:
+      summary: Login user in selected Identity Provider.
+      operationId: login
+      security:
+        - sessionAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/401_Unauthorized'
+        '403':
+          $ref: '#/components/responses/403_Refusesed'
+        '409':
+          $ref: '#/components/responses/409_Conflict'
+        '410':
+          $ref: '#/components/responses/410_Gone'
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+          
+  /idp/process:
+    post:
+      summary: Process user identity
+      operationId: processIdentity
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                identity:
+                  type: string
+                  description: Deflated and encripted user identity data
+              required:
+                - identity
+      responses:
+        '200':
+          description: HTTP POST successful
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+
+  /eauth/login:
+    post:
+      summary: User login
+      operationId: authenticateUser
+      deprecated: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Identity'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+                
+  /eauth/saml:
+    post:
+      summary: Process SP SAML Request
+      operationId: processSamlRequest
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                SAMLRequest:
+                  type: string
+                RelayState:
+                  type: string
+              required:
+                - SAMLRequest
+                - RelayState
+      responses:
+        '200':
+          description: HTTP POST binding successfully accepted 
+        '302':
+          description: HTTP redirect to ...
+        '500':
+          $ref: '#/components/responses/500_ServerError'  
+        '502':
+          $ref: '#/components/responses/502_IntegrationError'  
+        '503':
+          $ref: '#/components/responses/503_ServiceUnavailable'  
+
+  /eauth/saml/metadata:
+    get:
+      summary: Get metadata SAML IdP
+      operationId: getSAMLMetadata
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                type: object
+
+
+components:
+  securitySchemes:
+    bearerAuth:            # security scheme name
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # Value for documentation purposes
+    sessionAuth:         # no user security scheme 
+      type: apiKey
+      in: cookie
+      name: JSESSIONID  # cookie name
+
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          default: Bearer
+        token:
+          type: string
+      required:
+      - token
+      - type  
+    OTPresponse:
+      type: object
+      properties:
+        tid:
+          description: Transaction Id for this code generation
+          type: string
+          minLength: 8
+          maxLength: 32
+        timestamp:
+          type: integer
+          format: int64
+        method:
+          $ref: '#/components/schemas/OTPMethod'
+        message:
+          type: string
+        qrCode:
+          $ref: '#/components/schemas/SecretMetadata'
+      required:
+      - tid
+      - method
+    Identity:
+      type: object
+      deprecated: true
+      properties:
+        id:
+          type: integer
+          format: int64
+        names:
+          type: string
+        egn:
+          type: string
+          nullable: false
+      required: 
+      - egn
+    CodeData:
+      type: object
+      properties:
+        tId:
+          description: Transaction ID of the code been validated
+          type: string
+          minLength: 8
+          maxLength: 32
+        code:
+          type: string
+        method:
+          $ref: '#/components/schemas/OTPMethod'
+      required: 
+      - tId
+      - code
+      - method
+    SecretMetadata:
+      type: object
+      properties:
+        secretKey:
+          type: string
+        qrImage:          # <-- image embedded into JSON
+          type: string
+          format: byte
+          description: Base64-encoded contents of the QR code image
+      xml:
+        name: Secret
+    CodeRequest:
+      type: object
+      properties:
+        ctId:
+          description: Current transaction ID to be replaced
+          type: string
+          minLength: 8
+          maxLength: 32
+        newCodeType:  
+          $ref: '#/components/schemas/OTPMethod'
+    OTPMethod:
+      type: string
+      enum:
+      - EMAIL
+      - TOTP
+      - SMS
+    RegisterRequest:
+      type: object
+      properties:
+        method:  
+          $ref: '#/components/schemas/OTPMethod'
+      required:
+        - method
+    
+    IdentityProvider:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          $ref: '#/components/schemas/Label'
+        tfaRequired:
+          type: boolean
+          default: false
+          description: Flag for mandatory 2FA authentication.
+        loa:
+          $ref: '#/components/schemas/LevelOfAssurance'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthenticationAttribute'
+    LevelOfAssurance:
+      type: string
+      description: Available standart EU assurance level
+      enum:
+        - LOW
+        - SUBSTANTIAL
+        - HIGH  
+    AttributeType:
+      type: string
+      description: Attributte Types and default mask
+      enum:
+        - SECRET
+        - EMAIL
+        - DIGITS
+        - EGN
+        - PHONE
+        - LENGTH20
+        - DEFAULT  
+
+    AuthenticationAttribute:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          $ref: '#/components/schemas/Label'
+        mandatory:
+          type: boolean
+          default: false
+          description: 'Is this particular attribute requred or not'
+        type:
+          $ref: '#/components/schemas/AttributeType'
+    AuthenticationMap:
+      type: object
+      additionalProperties:
+        type: string
+        xml:
+          name: atribute
+          wrapped: true
+    Label:
+      type: object
+      properties:
+        bg:
+          type: string
+        en:
+          type: string
+      required:
+        - bg
+        - en
+      additionalProperties:
+        type: string
+        minLength: 3
+        maxLength: 255
+        xml:
+          name: label
+          wrapped: true
+      example:
+        bg: Някакъв етикет!
+        en: Some Label!
+    LoginRequest:
+      type: object
+      properties:
+        providerId:
+          type: string
+        authMap:
+          $ref: '#/components/schemas/AuthenticationMap'
+      required:
+        - providerId
+        - authMap
+       
+    LoginResponse:
+      type: object
+      description: 'Principal of succesfuly authenticated user'
+      properties:
+        inResponseTid:
+          type: string
+        relayState:
+          type: string
+        loa:
+          $ref: "#/components/schemas/LevelOfAssurance"
+        providerId:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: "#/components/schemas/IdentityAttributes"
+          uniqueItems: true
+          
+
+    Aliases:
+      type: array
+      items:
+        type: string
+      xml:
+        name: alias
+        wrapped: true
+    IdentityAttributes:
+      type: object
+      properties:
+        oid:
+          type: string
+        urn:
+          type: string
+        value:
+          type: string
+
+    CommonAuthException:
+      type: object
+      properties:
+        code:
+          type: string
+        errorMessage:
+          type: string    
+      xml:
+        name: authException
+        wrapped: true
+      required:
+        - code
+        - errorMessage                  
+  parameters:
+    AuthorizationHeader:      # Can be referenced via '#/components/parameters/AuthorizationHeader'
+      name: Authorization
+      in: header
+      description: Request Authorization header value.
+      required: true
+      schema:
+        type: string
+  responses:
+    409_Conflict:
+      description: The user might be able to resolve the conflict and resubmit the request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    410_Gone:
+      description: Resource is no longer available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+
+    401_Unauthorized:
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    403_Refusesed:       # Can be referenced as '#/components/responses/403Refusesed'
+      description: Server refuses to authorize this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    404_NotFound:       # Can be referenced as '#/components/responses/404NotFound'
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    500_ServerError:
+      description: The server encountered an unexpected exception.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    501_NotImplemented:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    502_IntegrationError:
+      description: Received an invalid response from an inbound server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+    503_ServiceUnavailable:
+      description: The The server is currently unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/CommonAuthException'
+ 

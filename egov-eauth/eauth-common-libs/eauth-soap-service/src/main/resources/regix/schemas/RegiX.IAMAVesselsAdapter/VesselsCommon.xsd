@@ -1,0 +1,274 @@
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAMA" targetNamespace="http://egov.bg/RegiX/IAMA" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RegistrationDataType">
+		<xs:annotation>
+			<xs:documentation>Данни за регистрацията на кораба</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ShipName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на кирилица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShipNameLatin" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име на латиница</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationPort" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пристанище на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Tom" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Том</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Page" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Страница</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на кораба</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Status" type="StatusEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус (приема една от стойностите “действащ”, “отписан”, “заличен”)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OwnersDataType">
+		<xs:annotation>
+			<xs:documentation>Данни за собствениците на кораба</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Owner" type="OwnerType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Собственици на кораба – извеждат се имена на физически лица или наименования на юридически лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EnginesType">
+		<xs:annotation>
+			<xs:documentation>Двигатели</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Engine" type="EngineType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EngineType">
+		<xs:annotation>
+			<xs:documentation>Характеристики на двигател</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SystemModification" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Система Модификация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EngineNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на двигател</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Power" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ефективна мощност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на двигателя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MainPropertiesType">
+		<xs:annotation>
+			<xs:documentation>Основни характеристики на кораба</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BT" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брутотон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NT" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Нетотон</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaxLength" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дължина, максимална</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LengthBetweenPerpendiculars" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дължина между перпекдикулярите</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MaxWidth" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ширина, максимална</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Waterplane" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Газене</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ShipboardHeight" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Височина на борда</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Deadweight" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дедуейт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NumberOfEngines" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Брой на главните двигатели</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnginesFuel" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Гориво</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SumEnginePower" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Обща номинална мощност – представлява сума от полето „ефективна мощност“ за всички двигатели</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Engines" type="EnginesType" minOccurs="0"/>
+			<xs:element name="BodyNumber" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OwnerType">
+		<xs:annotation>
+			<xs:documentation>Собственик на кораб</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IsCompany" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>true/false дали е фирма или физическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Company" type="CompanyDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фирма</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Person" type="PersonDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Физическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ImoNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>IMO номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsUser" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>true/false показва дали е ползвател или собственик</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonNames">
+		<xs:annotation>
+			<xs:documentation>Имена</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Собствено име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SurName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Презиме</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamilyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonDataType">
+		<xs:sequence>
+			<xs:element name="Names" type="PersonNames" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имена</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EGN" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompanyDataType">
+		<xs:sequence>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EIK" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="StatusEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Inactive"/>
+			<xs:enumeration value="Erased"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="VesselInfoType">
+		<xs:sequence>
+			<xs:element name="RegistrationData" type="RegistrationDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за регистрацията на кораба</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Owners" type="OwnersDataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за собствениците на кораба</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MainFeatures" type="MainPropertiesType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Основни характеристики на кораба</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,21 @@
+build:
+
+ stage: build
+
+ image: nodejs8
+
+ before_script:
+
+  - npm ci
+
+ script:
+
+  - ng build --prod
+
+ artifacts:
+
+  expire_in: 1 day
+
+  paths:
+
+   - dist/

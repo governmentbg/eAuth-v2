@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NACID/PDVO/AcademicRecognitionRequest" targetNamespace="http://egov.bg/RegiX/NACID/PDVO/AcademicRecognitionRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="AcademicRecognitionRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри за справка за академично признаване на придобито висше образование в чужбина</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="InternalAppNum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Деловоден номер на заявление на НАЦИД</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="InternalAppDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Деловоден номер на заявление на НАЦИД</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+	</xs:complexType>
+	<xs:element name="AcademicRecognitionRequest" type="AcademicRecognitionRequestType">
+		<xs:annotation>
+			<xs:documentation>Заявка за справка за академично признаване на придобито висше образование в чужбина</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

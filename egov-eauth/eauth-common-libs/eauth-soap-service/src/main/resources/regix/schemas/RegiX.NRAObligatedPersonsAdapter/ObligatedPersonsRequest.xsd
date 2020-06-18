@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NRA/Obligations/Request" targetNamespace="http://egov.bg/RegiX/NRA/Obligations/Request" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:simpleType name="ThresholdTypeRequest">
+    <xs:restriction base="xs:unsignedShort">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="IdentityTypeRequest">
+    <xs:sequence>
+      <xs:element name="ID" type="IDTypeRequest">
+        <xs:annotation>
+          <xs:documentation>Идентификатор(с дължина от 6 до 16 символа)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TYPE" type="EikTypeTypeRequest">
+        <xs:annotation>
+          <xs:documentation>Вид на идентификатора</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="IDTypeRequest">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="6"/>
+      <xs:maxLength value="16"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="StatusTypeRequest">
+    <xs:sequence>
+      <xs:element name="Code" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            0 - OK
+            2 - invalid EIK
+            99 - other
+
+            XML Validation error are returned as plain text with status 400 BadRequest
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="EikTypeTypeRequest">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bulstat"/>
+      <xs:enumeration value="EGN"/>
+      <xs:enumeration value="LNC"/>
+      <xs:enumeration value="SystemNo"/>
+      <xs:enumeration value="BulstatCL"/>
+      <!-- Foreign person with a Bulstat number -->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ObligationRequest">
+    <xs:sequence>
+      <xs:element name="Identity" type="IdentityTypeRequest">
+        <xs:annotation>
+          <xs:documentation>Идентификатор</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Threshold" type="ThresholdTypeRequest" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Праг (справката връща задължения, ако са по-големи от полето праг)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ObligationRequest" type="ObligationRequest">
+    <xs:annotation>
+      <xs:documentation>Заявка за справка от регистъра на Задължените лица</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

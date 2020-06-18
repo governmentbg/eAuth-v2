@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/VehicleInspections" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/VehicleInspections" schemaLocation="RIR2Common.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка за статус на регистрацията по ЕИК </xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitWithInspectorsDto">
+		<xs:complexContent>
+			<xs:extension base="common:PermitDto">
+				<xs:sequence>
+					<xs:element name="Inspectors" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Специалисти работещи в пукта за технически прегледи</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="Inspector" type="common:PermitInspectorDto" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PermitResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Permits" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Списък от разрешения и техните специалисти по дадено ЕИК/БУЛСТАТ</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Permit" type="PermitWithInspectorsDto" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

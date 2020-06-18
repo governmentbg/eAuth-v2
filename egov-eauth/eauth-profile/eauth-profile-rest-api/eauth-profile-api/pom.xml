@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>bg.bulsi</groupId>
+		<artifactId>eauth-profile-rest-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<packaging>jar</packaging>
+
+	<artifactId>eauth-profile-rest-api-controlers</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>bg.bulsi</groupId>
+			<artifactId>eauth-profile-rest-api-dto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+   	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/../eauth-profile-spec/eauth-profile-api.yaml</inputSpec>
+							<language>spring</language>
+							<withXml>true</withXml>
+							<templateDirectory>${project.basedir}/../../../templates</templateDirectory>
+
+							<output>${project.build.directory}/generated-sources</output>
+							<apiPackage>${default.package}.api</apiPackage>
+							<modelPackage>${default.package}.api.dto</modelPackage>
+							<!--<invokerPackage>${default.package}.api.handler</invokerPackage> -->
+
+							<ignoreFileOverride>${project.basedir}/../eauth-profile-spec/.swagger-codegen-ignore</ignoreFileOverride>
+
+							<generateSupportingFiles>true</generateSupportingFiles>
+							<generateApis>true</generateApis>
+							<generateApiDocumentation>true</generateApiDocumentation>
+							<generateModels>false</generateModels>
+							<generateModelDocumentation>true</generateModelDocumentation>
+
+							<configOptions>
+								<title>eAUth Profile Rest Service</title>
+								<!--<interfaceOnly>true</interfaceOnly> -->
+								<swaggerDocketConfig>true</swaggerDocketConfig>
+
+								<basePackage>${default.package}</basePackage>
+								<configPackage>${default.package}.config</configPackage>
+
+								<dateLibrary>java8</dateLibrary>
+								<java8>true</java8>
+
+								<library>spring-boot</library>
+								<useOptional>true</useOptional>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+
+								<delegateMethod>true</delegateMethod>
+								<delegatePattern>true</delegatePattern>
+
+								<useBeanValidation>true</useBeanValidation>
+								<serializableModel>true</serializableModel>
+								<throwsException>true</throwsException>
+							</configOptions>
+
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

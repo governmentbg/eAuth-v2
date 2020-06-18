@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/AZ" xmlns="http://egov.bg/RegiX/AZ/JobSeekerHistoryRegistrationsResponse" targetNamespace="http://egov.bg/RegiX/AZ/JobSeekerHistoryRegistrationsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AZ" schemaLocation="AZCommon.xsd"/>
+	<xs:complexType name="RegistrationHistoryData">
+		<xs:annotation>
+			<xs:documentation>Данни за регистрация</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Activity" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Действие (регистрация, прекратяване)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationGroup" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Група на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Reason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Причина </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RegistrationDBT" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дирекция Бюро по труда</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JobSeekerHistoryData">
+		<xs:annotation>
+			<xs:documentation>Данни за история на регистрациите в АЗ на търсещо работа лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="JobSeekerPersonData" type="common:PersonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Общи данни за физическо лице, водени в Регистъра на търсещите работа лица</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HistoryOfRegistrations" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данни за история на регистрации на лице в АЗ</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="HistoryOfRegistration" type="RegistrationHistoryData" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Данни за история на регистрацията на лице в АЗ</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="JobSeekerHistoryRegistrationsResponse" type="JobSeekerHistoryData">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕГН/ЛНЧ за история на регистрацията на търсещо работа лице - резултат</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

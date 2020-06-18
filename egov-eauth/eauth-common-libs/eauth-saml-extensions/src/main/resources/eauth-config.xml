@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:egovbga="urn:bg:egov:eauth:2.0:saml:ext"
+  xmlns="http://www.opensaml.org/xmltooling-config">
+
+  <ObjectProviders>
+
+    <ObjectProvider qualifiedName="egovbga:RequestedService">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.RequestedServiceBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.RequestedServiceMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.RequestedServiceUnmarshaller"/>
+    </ObjectProvider>
+
+    <ObjectProvider qualifiedName="egovbga:Service">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.ServiceBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.ServiceMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.ServiceUnmarshaller"/>
+    </ObjectProvider>
+
+    <ObjectProvider qualifiedName="egovbga:Provider">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.ProviderBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.ProviderMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.ProviderUnmarshaller"/>
+    </ObjectProvider>
+    
+    <ObjectProvider qualifiedName="egovbga:LevelOfAssurance">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.LevelOfAssuranceBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.LevelOfAssuranceMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.LevelOfAssuranceUnmarshaller"/>
+    </ObjectProvider>
+
+  </ObjectProviders>
+
+</XMLTooling>

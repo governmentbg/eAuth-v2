@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Cadastre/CadastreSearchResponse" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://egov.bg/RegiX/Cadastre/CadastreSearchResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:complexType name="EnumType">
+		<xs:sequence>
+			<xs:element name="ID" type="xs:int" minOccurs="0"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ObjectType">
+		<xs:sequence>
+			<xs:element name="UseType" type="EnumType" minOccurs="0"/>
+			<xs:element name="PurposeType" type="EnumType" minOccurs="0"/>
+			<xs:element name="Orders" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Order" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LastChangedDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="CoordinateSystem" type="xs:string" default="" minOccurs="0"/>
+			<xs:element name="Geometry" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GeometryArea" type="xs:double" minOccurs="0"/>
+			<xs:element name="Image" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Type" type="xs:string" minOccurs="0"/>
+						<xs:element name="Blob" type="xs:base64Binary" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CadastreSearchResponseType">
+		<xs:sequence>
+			<xs:element name="Object" type="ObjectType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CadastreSearchResponse" type="CadastreSearchResponseType"/>
+</xs:schema>

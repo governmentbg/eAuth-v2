@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/TraderBroker/WasteCodesByEIKRequest" targetNamespace="http://egov.bg/RegiX/IAOS/TraderBroker/WasteCodesByEIKRequest" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:common="http://egov.bg/RegiX/IAOS/TraderBroker/Common" >
+  <xs:import namespace="http://egov.bg/RegiX/IAOS/TraderBroker/Common" schemaLocation="common_types.xsd"/>
+	<xs:complexType name="TRADER_BROKER_Waste_Codes_By_EIK_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка за кодове на отпадъци в Регистър на лицата, извършващи дейности като търговец и/или като брокер на отпадъци.
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EIK" type="common:Bulstat">
+				<xs:annotation>
+					<xs:documentation>ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="TRADER_BROKER_Waste_Codes_By_EIK_Request" type="TRADER_BROKER_Waste_Codes_By_EIK_Request"/>
+</xs:schema>

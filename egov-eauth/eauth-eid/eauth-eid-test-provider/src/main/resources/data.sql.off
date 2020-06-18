@@ -1,0 +1,1 @@
+INSERT INTO identity_provider.identity (id, active, create_date, edit_date, email, names, nid, password, username, phone) VALUES (1, true, now(), null, 'admin@bul-si.bg', 'Админ Админ', '1010101010', '$2a$10$KzZ7T6NnymJ8CzSRW.QsLe852FZ5TsghxX/T6XC7GqpT/XnWTouL2', 'admin', '+359888888888') ON CONFLICT (id) DO NOTHING;

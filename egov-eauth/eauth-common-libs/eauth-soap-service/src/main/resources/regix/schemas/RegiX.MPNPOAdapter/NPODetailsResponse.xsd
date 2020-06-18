@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/NPODetailsResponse" targetNamespace="http://egov.bg/RegiX/MP/NPODetailsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="NPODetailsResponse" type="NPODetailsResponseType">
+		<xs:annotation>
+			<xs:documentation>Справка за вписаните в регистъра обстоятелства за юридическо лице с нестопанска цел</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="NPODetailsResponseType">
+		<xs:sequence>
+			<xs:element name="RegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на юридическо лице</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrgForm" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Организационна форма</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Address" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Седалище – адрес</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactInfo" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Информация за контакт</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CourtName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Съд по регистрация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LotNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Партиден номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CourtCase" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Съдебно дело</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NationalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код на националност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Nationality" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Националност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BoardType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Управителен орган</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BoardMembers" type="BoardMembersType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Членове на управителен орган</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BoardMembersType">
+		<xs:sequence>
+			<xs:element name="BoardMember" type="BoardMemberType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Член на управителния съвет</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BoardMemberType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Имена</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начална дата на мандат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Крайна дата на мандат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

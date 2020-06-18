@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/ProtectedAreaSizeResponce" targetNamespace="http://egov.bg/RegiX/IAOS/ProtectedAreaSizeResponce" elementFormDefault="qualified">
+	<xs:element name="REG_PAPZ_Protected_Area_Size_Responce" type="REG_PAPZ_Protected_Area_Size_Responce"/>
+  <xs:complexType name="REG_PAPZ_Protected_Area_Size_Responce">
+    <xs:annotation>
+      <xs:documentation>
+        Отговор на справка извличане на информация за площ на защитена територия в Регистър на защитените територии и зони в България.
+        Справката връща информация за площта на защитената територия/ зона.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ProtectedAreaSize" type="ProtectedAreaSizeType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProtectedAreaSizeType">
+    <xs:sequence>
+      <xs:element name="AreaName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Наименование на защитената територия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AreaSize" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Площ на защитената територия/зона</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DistName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Област</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PopName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TerName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Община</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

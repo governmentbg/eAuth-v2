@@ -1,0 +1,93 @@
+node {
+    //BUILD eauth PROJECT
+    stage('Build') {
+
+                echo 'Build eAuth second factor started'
+                //build 'eauth-profile'
+                //build 'eauth-parent'
+                echo 'Build eAuth second factor finished'
+
+    }
+
+      stage('Copy files') {
+
+            echo 'Copy files eauth service started'
+
+            ws('workspace/eauth-parent') {
+
+
+            sshPublisher(publishers: [sshPublisherDesc(
+            configName: 'eAuth-test',
+            transfers: [sshTransfer(cleanRemote: false,
+            excludes: '',
+            execCommand: '''
+
+                ''',
+            execTimeout: 120000,
+            flatten: true,
+            makeEmptyDirs: false,
+            noDefaultExcludes: false,
+            patternSeparator: '[, ]+',
+            remoteDirectory: '',
+            remoteDirectorySDF: false,
+            removePrefix: '', sourceFiles: 'eauth-parent/eauth-profile/eauth-profile-backend/target/eauth-profile-backend-0.0.1-SNAPSHOT.jar')],
+            usePromotionTimestamp: false,
+            useWorkspaceInPromotion: false,
+            verbose: false)])
+
+            sshPublisher(publishers: [sshPublisherDesc(
+            configName: 'eAuth-test',
+            transfers: [sshTransfer(cleanRemote: false,
+            excludes: '',
+            execCommand: '''
+
+                ''',
+            execTimeout: 120000,
+            flatten: true,
+            makeEmptyDirs: false,
+            noDefaultExcludes: false,
+            patternSeparator: '[, ]+',
+            remoteDirectory: '',
+            remoteDirectorySDF: false,
+            removePrefix: '', sourceFiles: 'jenkins/deploy-script.sh')],
+            usePromotionTimestamp: false,
+            useWorkspaceInPromotion: false,
+            verbose: false)])
+
+
+            echo 'Copy files eauth service finished'
+            }
+    }
+
+    stage('Deploy service') {
+
+           echo 'Deploy eauth jarservice started'
+
+            sshPublisher(publishers: [sshPublisherDesc(
+            configName: 'eAuth-test',
+            transfers: [sshTransfer(cleanRemote: false,
+            excludes: '',
+            execCommand: '''
+            cd /var/eauth-profile
+                echo ${bulsiadmin_pass} |  sudo -S  chmod +x /home/bulsiadmin/deploy-script.sh
+               echo ${bulsiadmin_pass} | sudo -S mv /home/bulsiadmin/deploy-script.sh /var/eauth-profile/
+                cd /var/eauth-profile
+               echo ${bulsiadmin_pass} |  sudo -S ./deploy-script.sh
+                ''',
+            execTimeout: 120000,
+            flatten: true,
+            makeEmptyDirs: false,
+            noDefaultExcludes: false,
+            patternSeparator: '[, ]+',
+            remoteDirectory: '',
+            remoteDirectorySDF: false,
+            removePrefix: '', sourceFiles: '')],
+            usePromotionTimestamp: false,
+            useWorkspaceInPromotion: false,
+            verbose: false)])
+
+            echo 'Deploy eAuth profile service finished'
+
+    }
+
+}

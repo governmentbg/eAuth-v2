@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/MOMN/RDSO" xmlns="http://egov.bg/RegiX/MOMN/RDSO/DiplomaDocumentsResponse" targetNamespace="http://egov.bg/RegiX/MOMN/RDSO/DiplomaDocumentsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/MOMN/RDSO" schemaLocation="RDSOCommonXSD.xsd"/>
+	<xs:complexType name="DiplomaDocumentsType">
+		<xs:sequence>
+            <xs:element name="GenerationTimeStamp" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="DiplomaDocument" type="common:DiplomaDocumentType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DiplomaDocumentsResponse" type="DiplomaDocumentsType"/>
+</xs:schema>

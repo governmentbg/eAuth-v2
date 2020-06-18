@@ -1,0 +1,105 @@
+<wsdl:definitions xmlns:ns1="http://egov.bg/regres/domain/v1" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://egov.bg/regres/ws/v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GetResourceInfo" targetNamespace="http://egov.bg/regres/ws/v1">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/regres/ws/v1" version="1.0">
+<xs:simpleType name="ResourceTypeEnum">
+<xs:restriction base="xs:string">
+<xs:enumeration value="ADMINISTRATION"/>
+<xs:enumeration value="INFORMATION_SYSTEM"/>
+<xs:enumeration value="SERVICE"/>
+<xs:enumeration value="SERVICE_VERSION"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:schema>
+<xs:schema xmlns:ns1="http://egov.bg/regres/ws/v1" xmlns:tns="http://egov.bg/regres/domain/v1" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://egov.bg/regres/domain/v1">
+<xs:import namespace="http://egov.bg/regres/ws/v1"/>
+<xs:element name="SearchResourceByOID">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" name="OID" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SearchResourceByOIDResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="Resource" type="tns:ResourceInfo"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ResourceInfo">
+<xs:sequence>
+<xs:element name="OID" type="xs:string"/>
+<xs:element name="ResourceType" type="ns1:ResourceTypeEnum"/>
+<xs:element name="ResourceName" type="xs:string"/>
+<xs:element minOccurs="0" name="ResourceDescription" type="xs:string"/>
+<xs:element minOccurs="0" name="Attributes">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" name="Attribute" type="tns:AttributeType"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="AttributeType">
+<xs:sequence>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="type" type="xs:string"/>
+<xs:element name="value" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Service">
+<xs:sequence>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="oid" type="xs:string"/>
+<xs:element name="authenticationMethod" type="tns:AuthenticationMethodsEnum"/>
+<xs:element name="isPersonalDataAccess" type="xs:boolean"/>
+<xs:element minOccurs="0" name="description" type="xs:string"/>
+<xs:element name="serviceType" type="xs:string"/>
+<xs:element name="protocolType" type="xs:string"/>
+<xs:element name="accessPoint" type="xs:string"/>
+<xs:element name="environmentType" type="xs:string"/>
+<xs:element minOccurs="0" name="SUNAU" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="AuthenticationMethodsEnum">
+<xs:restriction base="xs:string">
+<xs:enumeration value="QES"/>
+<xs:enumeration value="UN + PWD"/>
+<xs:enumeration value="eID"/>
+<xs:enumeration value="WS-Security + X.509"/>
+<xs:enumeration value="NO_Authentication"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="SearchResourceByOIDResponse">
+<wsdl:part element="ns1:SearchResourceByOIDResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="SearchResourceByOID">
+<wsdl:part element="ns1:SearchResourceByOID" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:portType name="ResourceRegistryInfoPort">
+<wsdl:operation name="SearchResourceByOID">
+<wsdl:input message="tns:SearchResourceByOID" name="SearchResourceByOID"> </wsdl:input>
+<wsdl:output message="tns:SearchResourceByOIDResponse" name="SearchResourceByOIDResponse"> </wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="GetResourceInfoSoapBinding" type="tns:ResourceRegistryInfoPort">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="SearchResourceByOID">
+<soap:operation soapAction="http://www.example.org/ResourceRegistryInfo/SearchResourceByOID" style="document"/>
+<wsdl:input name="SearchResourceByOID">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="SearchResourceByOIDResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="GetResourceInfo">
+<wsdl:port binding="tns:GetResourceInfoSoapBinding" name="ResourceRegistryInfoPortImplPort">
+<soap:address location="http://localhost:8080/resreg/GetResourceInfo"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

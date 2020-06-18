@@ -1,0 +1,20 @@
+<div class="login-container">
+    <form ngNoForm [action]="loginEndpoint" method="POST">
+        <div class="login-form-wrapper">
+            <app-custom-input 
+                *ngFor="let attr of identityProvider.attributes" 
+                [attribute]="attr"
+                (onInputChange)="inputChange($event)"></app-custom-input>
+                <input  
+                    [name]="'providerId'"
+                    [value]="identityProvider.id"
+                    type="hidden">
+            <div class="login-button-wrapper">
+                <button mat-raised-button color="primary"  *ngIf="!isQes">{{ 'login' | translate }}</button>
+            </div>
+        </div>
+    </form>
+    <form ngNoForm [action]="qesUrl" method="POST">
+        <button mat-raised-button color="primary" *ngIf="isQes">{{ 'login-qes' | translate }}</button>
+    </form>
+</div>

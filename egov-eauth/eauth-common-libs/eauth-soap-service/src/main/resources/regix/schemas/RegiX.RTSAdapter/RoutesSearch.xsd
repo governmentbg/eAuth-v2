@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://egov.bg/RegiX/MTITC/Rts" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/MTITC/Rts" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:complexType name="Seasonal">
+    <xs:sequence>
+      <xs:element name="IsSeasonal" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сезонно</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SeasonStartDay" type="xs:gDay" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>От ден</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SeasonStartMonth" type="xs:gMonth" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>От месец</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SeasonEndDay" type="xs:gDay" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>До ден</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SeasonEndMonth" type="xs:gMonth" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>До месец</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Schedule">
+    <xs:annotation>
+      <xs:documentation>График</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="IsDaily" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Ежедневно </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Monday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Понеделник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Tuesday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вторник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Wednesday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Сряда</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Thursday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Четвъртък</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Friday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Петък</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Saturday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Събота</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Sunday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Неделя</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BeforeHoliday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Предпразник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Holiday" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Празник</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RoutesSearch">
+    <xs:sequence>
+      <xs:element name="ForwardFirstStopMunicipality" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Община на начална спирка на курс Отиване</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BackwardFirstStopMunicipality" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Община на начална спирка на курс Връщане</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ForwardTime" type="xs:time" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Време на тръгване на курс Отиване </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BackwardTime" type="xs:time" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Време на тръгване на курс Връщане </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Seasonal" minOccurs="0" type="Seasonal">
+        <xs:annotation>
+          <xs:documentation>Сезонност</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Schedule" minOccurs="0" type="Schedule">
+        <xs:annotation>
+          <xs:documentation>График</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoutesSearch" type="RoutesSearch">
+		<xs:annotation>
+			<xs:documentation>Търсене на маршрутни разписания</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAMA/RegistrationInfoByOwnerRequest" targetNamespace="http://egov.bg/RegiX/IAMA/RegistrationInfoByOwnerRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RegistrationInfoByOwnerRequestType">
+		<xs:sequence>
+			<xs:element name="Identifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Първите 6 символа на идентификатора, като справката връща всички резултати, за които полето ЕИК, ЕГН, БУЛСТАТ, ЛНЧ съдържа тези 6 символа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegistrationInfoByOwnerRequest" type="RegistrationInfoByOwnerRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за регистрация на кораб</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

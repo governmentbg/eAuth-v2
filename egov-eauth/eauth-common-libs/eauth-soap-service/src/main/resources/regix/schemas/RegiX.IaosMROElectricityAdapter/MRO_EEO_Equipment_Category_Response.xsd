@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROElectricity/EquipmentCategoryResponse" targetNamespace="http://egov.bg/RegiX/IAOS/MROElectricity/EquipmentCategoryResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="MRO_EEO_Equipment_Category_Response" type="MRO_EEO_Equipment_Category_Response"/>
+	<xs:complexType name="MRO_EEO_Equipment_Category_Response">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка за категории електрическо и електронно оборудване по ЕИК в Регистър на лицата, които пускат на пазара електрическо и електронно оборудване (ЕЕО).
+Справката връща информация за категориите електрическо и електронно оборудване на организацията, вписана в регистъра. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="Authorization" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Authorization">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AuthNum" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompanyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на организацията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EEOCategories" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Категории електрическо оборудване</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="20">
+						<xs:element name="EEOCategory" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Категория електрическо оборудване</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

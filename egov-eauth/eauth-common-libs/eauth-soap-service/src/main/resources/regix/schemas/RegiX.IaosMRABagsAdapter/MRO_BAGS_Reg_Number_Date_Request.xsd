@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROBags/RegNumberDateRequest" targetNamespace="http://egov.bg/RegiX/IAOS/MROBags/RegNumberDateRequest" attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<xs:complexType name="MRO_BAGS_Reg_Number_Date_Request">
+    <xs:annotation>
+      <xs:documentation>
+        Заявка за изготвяне на справка по регистрационен номер в Регистъра на лицата, които пускат на пазара полимерни торбички
+        Съдържа данни за входните параментри за селекция на данните.
+      </xs:documentation>
+    </xs:annotation>
+		<xs:sequence>
+			<xs:element name="DateTime" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Дата на валидност</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EIK" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="MRO_BAGS_Reg_Number_Date_Request" type="MRO_BAGS_Reg_Number_Date_Request"/>
+</xs:schema>
+

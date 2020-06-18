@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/StageInfoByPopNameResponse" xmlns:common="http://egov.bg/RegiX/IAOS/REG35Reg/Common" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/StageInfoByPopNameResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/REG35Reg/Common" schemaLocation="common_types.xsd"/>
+	<xs:element name="REG35_Stage_Info_By_Pop_Name_Response" type="REG35_Stage_Info_By_Pop_Name_Response"/>
+	<xs:complexType name="REG35_Stage_Info_By_Pop_Name_Response">
+		<xs:annotation>
+			<xs:documentation>
+        Отговор на справка за търсене на площадки по населено място в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие.
+        Справката връща информация за площадките на територията на зададеното населено място ако такава е налична в регистъра.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Authorization" type="AuthorizationInfoPopName" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuthorizationInfoPopName">
+		<xs:annotation>
+			<xs:documentation>Authorization</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ContactPerson" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лице за контакт на площадката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Phone" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Телефон на лицето за контакт на площадката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+      <xs:element name="Stage" type="common:StageInfo" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Площадка</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  
+</xs:schema>

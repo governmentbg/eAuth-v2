@@ -1,0 +1,27 @@
+#change tomcat def port
+server.port: 8130
+
+spring:
+   application:
+      name: totp_2fa
+   profiles:
+      include: actuator
+   datasource:
+      url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+      username: bulsiadmin
+      password: bulsivirtual
+      driver-class-name: org.postgresql.Driver
+      sql-script-encoding: utf-8
+   jpa:
+      database: postgresql
+      show-sql: false
+      hibernate:
+         ddl-auto: update
+         use-new-id-generator-mappings: true
+      properties:
+         hibernate:
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
+            default_schema: public
+            show_sql: true
+
+database-property-source.schema: public

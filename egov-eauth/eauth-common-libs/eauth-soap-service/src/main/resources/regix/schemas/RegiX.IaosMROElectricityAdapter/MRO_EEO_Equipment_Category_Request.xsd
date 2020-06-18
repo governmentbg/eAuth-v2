@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/MROElectricity/EquipmentCategoryRequest" xmlns:common="http://egov.bg/RegiX/IAOS/MROElectricity/Common" targetNamespace="http://egov.bg/RegiX/IAOS/MROElectricity/EquipmentCategoryRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/IAOS/MROElectricity/Common" schemaLocation="common_types.xsd"/>
+	<xs:complexType name="MRO_EEO_Equipment_Category_Request">
+		<xs:annotation>
+			<xs:documentation>Заявка за изготвяне на справка за категории електрическо и електронно по ЕИК оборудване в Регистър на лицата, които пускат на пазара електрическо и електронно оборудване (ЕЕО).
+Съдържа данни за входните параментри за селекция на данните.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EIK" type="common:Bulstat">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+  <xs:element name="MRO_EEO_Equipment_Category_Request" type="MRO_EEO_Equipment_Category_Request"/>
+</xs:schema>

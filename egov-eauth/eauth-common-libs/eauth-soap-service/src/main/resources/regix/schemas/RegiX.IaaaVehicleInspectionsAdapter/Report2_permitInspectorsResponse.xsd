@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitInspectorsResponse" xmlns:common="http://egov.bg/RegiX/Iaaa/VehicleInspections" targetNamespace="http://egov.bg/RegiX/Iaaa/VehicleInspections/PermitInspectorsResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/Iaaa/VehicleInspections" schemaLocation="RIR2Common.xsd"/>
+	<xs:annotation>
+		<xs:documentation>Справка по лице за вписвания като председател на комисия/технически специалист в регистрирани пунктове за технически преглед.</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="PermitInspectorWithPermitDto">
+		<xs:complexContent>
+			<xs:extension base="common:PermitInspectorDto">
+				<xs:sequence>
+					<xs:element name="Permit" type="common:PermitDto" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Разрешение в което участва предсетадел/член на комисия за технически преглед</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PermitInspectorsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Inspectors" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Списък със специалистите и пунктовете в които участват</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Inspector" type="PermitInspectorWithPermitDto" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://egov.bg/RegiX/NOI/PatientCharts/PatientChartRequest"
+           targetNamespace="http://egov.bg/RegiX/NOI/PatientCharts/PatientChartRequest"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+  <xs:element name="PatientChartRequest"
+              type="PatientChartRequestType">
+    <xs:annotation>
+      <xs:documentation>Вписване на електронен болничен лист</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="PatientChartRequestType">
+    <xs:sequence>
+      <xs:element name="InputNumber"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Пореден номер на запис</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NssiRo"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>№ на ТП</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OuterID"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер на документа от описа (от Регистрация Част 1), от който е описан болничният лист</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EGN"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ЕГН </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FirstName"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Име</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SurName"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Презиме</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FamilyName"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Фамилия</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PatientsChartNumber"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>№ на болничен лист</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TypeOfBenefit"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Тип на обезщетението</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PatientsChartStatus"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Статус (например: 0,6 - одобрен; 1 - неодобрен; 5,9 - анулиран, 4 - дублиран ......)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Doubled"
+                  type="xs:boolean"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Флаг "Дублиран № на болн. лист": 0 - редовен; 1 - дублиран</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NumberInMedicalInstitution"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер в книгата за регистрация на болничните листа в мед.заведение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateInMedicalInstitution"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата в книгата за регистрация на болничните листа в мед.заведение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PatientsChartType"
+                  type="PatientsChartTypeType"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вид на болничния лист - номенклатура</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MedicalInstitutionRegistrationNumber"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Регистрационен номер на лечебно заведение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MedicalInstitutionName"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Име на лечебно заведение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MedicalInstitutionBulstat"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>БУЛСТАТ на лечебно заведение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PatientsChartIssuedBy"
+                  type="PatientsChartIssuedByType"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Издал болничния лист</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SickLeaveStartDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>В отпуск от </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SickLeaveEndDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Да се яви на работа на</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DiagnosisCode"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Диагноза по МКБ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SickLeaveLegalDays"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Всичко отпуск в календарни дни</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FlagForChild"
+                  type="xs:boolean"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Флаг дали болн. лист е за гледане на дете</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReasonOfDisease"
+                  type="ReasonOfDiseaseType"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Причина </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HospitalRegimenDays"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Брой на дните при болничен режим</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="HomeRegimenDays"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Брой на дните при домашен режим</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SanatoriumRegimenDays"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Брой на дните при санаторно-курортен режим</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UnrestrictedRegimenDays"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Брой на дните при свободен режим</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RegimenDaysSubTypes"
+                  type="RegimenType"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Кодове на подтиповете режими</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PregnancyTermDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Бременност - дата на термина</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PregnancyDeliveryDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Бременност - дата на раждане</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LKKType"
+                  type="LKKTypeType"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Решението е на ЛКК или ТЕЛК/НЕЛК /0 - ЛКК, 1 - ТЕЛК/НЕЛК, 99 - липсва избор/</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TELKDecisionNumber"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Номер на Решение на ТЕЛК или ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TELKDecisionDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата на решение на ТЕЛК или ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EGNSick"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>ЕГН/ ЛНЧ на болния</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FlagEGNSick"
+                  type="xs:boolean"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Флаг за ЕГН/ ЛНЧ на болния</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateMedicalCheck"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата "Да се яви на преглед на"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LKKDecisionNumber"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Решение ЛКК №</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LKKDecisionDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата на Решение ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LKKInputNumber"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Указател към таблица с имената и УИН на лекаря/ лекарите, издали БЛ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LKKTypeText"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Вид ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LKKTypeCode"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Указател към ном. таблица с видове ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EGNAge"
+                  type="xs:int"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Възраст</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Sex"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Пол</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateIssued"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата на издаване на болничния лист</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CodeNote"
+                  type="PatientsChartNotesNomenclatureType"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на бележката</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EGNType"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Родствена връзка за случай "Гледане на дете"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdditionalNote"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Допълнителни пояснения по бележката</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CaseForChildBirthDate"
+                  type="xs:date"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Дата на раждане/ ЕГН на детето - в случай "Гледане на дете"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CaseForChildNames"
+                  type="xs:string"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Имена на детето - в случай "Гледане на дете"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FlagPermanentIncapable"
+                  type="xs:boolean"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Флаг за трайно намалена работоспособност</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FlagPermanentIncapableMore"
+                  type="xs:boolean"
+                  minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Флаг за обостряне - в случай "Проф. Болест"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PatientsChartTypeType">
+    <xs:annotation>
+      <xs:documentation>Тип на болничния лист</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="0">
+        <xs:annotation>
+          <xs:documentation>първичен</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>продължение</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LKKTypeType">
+    <xs:annotation>
+      <xs:documentation>Решението е на ЛКК или ТЕЛК/НЕЛК</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="0">
+        <xs:annotation>
+          <xs:documentation>ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>ТЕЛК/НЕЛК</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="99">
+        <xs:annotation>
+          <xs:documentation>липсва избор</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PatientsChartIssuedByType">
+    <xs:annotation>
+      <xs:documentation>Издал болничния лист</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>Еднолично</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>ЛКК</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="3">
+        <xs:annotation>
+          <xs:documentation>ЛКК по решение на ТЕЛК</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RegimenType">
+    <xs:annotation>
+      <xs:documentation>Режим на лечение</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>Болничен</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>Домашен - на  легло</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="3">
+        <xs:annotation>
+          <xs:documentation>Домашен - стаен</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="4">
+        <xs:annotation>
+          <xs:documentation>Домашен - амболаторен</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="5">
+        <xs:annotation>
+          <xs:documentation>Санаторно-курортен</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="6">
+        <xs:annotation>
+          <xs:documentation>Свободен без право да напуска населеното място</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="7">
+        <xs:annotation>
+          <xs:documentation>Свободен с право да напуска населеното място</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PatientsChartNotesNomenclatureType">
+    <xs:annotation>
+      <xs:documentation>Бележки по болничен лист</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>Заразна болест</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>Лицето работи при повече от един работодател</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="3">
+        <xs:annotation>
+          <xs:documentation>За анкета</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="4">
+        <xs:annotation>
+          <xs:documentation>Разрешава се ползването на домашния отпуск в друго населено място</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="5">
+        <xs:annotation>
+          <xs:documentation>Работоспособността на болния е възстановена преди изтичане на разрешения отпуск</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="6">
+        <xs:annotation>
+          <xs:documentation>За доказване с разпореждане на ТП на НОИ</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="7">
+        <xs:annotation>
+          <xs:documentation>За доказване с експертно решение на ТЕЛК</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="8">
+        <xs:annotation>
+          <xs:documentation>Предписания за работа при облекчени условия</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="9">
+        <xs:annotation>
+          <xs:documentation>Издава се за минало време</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="10">
+        <xs:annotation>
+          <xs:documentation>Имената на болния и родствената връзка</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="11">
+        <xs:annotation>
+          <xs:documentation>Имената на детето, датата на раждане и родствената връзка</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="12">
+        <xs:annotation>
+          <xs:documentation>По заключение от ръководителя на лечебното заведение</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="13">
+        <xs:annotation>
+          <xs:documentation>Лечение в чужбина по решение на комисията на Министерството на здравеопазването</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="14">
+        <xs:annotation>
+          <xs:documentation>Лечение в чужбина</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="15">
+        <xs:annotation>
+          <xs:documentation>Раждане в чужбина</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="16">
+        <xs:annotation>
+          <xs:documentation>Издава се на баща, баба, дядо, осиновител ли настойник</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="17">
+        <xs:annotation>
+          <xs:documentation>Карантина на детското заведение</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="18">
+        <xs:annotation>
+          <xs:documentation>Гледане на болен член от семейството в болнично заведение</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="19">
+        <xs:annotation>
+          <xs:documentation>Неработоспособността на майката е вследствие на раждането</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ReasonOfDiseaseType">
+    <xs:annotation>
+      <xs:documentation>Причини за неработоспособността</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1">
+        <xs:annotation>
+          <xs:documentation>общо заболяване</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>професионална болест</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="3">
+        <xs:annotation>
+          <xs:documentation>професионално отравяне</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="4">
+        <xs:annotation>
+          <xs:documentation>злополука - трудова по чл. 55, ал.1 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="5">
+        <xs:annotation>
+          <xs:documentation>злополука - трудова по чл. 55, ал.2 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="6">
+        <xs:annotation>
+          <xs:documentation>злополука - нетрудова </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="7">
+        <xs:annotation>
+          <xs:documentation>изследване поради общо заболяване</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="8">
+        <xs:annotation>
+          <xs:documentation>изследване поради трудова злополука чл. 55, ал.1 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="9">
+        <xs:annotation>
+          <xs:documentation>изследване поради трудова злополука чл. 55, ал.2 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="10">
+        <xs:annotation>
+          <xs:documentation>изследване поради професионална болест</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="11">
+        <xs:annotation>
+          <xs:documentation>бацило/ паразито носителство</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="12">
+        <xs:annotation>
+          <xs:documentation>карантина</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="13">
+        <xs:annotation>
+          <xs:documentation>аборт</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="14">
+        <xs:annotation>
+          <xs:documentation>бременност</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="15">
+        <xs:annotation>
+          <xs:documentation>майчинство</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="16">
+        <xs:annotation>
+          <xs:documentation>трудоустрояване - общо заболяване</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="17">
+        <xs:annotation>
+          <xs:documentation>трудоустрояване - трудова злополука чл. 55, ал.1 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="18">
+        <xs:annotation>
+          <xs:documentation>трудоустрояване - трудова злополука чл. 55, ал.2 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="19">
+        <xs:annotation>
+          <xs:documentation>трудоустрояване - професионална болест</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="20">
+        <xs:annotation>
+          <xs:documentation>трудоустрояване - бременност</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="21">
+        <xs:annotation>
+          <xs:documentation>санаторно-курортно лечение поради общо заболяване</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="22">
+        <xs:annotation>
+          <xs:documentation>санаторно-курортно лечение поради трудова злополука чл. 55, ал.1 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="23">
+        <xs:annotation>
+          <xs:documentation>санаторно-курортно лечение поради трудова злополука чл. 55, ал.2 от КСО</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="24">
+        <xs:annotation>
+          <xs:documentation>санаторно-курортно лечение поради професионална болест</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="25">
+        <xs:annotation>
+          <xs:documentation>придружаване на дете до 3-годишна възраст в болнично заведение</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="26">
+        <xs:annotation>
+          <xs:documentation>придружаване и гледане на дете до 18-годишна възраст</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="27">
+        <xs:annotation>
+          <xs:documentation>придружаване и гледане на болен над 18-годишна възраст</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="91">
+        <xs:annotation>
+          <xs:documentation>общо заболяване</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="92">
+        <xs:annotation>
+          <xs:documentation>трудова злополука</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="93">
+        <xs:annotation>
+          <xs:documentation>професионална болест</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="94">
+        <xs:annotation>
+          <xs:documentation>бременност</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="95">
+        <xs:annotation>
+          <xs:documentation>раждане</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="96">
+        <xs:annotation>
+          <xs:documentation>злополука - нетрудова</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="97">
+        <xs:annotation>
+          <xs:documentation>осиновяване</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

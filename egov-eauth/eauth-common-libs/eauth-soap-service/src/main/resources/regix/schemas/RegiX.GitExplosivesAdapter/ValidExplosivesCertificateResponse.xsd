@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GIT/RVM" xmlns="http://egov.bg/RegiX/GIT/RVM/ValidExplosivesCertificateResponse" targetNamespace="http://egov.bg/RegiX/GIT/RVM/ValidExplosivesCertificateResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GIT/RVM" schemaLocation="RVMCommon.xsd"/>
+	<xs:element name="ValidExplosivesCertificateResponse">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="ValidExplosivesCertificate" type="common:ExplosivesCertificateDataType" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

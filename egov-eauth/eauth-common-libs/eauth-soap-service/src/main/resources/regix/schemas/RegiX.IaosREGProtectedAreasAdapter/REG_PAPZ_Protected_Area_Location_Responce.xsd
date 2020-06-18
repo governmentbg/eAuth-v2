@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/ProtectedAreaLocationResponce" targetNamespace="http://egov.bg/RegiX/IAOS/ProtectedAreaLocationResponce" elementFormDefault="qualified">
+	<xs:element name="REG_PAPZ_Protected_Area_Location_Responce" type="REG_PAPZ_Protected_Area_Location_Responce"/>
+	<xs:complexType name="REG_PAPZ_Protected_Area_Location_Responce">
+		<xs:annotation>
+			<xs:documentation>Отговор на справка по местонахождение в Регистър на защитените територии и зони в България.
+Справката връща данни за защитените територии и зони на територията на посоченото местонахождение.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+      <xs:element name="ProtectedAreaLocations" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0" maxOccurs="999">
+            <xs:element name="ProtectedAreaLocation" type="ProtectedAreaLocationType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+	<xs:complexType name="ProtectedAreaLocationType">
+		<xs:sequence>
+			<xs:element name="AreaCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Код на защитената територия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AreaName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Наименование на защитената територия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AreaSize" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Площ на защитената територия/зона</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AreaType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Тип на територията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RIOSV" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Регионална инспекция по околната среда и водите (РИОСВ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,16 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/BULSTAT/BulstatAllInfoRequest" targetNamespace="http://egov.bg/RegiX/AV/BULSTAT/BulstatAllInfoRequest" elementFormDefault="qualified" attributeFormDefault="unqualified"> 
+	<xs:complexType name="BulstatAllInfoRequestType">
+		<xs:sequence>
+			<xs:element name="Bulstat" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>БУЛСТАТ ЕИК</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="BulstatAllInfoRequest" type="BulstatAllInfoRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за вписани в Регистър БУЛСТАТ обстоятелства</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

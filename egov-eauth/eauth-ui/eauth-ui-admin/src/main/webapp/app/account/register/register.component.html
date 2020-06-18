@@ -1,0 +1,125 @@
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>Регистрация</h1>
+
+            <div class="alert alert-success" *ngIf="success">
+                <strong>Успешна регистрация!</strong> Профилът ви е необходимо да бъде активиран от администратор
+            </div>
+
+            <div class="alert alert-danger" *ngIf="error">
+                <strong>Грешка при регистрация!</strong> Моля опитайте по-късно.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="errorUserExists">
+                <strong>Потребителското име вече съществува!</strong> Моля изберете друго.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="errorEmailExists">
+                <strong>Има създаден акаунт със съществуващия имейл!</strong> Моля изберете друг.
+            </div>
+
+            <div class="alert alert-danger" *ngIf="doNotMatch">
+                Паролата не съвпада с паролата за потвърждение
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+                <div class="form-group">
+
+                    <label class="form-control-label" for="login">Потребителско име</label>
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Потребителско име"
+                           formControlName="login">
+                    <div *ngIf="registerForm.get('login').invalid && (registerForm.get('login').dirty || registerForm.get('login').touched)">
+                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.required">
+                            Потребителското име е задължително.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.minlength"
+                               >
+                            Потребителското име трябва да бъде поне 1 символ.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.maxlength"
+                               >
+                            Потребителското име не може да бъде повече от 50 символа.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('login').errors.pattern"
+                              >
+                            Потребителското име може да съдържа само букви и цифри.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="email">Имейл</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Имейл"
+                             formControlName="email">
+                    <div *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.required"
+                               >
+                            Имейлът е задължителен.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.invalid"
+                              >
+                            Имейлът е невалиден.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.minlength"
+                              >
+                            Имейлът трябва да съдържа поне 5 символа.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('email').errors.maxlength"
+                              >
+                            Имейлът не може да бъде повече от 50 символа.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="password">Парола</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Парола"
+                            formControlName="password">
+                    <div *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched)">
+                        <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.required"
+                               >
+                            Паролата е задължителна.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.minlength"
+                               >
+                            Паролата трябва да има поне 4 символа.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('password').errors.maxlength"
+                               >
+                            Паролата не може да бъде с дължина повече от 50 символа.
+                        </small>
+                    </div>
+                    <jhi-password-strength-bar [passwordToCheck]="registerForm.get('password').value"></jhi-password-strength-bar>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="confirmPassword">Потвърди парола</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Потвърди парола"
+                            formControlName="confirmPassword">
+                    <div *ngIf="registerForm.get('confirmPassword').invalid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)">
+                        <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.required"
+                              >
+                            Задължително потвърждение на парола
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.minlength"
+                             >
+                            Your confirmation password is required to be at least 4 characters.
+                        </small>
+                        <small class="form-text text-danger" *ngIf="registerForm.get('confirmPassword').errors.maxlength"
+                              >
+                            Your confirmation password cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Регистрация</button>
+            </form>
+            <p></p>
+            <!-- <div class="alert alert-warning">
+                <span>If you want to </span>
+                <a class="alert-link" (click)="openLogin()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
+            </div> -->
+        </div>
+    </div>
+</div>

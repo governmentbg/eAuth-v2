@@ -1,0 +1,8 @@
+{
+  "id": null,
+  "names": "Test Test Test",
+  "email": "testmailtest@test.test",
+  "phoneNumber": "5435345523",
+  "preferred2FA": "TOTP",
+  "address": null
+}

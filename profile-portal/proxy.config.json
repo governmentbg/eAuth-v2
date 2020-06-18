@@ -1,0 +1,27 @@
+{
+    "/api/*": {
+      "target": "http://localhost:8210",
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "/auth/token": {
+      "target": "http://localhost:8210",
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "/eaft/authorize": {
+      "target": "http://localhost:8210",
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "/custom-login": {
+      "target": "http://localhost:8083",
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "api/idp/**": {
+      "target": "http://localhost:8220",
+      "secure": false,
+      "logLevel": "debug"
+    }
+}

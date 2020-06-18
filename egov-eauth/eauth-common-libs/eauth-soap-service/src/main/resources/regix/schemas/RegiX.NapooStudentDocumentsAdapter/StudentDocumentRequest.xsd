@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NAPOO/DocumentsByStudentRequest" targetNamespace="http://egov.bg/RegiX/NAPOO/DocumentsByStudentRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="StudentDocumentRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка за издаден документ на лице по подаден идентификатор и идентификационен (или регистрационен) номер</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StudentIdentifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на физическо лице - ЕГН/ЛНЧ/Друг вид идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentRegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер на документ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StudentDocumentRequest" type="StudentDocumentRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за издаден документ на лице по подаден идентификатор и идентификационен (или регистрационен) номер - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

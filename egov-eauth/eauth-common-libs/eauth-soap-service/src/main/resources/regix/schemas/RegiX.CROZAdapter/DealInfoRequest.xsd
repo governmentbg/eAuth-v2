@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             elementFormDefault="qualified"
+             attributeFormDefault="unqualified"
+             targetNamespace="http://egov.bg/RegiX/CROZ/CROZ/DealInfoRequest"
+             xmlns="http://egov.bg/RegiX/CROZ/CROZ/DealInfoRequest">
+
+  <xs:complexType name ="DealInfoSearchType">
+    <xs:annotation>
+      <xs:documentation>Справка/удостоверение за вписванията във връзка с определена сделка, запор на имущество или решение на съда по несъстоятелност</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RegEntryID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Номер на разпореждане за първоначално вписване на сделка, запор или решение на съда по несъстоятелност</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DealInfoRequest" type="DealInfoSearchType"/> 
+</xs:schema>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/GRAO/LE" xmlns="http://egov.bg/RegiX/GRAO/LE/LocationsRequest" targetNamespace="http://egov.bg/RegiX/GRAO/LE/LocationsRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/GRAO/LE" schemaLocation="LECommon.xsd"/>
+  <xs:simpleType name="ActualizationType">
+    <xs:annotation>
+      <xs:documentation>Тип на идентификатор</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ДПА"/>
+      <xs:enumeration value="ИПА"/>
+      <xs:enumeration value="КПА"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LocationsRequestType">
+		<xs:sequence>
+			<xs:element name="StartDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начална дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Крайна дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActualizationType" type="ActualizationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид актуализационен запис (ДПА, ИПА и КПА)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="LocationsRequest" type="LocationsRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за локализационни единици</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

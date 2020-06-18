@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/MON/Schools/Common" xmlns="http://egov.bg/RegiX/MON/Schools/SchoolStudentStatusRequest" targetNamespace="http://egov.bg/RegiX/MON/Schools/SchoolStudentStatusRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/MON/Schools/Common" schemaLocation="MONSchoolsCommon.xsd"/>
+	<xs:complexType name="ChildStudentStatusRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка за състоянието на ученик / дете</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ChildIdentifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на дете/ученик - ЕГН/ЛНЧ/Друг вид идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ChildStudentStatusRequest" type="ChildStudentStatusRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за състоянието на ученик / дете - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NOI/RO/POVNVEDRequest" xmlns:common="http://egov.bg/RegiX/NOI/RO" targetNamespace="http://egov.bg/RegiX/NOI/RO/POVNVEDRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/NOI/RO" schemaLocation="ROCommon.xsd"/>
+	<xs:element name="POVNVEDRequest" type="POVNVEDRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка за изплатено парично обезщетение при временна неработоспособност, трудоустрояване и майчинство и/или помощ по период на дата на ведомост /дата на плащане/</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="POVNVEDRequestType">
+		<xs:sequence>
+			<xs:element name="Identifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentifierType" type="common:IdentifierType">
+				<xs:annotation>
+					<xs:documentation>Тип на идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>начало на период</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>край на период</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

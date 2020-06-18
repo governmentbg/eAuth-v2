@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<saml2p:Response
+	xmlns:egovbga="urn:bg:egov:eauth:1.0:saml:ext"
+	xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	Destination="https://[SP_BIND_URL]"
+	ID="_5a15625de8618920748123042db52367"
+	InResponseTo="_171ccc6b39b1e8f6e762c2e4ee4ded3a"
+	IssueInstant="2015-04-30T19:27:20.159Z" Version="2.0">
+	<saml2:Issuer
+		Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
+		xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">https://[EAUTH_BIND_URL]</saml2:Issuer>
+	<saml2p:Status>
+		<saml2p:StatusCode
+			Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
+		<saml2p:StatusMessage>Успешена автентикация</saml2p:StatusMessage>
+	</saml2p:Status>
+<saml2p:Status>
+	<saml2p:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Responder">
+		<saml2p:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed" />
+	</saml2p:StatusCode>
+	<saml2p:StatusMessage>Автентикацията е неуспещна</saml2p:StatusMessage>
+	<saml2p:StatusDetail>
+		<Cause>[ERROR TEXT HERE]</Cause>
+	</saml2p:StatusDetail>
+</saml2p:Status>
+
+	<saml2:Assertion ID="_47482789069732322d02d825c9a2fafa"
+		IssueInstant="2015-04-30T19:27:20.159Z" Version="2.0"
+		xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:egov="http://eauth.egov.bg/attributes/citizen">
+		<saml2:Issuer
+			Format="urn:oasis:names:tc:saml2:2.0:nameid-format:entity">
+			https://eauth.egov.bg/eauth/saml/metadata
+		</saml2:Issuer>
+		<saml2:Subject>
+			<saml2:NameID
+				Format="urn:oasis:names:tc:saml2:2.0:nameid-format:persistent">PNOBG-4810146405</saml2:NameID>
+			<saml2:SubjectConfirmation
+				Method="urn:oasis:names:tc:saml2:2.0:cm:bearer">
+				<saml2:SubjectConfirmationData
+					InResponseTo="[SAML_AUTHREQUEST_ID]"
+					NotOnOrAfter="2020-02-22T19:32:20.157Z"
+					Recipient="[SP_POST_BINDING_URL]" />
+			</saml2:SubjectConfirmation>
+		</saml2:Subject>
+		<saml2:Conditions
+			NotBefore="2020-02-22T19:27:20.159Z"
+			NotOnOrAfter="2020-02-22T19:32:20.157Z">
+			<saml2:AudienceRestriction>
+				<saml2:Audience>urn:egov:bg:services:oid:2.16.100.1.1.1.1.18.1.1.1
+				</saml2:Audience>
+			</saml2:AudienceRestriction>
+		</saml2:Conditions>
+		<saml2:AuthnStatement
+			AuthnInstant="2020-02-22T19:27:20.159Z"
+			SessionIndex="[SSO_COOCKIE_SESSION_ID]">
+			<saml2:AuthnContext>
+				<saml2:AuthnContextClassRef>http://eauth.egov.bg/loa/high
+				</saml2:AuthnContextClassRef>
+			</saml2:AuthnContext>
+		</saml2:AuthnStatement>
+		<saml2:AttributeStatement>
+			<saml2:Attribute FriendlyName="PersonalIdentifier"
+				Name="http://eauth.egov.bg/attributes/citizen/UniqueIdentifier"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:UniqueIdentifierType">
+					PNOBG-4810146405
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute FriendlyName="Name"
+				Name="http://eauth.egov.bg/attributes/citizen/CurrentName"
+				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:CurrentNameType">
+					Иван Тодоров
+				</saml2:AttributeValue>
+				<saml2:AttributeValue
+					xsi:type="egov:CurrentNameType">
+					Георгиев
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute FriendlyName="LatinName"
+				Name="http://eauth.egov.bg/attributes/citizen/LatinCurrentName"
+				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:LatinCurrentNameType">
+					Ivan Todorov
+				</saml2:AttributeValue>
+				<saml2:AttributeValue
+					xsi:type="egov:LatinCurrentNameType">
+					Georgiev
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute FriendlyName="BirthName"
+				Name="http://eauth.egov.bg/attributes/citizen/BirthName"
+				NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:BirthNameType">
+					Иван Георгиев
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute FriendlyName="ContactEmail"
+				Name="http://eauth.egov.bg/attributes/citizen/ContactEmail"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:ContactEmailType">
+					test@bul-si.bg
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute FriendlyName="ContactPhone"
+				Name="http://eauth.egov.bg/attributes/citizen/ContactPhone"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:ContactPhoneType">
+					+359888515151
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+			<saml2:Attribute FriendlyName="DateOfBirth"
+				Name="http://eauth.egov.bg/attributes/citizen/DateOfBirth"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri">
+				<saml2:AttributeValue
+					xsi:type="egov:DateOfBirthType">
+					1970-05-28
+				</saml2:AttributeValue>
+			</saml2:Attribute>
+		</saml2:AttributeStatement>
+	</saml2:Assertion>
+</saml2p:Response> 

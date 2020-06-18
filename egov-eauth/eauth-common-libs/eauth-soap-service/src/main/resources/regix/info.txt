@@ -1,0 +1,1 @@
+xjc -p bg.government.regixclient.requests.<institution>.<register> -d /target/directory

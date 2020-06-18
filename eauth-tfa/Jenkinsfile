@@ -1,0 +1,78 @@
+pipeline {
+    agent any
+
+    tools {nodejs "NodeJS"}
+
+    stages {
+        stage('Install') { 
+            steps {
+                sh 'npm install'
+                updateGitlabCommitStatus name: 'build', state: 'pending'
+                updateGitlabCommitStatus name: 'build', state: 'success'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                sh 'npm run eslint'
+                updateGitlabCommitStatus name: 'build', state: 'pending'
+                updateGitlabCommitStatus name: 'build', state: 'success'
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                sh 'ng test --no-watch --code-coverage'
+                updateGitlabCommitStatus name: 'build', state: 'pending'
+                updateGitlabCommitStatus name: 'build', state: 'success'
+            }
+        }
+
+        stage('Sonar') {
+            steps {
+                sh 'npm run sonar'
+                updateGitlabCommitStatus name: 'build', state: 'pending'
+                updateGitlabCommitStatus name: 'build', state: 'success'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'ng build --prod'
+                updateGitlabCommitStatus name: 'build', state: 'pending'
+                updateGitlabCommitStatus name: 'build', state: 'success'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'eAuth-frontend', 
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false, 
+                                    excludes: '', 
+                                    execCommand: '''
+                                        echo ${eauth_frontend_pass} | sudo -S rm -r /var/www/html/eauth/*
+                                        echo ${eauth_frontend_pass} | sudo -S cp -a /home/bulsiadmin/dist/eAuth-twoFA/.  /var/www/html/eauth/
+                                    ''', 
+                                    execTimeout: 120000, 
+                                    flatten: false, 
+                                    makeEmptyDirs: false, 
+                                    noDefaultExcludes: false, 
+                                    patternSeparator: '[, ]+', 
+                                    remoteDirectory: '', 
+                                    remoteDirectorySDF: false, 
+                                    removePrefix: '', 
+                                    sourceFiles: 'dist/')], 
+                                    usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)
+                                ]
+                            )
+                updateGitlabCommitStatus name: 'build', state: 'pending'
+                updateGitlabCommitStatus name: 'build', state: 'success'
+            }
+        }
+    }
+}

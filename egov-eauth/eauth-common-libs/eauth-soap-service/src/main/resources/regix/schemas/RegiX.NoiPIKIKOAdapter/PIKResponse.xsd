@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://egov.bg/RegiX/NOI/PIK/PIKResponse"
+           targetNamespace="http://egov.bg/RegiX/NOI/PIK/PIKResponse"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+  <xs:element name="PIKResponse"
+              type="PIKResponseType">
+    <xs:annotation>
+      <xs:documentation>Персонален идентификационен код (ПИК) за осигурените лица</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="PIKResponseType">
+    <xs:sequence>
+      <xs:element name="PIK"
+                  type="xs:string"
+                  minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>ПИК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

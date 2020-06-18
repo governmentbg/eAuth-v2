@@ -1,0 +1,29 @@
+header.fixed {
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // width: 100%;
+    // height: 13%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #d2dde2;
+    text-align: center;
+}
+
+.header-img-container {
+    display: flex;
+    width: 99%;
+}
+
+.eu-flag {
+    width: 180px;
+}
+
+.op-logo {
+    width: 180px;
+    padding-top: 5px;
+}
+
+.right-img-container {
+    margin-left: auto;
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified"  
+           targetNamespace="http://egov.bg/RegiX/MOMN/RDSO/CertifiedDocuments" 
+           xmlns:common="http://egov.bg/RegiX/MOMN/RDSO" 
+           xmlns="http://egov.bg/RegiX/MOMN/RDSO/CertifiedDocuments">
+  <xs:import schemaLocation="RDSOCommonXSD.xsd" namespace="http://egov.bg/RegiX/MOMN/RDSO"/>
+  <xs:complexType name="CertifiedDocumentsType" >
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CertifiedDocument" nillable="true" type="common:CertifiedDocumentType">
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+    <xs:complexType name="CertifiedDocumentsSearchType">
+      <xs:sequence>
+        <xs:element name="StudentID" type="xs:string" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>ЕГН, ЛНЧ или служебен номер на ученика / студента</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="DocumentNumber" type="xs:string" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>Номер на документ - въвежда се само цифровата част на номера</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="IDType" type="common:IdentifierType" minOccurs="1" maxOccurs="1" >
+          <xs:annotation>
+            <xs:documentation>EGN, LNCh, IDN - каквото е подадено като StudentID</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  
+  
+  <xs:element name="CertifiedDocuments" type="CertifiedDocumentsType"/>
+  <xs:element name="CertifiedDocumentSearch" type="CertifiedDocumentsSearchType">
+    <xs:annotation>
+      <xs:documentation>Търсене на данни от Регистъра на дипломите за завършена образователна степен за средно образование и придобита степен на професионална квалификация</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+</xs:schema>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/IAOS/REG35Reg/ValidityCheckByRegNumberResponse" xmlns:common="http://egov.bg/RegiX/IAOS/REG35Reg/Common" targetNamespace="http://egov.bg/RegiX/IAOS/REG35Reg/ValidityCheckByRegNumberResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:import namespace="http://egov.bg/RegiX/IAOS/REG35Reg/Common" schemaLocation="common_types.xsd"/>
+  <xs:element name="REG35_Validity_Check_By_Reg_Number_Response" type="REG35_Validity_Check_By_Reg_Number_Response"/>
+  <xs:complexType name="REG35_Validity_Check_By_Reg_Number_Response">
+    <xs:annotation>
+      <xs:documentation>
+        Отговор на Справка за валидност по номер на документ в Регистър на разрешенията по чл. 67 ЗУО, в т.ч. на тези от тях с прекратено действие
+        Справката връща информация за разрешението ако такава е налична в регистъра.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Authorization" type="AuthorizationValidityCheck" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AuthorizationValidityCheck">
+    <xs:annotation>
+      <xs:documentation>Authorization</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AuthType" type="common:AuthorizationType">
+        <xs:annotation>
+          <xs:documentation>Тип на регистрацията</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CompanyName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Наименование на организацията</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DateIssued" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Дата на издаване</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EIK" type="common:Bulstat">
+        <xs:annotation>
+          <xs:documentation>ЕИК</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="State" type="common:AuthState35">
+        <xs:annotation>
+          <xs:documentation>Статус</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

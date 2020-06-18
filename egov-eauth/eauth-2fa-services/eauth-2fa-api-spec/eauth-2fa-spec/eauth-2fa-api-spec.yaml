@@ -1,0 +1,417 @@
+openapi: 3.0.2
+info:
+  description: ""
+  version: 0.1.0
+  title: 2FA API for integration with method providers
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: strahil.vitkov@bul-si.bg
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: TOTP
+    description: Time-Based One-Time Password
+    externalDocs:
+      description: Find out more
+      url: https://tools.ietf.org/html/rfc6238
+  - name: users
+    description: initialize user data for 2FA
+  - name: egov2FA
+    description: module for integration different 2FA methods to be used with eauth.egov.bg
+
+paths:
+  /otp/auth:
+    post:
+      tags:
+        - egov2FA
+      summary: Authenticate user
+      description: Used detail must exist prios authentication.
+      operationId: clientAuth
+      parameters:
+        - in: header
+          name: userID
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequestDetails"
+        description: Created authentiucation request
+        required: true
+      responses:
+        "200":
+          description: Accepted
+          content:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/OTPass"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OTPass"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          description: Forbidden
+        "500":
+          description: User profile error!
+      security:
+        - api_key: []
+  /otp/validate:
+    get:
+      tags:
+        - egov2FA
+      summary: Validate generated code
+      description: ""
+      operationId: validateCode
+      parameters:
+        - in: query
+          name: c
+          required: true
+          schema:
+            type: string
+          description: Code to verify
+        - in: query
+          name: t
+          required: true
+          schema:
+            type: string
+          description: Transaction ID
+      responses:
+        '200':
+          description: Processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckResult'
+            text/plain:
+              schema:
+                type: boolean
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+      security:
+        - api_key: []
+  "/totp/{applicationID}/init-otp":
+    post:
+      tags:
+        - users
+        - TOTP
+      summary: Create new User ID and profile in TOTP provider
+      description: ""
+      operationId: generateTOTPKey
+      parameters:
+        - name: applicationID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserIdentityInfo"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/UserIdentityInfo"
+        description: User object that needs to be added!
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          description: Forbidden
+        "500":
+          description: User profile error!
+      security:
+        - api_key: []
+    put:
+      tags:
+        - users
+      summary: Update an existing Account
+      description: ""
+      operationId: updateUserData
+      parameters:
+        - name: applicationID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserIdentityInfo"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/UserIdentityInfo"
+        description: modified User account that needs to be stored
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+        "400":
+          description: Invalid ID supplied
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          description: User not found
+        "405":
+          description: Validation exception
+      security:
+        - api_key: []
+  /totp/{applicationID}/generate-secret:
+    get:
+      tags:
+        - TOTP
+      summary: Logs user into the system
+      description: ""
+      operationId: generareNewQR
+      parameters:
+        - name: applicationID
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: userID
+          schema:
+            type: string
+      responses:
+        "200":
+          description: QR code image in PNG format
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecretMetadata'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SecretMetadata'
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "400":
+          description: Invalid transaction ID supplied
+      security:
+        - api_key: []
+  /totp/{applicationID}/validate-totp:
+    get:
+      tags:
+        - TOTP
+      summary: Validate user providet code
+      description: ""
+      operationId: validateCode
+      parameters:
+        - name: applicationID
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: c
+          schema:
+            type: string
+          description: Code to verify
+        - in: query
+          name: u
+          schema:
+            type: string
+          description: User ID providing the code
+      responses:
+        "200":
+          description: Validated
+          headers:
+            X-RateLimit-Limit:
+              $ref: '#/components/headers/X-RateLimit-Limit'
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckResult'
+            text/plain:
+              schema:
+                type: boolean
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "400":
+          description: Invalid user or application ID supplied
+      security:
+        - api_key: []
+  /totp/{applicationID}/cancel:
+    get:
+      tags:
+        - TOTP
+      summary: Annulment of all use sessions
+      description: ""
+      operationId: logoutUser
+      parameters:
+        - name: applicationID
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: userID
+          required: true
+          schema:
+            type: string
+        - name: tID
+          in: query
+          description: last knownTransaction ID
+          schema:
+            type: string
+      responses:
+        default:
+          description: successful operation
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+      security:
+        - api_key: []
+
+externalDocs:
+  description: Check Bul-si Wiki
+  url: http://xwiki.bul-si.bg
+
+servers:
+  - url: https://eauth.egov.bg/v2/2fa
+
+components:
+  securitySchemes:
+    2fa_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://eauth.egov.bg/oauth/dummyLogin
+          scopes:
+            write:otps: access your account
+            read:otps: read/validate OTP
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+
+  schemas:
+    UserIdentityInfo:
+      type: object
+      properties:
+        identificationNumber:
+          type: string
+        name:
+          type: string
+        contacts:
+          $ref: "#/components/schemas/UserContactInfo"
+      xml:
+        name: UserData
+    UserContactInfo:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+    UserInfo:
+      type: object
+      properties:
+        userID:
+          type: string
+          description: user ID as used in remotesystem
+        secret:
+          $ref: '#/components/schemas/SecretMetadata'
+      xml:
+        name: UserInfo
+    CheckResult:
+      type: object
+      properties:
+        status:
+          type: string
+        valid:
+          type: boolean
+        validUntil:
+          type: integer
+          format: int64
+    SecretMetadata:
+      type: object
+      properties:
+        secretKey:
+          type: string
+        qrImage:          # <-- image embedded into JSON
+          type: string
+          format: byte
+          description: Base64-encoded contents of the QR code image
+      xml:
+        name: Secret
+    AuthRequestDetails:
+      type: object
+      properties:
+        description:
+          type: string
+        contacts:
+          $ref: "#/components/schemas/UserContactInfo"
+      xml:
+        name: Details
+    OTPass:
+      type: object
+      properties:
+        transaction:
+          type: string
+          minLength: 6
+          maxLength: 20
+        timestamp:
+          type: integer
+          format: int64
+        complete:
+          type: boolean
+          default: true
+      xml:
+        name: OTP
+  headers:
+    X-RateLimit-Limit:
+      description: Request calls per hour allowed by the user
+      schema:
+        type: integer
+        format: int32
+      example: 10
+    X-RateLimit-Remaining:
+      schema:
+        type: integer
+      example: 94  
+    X-Expires-After:
+      description: date in UTC when token expires
+      schema:
+        type: string
+        format: date-time
+  responses:
+    UnauthorizedError:
+      description: API key is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string

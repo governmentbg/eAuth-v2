@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NOI/RP" targetNamespace="http://egov.bg/RegiX/NOI/RP" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PersonNames">
+		<xs:annotation>
+			<xs:documentation>Имена на пенсионер</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Surname" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Презиме</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamilyName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="IdentifierType">
+		<xs:annotation>
+			<xs:documentation>Тип на идентификатор</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ЕГН"/>
+			<xs:enumeration value="ЛНЧ"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="EnumHack" type="IdentifierType"/>
+	<xs:complexType name="PeriodType">
+		<xs:sequence>
+			<xs:element name="From" type="MonthType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>От </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="To" type="MonthType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>До</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MonthType">
+		<xs:sequence>
+			<xs:element name="Month" type="xs:gMonth" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Месец</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Year" type="xs:gYear" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Година</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PensionPaymentsType">
+		<xs:sequence>
+			<xs:element name="PensionPayment" type="PensionPaymentType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PensionPaymentType">
+		<xs:sequence>
+			<xs:element name="Month" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Месец</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotalAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Получена сума (общо) (в лв)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PensionAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пенсии (общо всички получавани пенсии (в лв)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionForAssistance" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Добавка за чужда помощ (в лв)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OtherAddition" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Други добавки (в лв)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdditionAndReductionAmounts">
+		<xs:annotation>
+			<xs:documentation>Допънителни суми и удръжки към пенсия</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AdditionAndReductionAmount" type="AdditionAndReductionAmount" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdditionAndReductionAmount">
+		<xs:annotation>
+			<xs:documentation>Допънителна сума или удръжка към пенсия</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TypeName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Value" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Размер</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Pensions">
+		<xs:annotation>
+			<xs:documentation>Пенсии</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Pension" type="Pension" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Pension">
+		<xs:annotation>
+			<xs:documentation>Пенсия</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PensionType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на пенсията(лична, наследствена, добавка по чл.84) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PensionAmount" type="xs:decimal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сума за получаване на пенсията </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PensionCharacteristics">
+		<xs:annotation>
+			<xs:documentation>Описания на характеристики на пенсия</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PensionCharacteristic" type="PensionCharacteristic" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PensionCharacteristic">
+		<xs:annotation>
+			<xs:documentation>Описание на характеристика на пенсия</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DataText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Характеристика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValueText" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стойност на характеристика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

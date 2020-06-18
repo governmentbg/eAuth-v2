@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns="http://egov.bg/RegiX/GRAO/LE" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/GRAO/LE" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+  <xs:complexType name="LocationType">
+    <xs:sequence>
+      <xs:element name="SettlementPlaceCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementPlaceName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на населено място</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocationCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код на локализационна единица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocationName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование на локализационна единица</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

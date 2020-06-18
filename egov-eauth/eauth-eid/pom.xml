@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>bg.bulsi</groupId>
+		<artifactId>egov-eauth</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>eauth-eid</artifactId>
+	<packaging>pom</packaging>
+	
+	<modules>
+		<module>eauth-eid-api</module>
+		<module>eauth-eid-test-provider</module>
+	</modules>
+
+	<dependencyManagement>
+	
+		<dependencies>
+		
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-eid-api-provider</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-eid-api-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+<!-- 			<dependency> -->
+<!-- 				<groupId>bg.bulsi</groupId> -->
+<!-- 				<artifactId>eauth-audit</artifactId> -->
+<!-- 				<version>${project.version}</version> -->
+<!-- 			</dependency> -->
+
+		</dependencies>
+		
+	</dependencyManagement>
+	
+</project>

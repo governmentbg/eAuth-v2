@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/Geo/GINameRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/Geo/GINameRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="GetGIByName" type="GetGIByNameType">
+		<xs:annotation>
+			<xs:documentation>Справка по  име на държавен регистър на географско означение</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetGIByNameType">
+		<xs:sequence>
+      <xs:element name="GIName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Име на географско означение</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

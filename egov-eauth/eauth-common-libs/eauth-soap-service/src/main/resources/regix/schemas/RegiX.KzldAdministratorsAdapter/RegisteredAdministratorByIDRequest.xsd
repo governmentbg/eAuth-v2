@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/KZLD/Administrators/RegisteredAdministratorByIDRequest" targetNamespace="http://egov.bg/RegiX/KZLD/Administrators/RegisteredAdministratorByIDRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RegisteredAdministratorByIDType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри на справка по ЕИК/БУЛСТАТ/ЕГН за вписан администратор на лични данни</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PersonalDataControllerID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на администратора на лични данни - ЕИК/БУЛСТАТ/ЕГН/ЛНЧ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegisteredAdministratorByIDRequest" type="RegisteredAdministratorByIDType">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ/ЕГН за вписан администратор на лични данни - заявка</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

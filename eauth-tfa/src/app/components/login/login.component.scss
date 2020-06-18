@@ -1,0 +1,33 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 50%;
+    margin-bottom: 10px;
+    
+    @media (max-width: 1024px) {
+        width:60%;
+    }
+
+    @media (max-width: 414px) {
+        width: 90%;
+    }
+}
+
+.login-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (max-width: 320px) {
+        width: 258px;
+    }
+}
+
+.login-button-wrapper {
+    margin-left: auto;
+
+    @media (max-width: 410px) {
+        margin-right: 10%;
+    }
+}

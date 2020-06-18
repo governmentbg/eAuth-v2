@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common="http://egov.bg/RegiX/AZ" xmlns="http://egov.bg/RegiX/AZ/EmploymentMeasureContractResponse" targetNamespace="http://egov.bg/RegiX/AZ/EmploymentMeasureContractResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://egov.bg/RegiX/AZ" schemaLocation="AZCommon.xsd"/>
+	<xs:complexType name="EmploymentMeasureContract">
+		<xs:annotation>
+			<xs:documentation>Данни за сключен рамков договор по мярка за заетост между Агенцията по заетостта и работодател</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0">
+			<xs:element name="ContractNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Номер на договор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EmploymentMeasureName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на мярка за заетост</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContractDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на сключване</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContractStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Състояние на договор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EmploymentMeasureContractResponse">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за сключен рамков договор с работодател по мярка за заетост - резултат</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="EmployerData" type="common:EntityData" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Данни за работодател</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="EmploymentMeasureContracts" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Сключени рамкови договори по мерки  за заетост с работодател</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence minOccurs="0">
+							<xs:element name="EmploymentMeasureContract" type="EmploymentMeasureContract" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Сключен рамков договор по мерки  за заетост с работодател</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

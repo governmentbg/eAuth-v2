@@ -1,0 +1,44 @@
+<div id="verifier-container">
+    <div id="dialog">
+        <h5>{{ "please-enter-code" | translate  }}</h5>
+        <h5 class="timer-countdown">{{ "time-left" | translate }}: {{timeLeft}} {{'seconds' | translate}}.</h5>
+        <!-- Need to be optimized extract input in component -->
+        <app-verifier-form *ngIf="methods.length > 0" [methods]="methods"></app-verifier-form>
+               
+        <div class="code-question">
+            {{ "does-not-recive-code-msg" | translate }}
+        </div>
+
+        <div class="btns-holder">
+            <div class="resend-code-btn-holder">
+                <app-tfa-button
+                    *ngFor="let method of methods; let i = index"
+                    #methodList
+                    [tooltipText]="'resend-code-msg-' + method.method | translate" 
+                    [iconName]="method.method !== 'TOTP' ? method.method.toLowerCase() : ''"
+                    [styleClass]="'code-resend'"
+                    [methodName]="method.method"
+                    [currentMethod]="method"
+                    [prevMethod]="previousMethod"
+                    (click)="resendCode(method)"></app-tfa-button>
+    
+                <button
+                    *ngIf="this.checkForTotpMethod()"
+                    class="qr-code-btn"
+                    mat-mini-fab color="primary" 
+                    (click)="generateNewCode()"
+                    [matTooltip]="'generate-qr-msg' | translate">
+                    QR
+                </button>    
+            </div>
+            <form ngNoForm [action]="cancelAuthEndpoint" method="POST">
+                <input type="hidden" name="cancelAuthButton" value=""/>
+                <button
+                    class="cancel-auth-link" 
+                    [matTooltip]="'decline-auth' | translate">
+                    {{ "cancel" | translate}}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

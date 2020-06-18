@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="AddressType">
+		<xs:sequence>
+			<xs:element name="Region" type="xs:string"/>
+			<xs:element name="Municipality" type="xs:string"/>
+			<xs:element name="Ekatte" type="xs:string"/>
+			<xs:element name="EkatteName" type="xs:string"/>
+			<xs:element name="Place" type="xs:string"/>
+			<xs:element name="Street" type="xs:string"/>
+			<xs:element name="StreetNumber" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="UseTypeParameter">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Address" type="AddressType"/>
+				<xs:element name="CadNumber" type="xs:string"/>
+				<xs:element name="UseTypeID" type="xs:int" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

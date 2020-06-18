@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/AV/PropertyReg/PersonInfoRequest" targetNamespace="http://egov.bg/RegiX/AV/PropertyReg/PersonInfoRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="PersonInfoRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка по персонална партида на физическо лице</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EGN" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>ЕГН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateFrom" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>От дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTo" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>До дата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="PersonInfoRequest" type="PersonInfoRequestType"/>
+</xs:schema>

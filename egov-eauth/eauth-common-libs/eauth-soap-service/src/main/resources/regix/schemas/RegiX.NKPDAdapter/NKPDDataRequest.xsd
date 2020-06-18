@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             elementFormDefault="qualified"
+             attributeFormDefault="unqualified"
+             targetNamespace="http://egov.bg/RegiX/MTSP/NKPD/NKPDDataRequest"
+             xmlns="http://egov.bg/RegiX/MTSP/NKPD/NKPDDataRequest">
+
+  <xs:complexType name="NKPDDataSearchType">
+    <xs:annotation>
+      <xs:documentation>Търсене на данни от класификатор НКПД по зададени критерии</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ValidDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Дата на валидност</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Code" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Код</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Наименование</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NKPDDataRequest" type="NKPDDataSearchType"/>
+  
+</xs:schema>

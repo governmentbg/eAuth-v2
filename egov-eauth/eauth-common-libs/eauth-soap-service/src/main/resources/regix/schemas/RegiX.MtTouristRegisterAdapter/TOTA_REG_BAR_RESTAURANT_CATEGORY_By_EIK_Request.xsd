@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MT/BarRestaurantCategoryByEIKRequest" targetNamespace="http://egov.bg/RegiX/MT/BarRestaurantCategoryByEIKRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="BarRestaurantCategoryByEIKRequest" type="BarRestaurantCategoryByEIKRequestType">
+		<xs:annotation>
+			<xs:documentation>Справка по ЕИК/БУЛСТАТ за категоризация на заведения за хранене и развлечение_Request</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BarRestaurantCategoryByEIKRequestType">
+		<xs:sequence>
+			<xs:element name="EIK" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Единен идентификационен код (ЕИК)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

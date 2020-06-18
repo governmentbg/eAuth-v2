@@ -1,0 +1,29 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-config-heading">Създай или редактирай конфигурация</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_propertyKey">Property Key</label>
+                    <input type="text" class="form-control" name="propertyKey" id="field_propertyKey"
+                           formControlName="propertyKey"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_propertyValue">Property Value</label>
+                    <input type="text" class="form-control" name="propertyValue" id="field_propertyValue"
+                           formControlName="propertyValue"/>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Отказ</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Запази</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

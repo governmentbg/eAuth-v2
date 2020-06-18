@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:simpleType name="IdentifierType">
+    <xs:annotation>
+      <xs:documentation>Тип на идентификатор</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EGN"/>
+      <xs:enumeration value="LNCh"/>
+      <xs:enumeration value="IDN"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CertifiedDocuments">
+    <xs:complexType >
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="CertifiedDocument" nillable="true" >
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="intID" type="xs:int" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Идентификатор на документа; служебно поле</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="intStudentID" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>ЕГН, ЛНЧ или служебен номер на ученика / студента</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="IDType" minOccurs="1" maxOccurs="1"  type="IdentifierType" >
+                <xs:annotation>
+                  <xs:documentation>1- ЕГН, 2 - ЛНЧ, 3 - ИДН - каквото е подадено като входни данни</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcName1" type="xs:string"  minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Име на ученика</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcName2" type="xs:string"  minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Презиме на ученика</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcName3" type="xs:string"   minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Фамилия на ученика</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="intDocumentType" type="xs:int" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Код на документа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcDocumentName" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Наименование на документа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcPrnSer" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Серия на документа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcPrnNo" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Номер на документа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="vcRegNo" type="xs:string" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Регистрационен номер на документа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="dtCertDate" type="xs:dateTime" nillable="true" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Дата на заверка на документа</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="DocumentImages" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:annotation>
+                    <xs:documentation>Съдържа масив от изображения на документа</xs:documentation>
+                  </xs:annotation>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="DocumentImage" nillable="true" type="xs:base64Binary" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

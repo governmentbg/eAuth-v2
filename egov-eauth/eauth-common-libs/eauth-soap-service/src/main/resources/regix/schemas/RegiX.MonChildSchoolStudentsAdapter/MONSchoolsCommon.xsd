@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MON/Schools/Common" targetNamespace="http://egov.bg/RegiX/MON/Schools/Common" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ChildStudentData">
+		<xs:annotation>
+			<xs:documentation>Данни за ученик/дете, записан/о в училище или детска градина, във всички форми на обучение, в Регистъра на средните училища и детските градини на МОН</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ChildIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на дете/ученик - ЕГН/ЛНЧ/Друг вид идентификатор</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лично име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бащино име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SchoolKindergartenName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Пълно наименование на училището / детската градина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EKATTELocationCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място на училището /детската градина (код по ЕКАТТЕ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocationName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място на училището /детската градина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EKATTEMunicipalityCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община на училището /детската градина (код по ЕКАТТЕ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MunicipalityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Община на училището /детската градина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EKATTEDistrictCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област на училището /детската градина (код по ЕКАТТЕ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DistrictName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Област на училището /детската градина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Grade" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Клас /група</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClassType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на паралелката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationForm" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Форма на обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SchoolKindergartenType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на училището / детската градина</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChildStatus" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Статус на детето / ученика</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationalYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Начало на учебна година на обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на актуализация на данните в регистъра на МОН</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

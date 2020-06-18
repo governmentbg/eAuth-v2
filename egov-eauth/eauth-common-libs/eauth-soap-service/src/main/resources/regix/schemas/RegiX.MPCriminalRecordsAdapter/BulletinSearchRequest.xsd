@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/BulletinSearchRequest" targetNamespace="http://egov.bg/RegiX/MP/BulletinSearchRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="BulletinSearchRequest" type="BulletinSearchRequestType"/>
+	<xs:complexType name="BulletinSearchRequestType">
+		<xs:sequence>
+			<xs:element name="EGN" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

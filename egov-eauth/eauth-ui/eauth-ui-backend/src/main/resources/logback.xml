@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true"
+  xmlns="http://ch.qos.logback/xml/ns/logback"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!--<logger name="mujina" level="DEBUG"/>-->
+  <!--<logger name="org.springframework.security" level="DEBUG"/>-->
+  <!--<logger name="org.springframework.security.web" level="DEBUG" />-->
+  <!--<logger name="org.opensaml" level="DEBUG" />-->
+
+  <logger name="bg.bulsi.egov.idp" level="DEBUG" />
+  <logger name="org.springframework.security.web.authentication.*" level="DEBUG" />
+  <logger name="org.springframework.security.web.client.*" level="DEBUG" />
+
+  <logger name="org.springframework.security.access.intercept.*" level="DEBUG" />
+  <logger name="org.springframework.session" level="DEBUG" />
+  <logger name="PROTOCOL_MESSAGE" level="DEBUG" />
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

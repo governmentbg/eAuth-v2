@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>bg.bulsi</groupId>
+		<artifactId>egov-eauth</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<packaging>pom</packaging>
+
+	<artifactId>eauth-ui</artifactId>
+
+	<modules>
+		<module>eauth-ui-rest-api</module>
+		<module>eauth-ui-backend</module>
+		<module>eauth-ui-admin</module>
+	</modules>
+
+	<dependencyManagement>
+
+		<dependencies>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-ui-rest-api-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-ui-rest-api-controlers</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-2fa-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-2fa-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-profile-rest-api-controlers</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-profile-rest-api-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- <dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-eid-api-provider</artifactId>
+				<version>${project.version}</version>
+			</dependency> -->
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-eid-api-dto</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>eauth-profile-backend</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- <dependency> -->
+			<!-- <groupId>bg.bulsi</groupId> -->
+			<!-- <artifactId>eauth-audit</artifactId> -->
+			<!-- <version>${project.version}</version> -->
+			<!-- </dependency> -->
+
+			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>egov-saml-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+</project>

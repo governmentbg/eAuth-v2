@@ -1,0 +1,32 @@
+############ ACTUATOR ############
+
+spring:
+   profiles:
+      include: actuator-ext
+   #Actuator credentiials
+#   security:
+#      user:
+#         name: actuator
+#         password: actuatorpassword
+
+
+#management.endpoint.<id>.enabled#
+management:
+   endpoints:
+      enabled-by-default: true
+      web.exposure:
+         include: '*'
+         exclude: beans #, health, info
+   endpoint:
+      health:
+         enabled: true
+         show-components: always  #when-authorized, always, never
+         show-details: always #when-authorized, always, never
+      info.enabled: true
+      shutdown.enabled: false
+      auditevents.enabled: true
+info:
+   app:
+      description: Eauth UI backend
+#                                 #
+###################################

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://egov.bg/RegiX/PatentDepartment/Geo/RegNumRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://egov.bg/RegiX/PatentDepartment/Geo/RegNumRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="GetGIByRegNum" type="GetGIByRegNumType">
+		<xs:annotation>
+			<xs:documentation>Справка по  регистрационен номер на географско означение</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GetGIByRegNumType">
+		<xs:sequence>
+      <xs:element name="RegNum" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Регистрационен номер</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

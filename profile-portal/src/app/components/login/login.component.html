@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-img-wrapper">
+    <img src="assets/img/logo-gerb.png" class="login-img">
+  </div>
+
+  <form [formGroup]="loginForm">
+    <div class="login-form-wrapper">
+      <!-- <mat-form-field appearance="outline" >
+        <input matInput placeholder="ЕГН" formControlName="egn">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Имена" formControlName="fullName">
+      </mat-form-field> -->
+
+      <div class="login-button-wrapper">
+        <button mat-raised-button color="primary" (click)="login()" style="width: 200px">Вход</button>
+      </div>
+    </div>
+
+  </form>
+</div>

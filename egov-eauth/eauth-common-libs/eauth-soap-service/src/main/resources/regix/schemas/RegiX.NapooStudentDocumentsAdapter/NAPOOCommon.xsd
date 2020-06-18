@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/NAPOO" targetNamespace="http://egov.bg/RegiX/NAPOO" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="StudentData">
+		<xs:annotation>
+			<xs:documentation>Данни за обучавано лице в професионален център на НАПОО</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ClientID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+            Уникален номер на обучаемия от информационната система на НАПОО
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StudentIdentifier" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ЕГН, ЛНЧ или друг вид идентификатор на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Лично име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Бащино име</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LicenceNumber" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор на документ на курсист в регистъра</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProfessionalEduCenter" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование на център за професионално обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProfessionalEduCenterLocation" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Населено място на център за професионално обучение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentTypeID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникален идентификатор на вида на документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationTypeID" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Уникален идентификатор на вида на обучението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EducationType" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Вид на обучението</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProfessionCodeAndName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код и наименование на професията</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubjectCodeAndName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Код и наименование на специалността</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="QualificationDegree" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Придобита степен на професионална квалификация</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GraduationYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Година на завършване на курсиста</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentSeries" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Серия на документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentSerialNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Сериен номер на документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentRegistrationNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Регистрационен номер на документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DocumentIssueDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на издаване на документа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

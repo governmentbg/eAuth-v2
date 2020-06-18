@@ -1,0 +1,9 @@
+.footer-content {
+    height: 60px;
+    font-size: calc(6px + (11 - 6) * ((100vw - 300px) / (1600 - 300)));
+    margin: 0 auto;
+
+    .footer-link {
+        color: #318fc1;
+    }
+}

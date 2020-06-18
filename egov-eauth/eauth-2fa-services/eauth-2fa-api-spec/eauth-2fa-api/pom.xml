@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>bg.bulsi</groupId>
+        <artifactId>eauth-2fa-api-spec</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <packaging>jar</packaging>
+
+    <artifactId>eauth-2fa-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>bg.bulsi</groupId>
+            <artifactId>eauth-2fa-dto</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>io.swagger.codegen.v3</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/../eauth-2fa-spec/eauth-2fa-api-spec.yaml</inputSpec>
+                            <language>spring</language>
+                            <withXml>true</withXml>
+
+                            <!--<templateDirectory>${project.basedir}/../spec/templates/</templateDirectory>-->
+
+                            <output>${project.build.directory}/generated-sources</output>
+                            <apiPackage>${default.package}.api</apiPackage>
+                            <modelPackage>${default.package}.api.dto</modelPackage>
+                            <!--<invokerPackage>${default.package}.api.handler</invokerPackage>-->
+
+                            <ignoreFileOverride>${project.basedir}/../eauth-2fa-spec/.swagger-codegen-ignore
+                            </ignoreFileOverride>
+
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <generateApis>true</generateApis>
+                            <generateModels>false</generateModels>
+
+                            <configOptions>
+                                <title>CRC Rest Service</title>
+                                <!--<interfaceOnly>true</interfaceOnly>-->
+                                <swaggerDocketConfig>true</swaggerDocketConfig>
+
+                                <basePackage>${default.package}</basePackage>
+                                <configPackage>${default.package}.config</configPackage>
+
+                                <java8>true</java8>
+                                <useOptional>true</useOptional>
+
+                                <delegateMethod>true</delegateMethod>
+                                <delegatePattern>true</delegatePattern>
+
+                                <useBeanValidation>true</useBeanValidation>
+                                <serializableModel>true</serializableModel>
+
+                                <throwsException>true</throwsException>
+                            </configOptions>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

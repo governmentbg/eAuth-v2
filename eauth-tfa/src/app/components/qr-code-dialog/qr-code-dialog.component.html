@@ -1,0 +1,14 @@
+<div class="qr-container">
+    <img [src]="imageUrl" alt="image" />
+    <mat-form-field class="security-code-holder">
+        <input class="security-code-input" matInput [(ngModel)]="securityCode" readonly>
+    </mat-form-field>
+    <button 
+        class="generate-new-code-btn" 
+        mat-mini-fab color="primary" 
+        matTooltip="Generate new QR code" 
+        (click)="generateNewQrCode()">
+        <mat-icon aria-hidden="false" aria-label="clear">refresh</mat-icon>
+    </button>
+</div>
+

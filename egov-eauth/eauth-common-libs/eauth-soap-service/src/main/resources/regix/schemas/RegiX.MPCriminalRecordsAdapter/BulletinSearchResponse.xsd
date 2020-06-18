@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/BulletinSearchResponse" targetNamespace="http://egov.bg/RegiX/MP/BulletinSearchResponse" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="BulletinSearchResponse" type="BulletinSearchResponseType"/>
+	<xs:complexType name="BulletinSearchResponseType">
+		<xs:sequence>
+			<xs:element name="Person" type="PersonType" minOccurs="0"/>
+			<xs:element name="Bulletins" type="ArrayOfBulletin" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:sequence>
+			<xs:element name="Egn" type="xs:string" minOccurs="0"/>
+			<xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0"/>
+			<xs:element name="LastName" type="xs:string" minOccurs="0"/>
+			<xs:element name="Birthdate" type="xs:date" minOccurs="0"/>
+			<xs:element name="birthplace" type="xs:string" minOccurs="0"/>
+			<xs:element name="RegionalCourtName" type="xs:string" minOccurs="0"/>
+			<xs:element name="PresentCity" type="xs:string" minOccurs="0"/>
+			<xs:element name="PresentAddress" type="xs:string" minOccurs="0"/>
+			<xs:element name="MothersNames" type="xs:string" minOccurs="0"/>
+			<xs:element name="FathersNames" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArrayOfBulletin">
+		<xs:sequence>
+			<xs:element name="bulletin" type="BulletinType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BulletinType">
+		<xs:sequence>
+			<xs:element name="BulletinNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="RegistrationDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="Type" type="xs:string" minOccurs="0"/>
+			<xs:element name="CourtPrepared" type="xs:string" minOccurs="0"/>
+			<xs:element name="ActNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="ActDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ActExecuteDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="ActType" type="xs:string" minOccurs="0"/>
+			<xs:element name="CourtOfAct" type="xs:string" minOccurs="0"/>
+			<xs:element name="CaseNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="CaseDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="CaseType" type="xs:string" minOccurs="0"/>
+			<xs:element name="BulletinDisposition" type="xs:string" minOccurs="0"/>
+			<xs:element name="AdditionalInfo" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

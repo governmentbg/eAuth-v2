@@ -1,0 +1,46 @@
+<form ngNoForm method="POST" [action]="verifyEndpoint">
+    <div id="verifier-input-holder">
+        <input #firstDigitEl 
+            (keydown)="onKeydown($event, firstDigitEl, firstDigitEl)" 
+            (input)="moveFocus($event, secondDigitEl)" 
+            autocomplete="off"
+            type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+        <input #secondDigitEl
+            (keydown)="onKeydown($event, firstDigitEl, secondDigitEl)" 
+            (input)="moveFocus($event, thirdDigitEl)" 
+            autocomplete="off"
+            type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+        <input #thirdDigitEl
+            (keydown)="onKeydown($event, secondDigitEl, thirdDigitEl)"  
+            (input)="moveFocus($event, fourthDigitEl)" 
+            autocomplete="off"
+            type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+        <input #fourthDigitEl
+            (keydown)="onKeydown($event, thirdDigitEl, fourthDigitEl)" 
+            (input)="moveFocus($event, fifthDigitEl)" 
+            autocomplete="off"
+            type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+        <input #fifthDigitEl
+            (keydown)="onKeydown($event, fourthDigitEl, fifthDigitEl)" 
+            (input)="moveFocus($event, sixthDigitEl)" 
+            autocomplete="off"
+            type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+        <input #sixthDigitEl
+            (keydown)="onKeydown($event, fifthDigitEl, sixthDigitEl)" 
+            (input)="moveFocus($event, verifyBtn)" 
+            autocomplete="off"
+            type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+        <input type="hidden" name="code" [value]="sendCode"/>
+        <input type="hidden" name="tId" [value]="tId"/>    
+        <input type="hidden" name="method" [value]="tMethod"/>    
+    </div>
+
+    <div class="verify-button-holder">
+        <button #verifyBtn class="verify-btn" [disabled]="verifyBtnValidation()" mat-mini-fab color="primary" (click)="verifyCode()" [matTooltip]="'code-check' | translate">
+            <mat-icon aria-hidden="false" aria-label="clear">check</mat-icon>
+        </button>
+        <a class="clear-code-btn" mat-mini-fab color="primary" (click)="clearCode()" [matTooltip]="'clear-code' | translate">
+            <mat-icon aria-hidden="false" aria-label="clear">clear</mat-icon>
+        </a>
+    </div>
+</form>

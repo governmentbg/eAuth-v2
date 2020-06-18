@@ -1,0 +1,32 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.login-button-wrapper {
+    margin: 30px auto;
+}
+
+.login-img-wrapper {
+    margin: 0 auto;
+    width: 300px;
+    display: flex;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.login-img {
+    margin: auto;
+}
+
+
+mat-form-field.mat-form-field {
+    font-size: 12px;
+}

@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RegiXEntryPoint" targetNamespace="http://tempuri.org/">
+   <wsp:Policy wsu:Id="WSHttpBinding_IRegiXEntryPoint_policy">
+      <wsp:ExactlyOne>
+         <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+               <wsp:Policy>
+                  <sp:TransportToken>
+                     <wsp:Policy>
+                        <sp:HttpsToken RequireClientCertificate="true" />
+                     </wsp:Policy>
+                  </sp:TransportToken>
+                  <sp:AlgorithmSuite>
+                     <wsp:Policy>
+                        <sp:Basic256 />
+                     </wsp:Policy>
+                  </sp:AlgorithmSuite>
+                  <sp:Layout>
+                     <wsp:Policy>
+                        <sp:Strict />
+                     </wsp:Policy>
+                  </sp:Layout>
+               </wsp:Policy>
+            </sp:TransportBinding>
+            <wsaw:UsingAddressing />
+         </wsp:All>
+      </wsp:ExactlyOne>
+   </wsp:Policy>
+   <wsp:Policy wsu:Id="BasicHttpBinding_IRegiXEntryPoint_policy">
+      <wsp:ExactlyOne>
+         <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+               <wsp:Policy>
+                  <sp:TransportToken>
+                     <wsp:Policy>
+                        <sp:HttpsToken RequireClientCertificate="true" />
+                     </wsp:Policy>
+                  </sp:TransportToken>
+                  <sp:AlgorithmSuite>
+                     <wsp:Policy>
+                        <sp:Basic256 />
+                     </wsp:Policy>
+                  </sp:AlgorithmSuite>
+                  <sp:Layout>
+                     <wsp:Policy>
+                        <sp:Strict />
+                     </wsp:Policy>
+                  </sp:Layout>
+               </wsp:Policy>
+            </sp:TransportBinding>
+         </wsp:All>
+      </wsp:ExactlyOne>
+   </wsp:Policy>
+   <wsdl:types>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+         <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" />
+         <xs:element name="Execute">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="request" type="tns:ServiceRequestData" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ServiceRequestData">
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="Operation" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Име на извикваната операция. За повече информация за иментата на операциите http://regixaisweb.egov.bg/regixinfo/. 
+            Пример: "TechnoLogica.RegiX.GraoNBDAdapter.APIService.INBDAPI.ValidPersonSearch"</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="Argument">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>XML съдържание на заявката. За повече информация за структурата(xsd) на заявките за различните операции: http://regixaisweb.egov.bg/regixinfo/.
+            Важно е да се знае, че елементите трябва да са qualified, т.е. да включват namespace от схемата за избраната операция</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                     <xs:annotation>
+                        <xs:documentation>
+                           <summary>XML съдържание на заявката. За повече информация за структурата(xsd) на заявките за различните операции: http://regixaisweb.egov.bg/regixinfo/.
+            Важно е да се знае, че елементите трябва да са qualified, т.е. да включват namespace от схемата за избраната операция</summary>
+                        </xs:documentation>
+                     </xs:annotation>
+                     <xs:sequence>
+                        <xs:any />
+                     </xs:sequence>
+                  </xs:complexType>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="EIDToken" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Идентификатор за електронна идентичност(получен от http://eid.egov.bg/)</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="CallContext" type="tns:CallContext">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Контекст, в който се прави извикване. Запазва се в логовете на RegiX</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="CallbackURL" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" maxOccurs="1" name="EmployeeEGN" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>ЕГН на служителя, изпълняващ заявката. Не се запазва в логовете на RegiX, а директно се предава към Първичния регистър</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="CitizenEGN" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>ЕГН на лицето, за който се прави справка, ако справката е за физическо лице. 
+            Не се запазва в логовете на RegiX, а директно се предава към Първичния регистър</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="SignResult" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Указва дали резултата да бъде подписан след изготвянето му</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="ReturnAccessMatrix" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Указва дали да се върне матрицата за достъп, с която са получени данните, спрямо правата на консуматора</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="CallContext">
+            <xs:annotation>
+               <xs:documentation>
+                  <summary>Контекст, в който се прави извикване. Запазва се в логовете на RegiX</summary>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="ServiceURI" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Идентификатор на инстанцията на административната услуга или процедура в организацията (например: номер на преписка)</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="ServiceType" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Вид на услугата, във връзка с която се извиква операцията
+            За административна услуга: типа на услугата;
+            За проверовъчна дейност: вида на дейността;
+            За друга причина за използване: описание на причината;</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="EmployeeIdentifier" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Идентификатор на служител – например EMAIL адрес, с който служителя влиза в АД на съответната администрация (или с който фигурира в ЕИСУЧРДА). 
+            Идентификатора трябва да е проверен от информационната система клиент</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="EmployeeNames" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Имена на служител</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="EmployeeAditionalIdentifier" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Опционален допълнителен идентификатор на служител от администрация – например номера на служебната карта</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="EmployeePosition" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Длъжност или позиция на служителя в администрацията</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="AdministrationOId" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Идентификационен код на администрация (oID от eAuth)</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="AdministrationName" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Име на администрация, ползваща системата</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="ResponsiblePersonIdentifier" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Опционален идентификатор на човека отговорен за справката. 
+            Тук трябва да се слага стойност, когато заявките не се инициират ръчно от конкретен служител, а се генерират автоматично от информационна система. 
+            Това може да бъде ръководителя на Администрацията, ползваща информационната система.</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="LawReason" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Контекст на правното основание. 
+            Правното основание може да произтича директно от нормативната уредба или да бъде базирано на сключено споразумение.
+            Тук се описва правно основание или се цитира регистрирано такова.</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="Remark" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Допълнително поле в свободен текст</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ExecuteResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="ExecuteResult" type="tns:ServiceExecuteResult" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ServiceExecuteResult">
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="ServiceCallID" type="xs:decimal">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Идентификатор на подаден заявка, с който в последствие може да се получи резултата</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="HasError" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Указва дали е възникнала грешка</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="Error" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Съобщение за грешка. Setting this propery automatically sets the HasError property to true</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CheckResult">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="argument" type="tns:ServiceCheckResultArgument" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ServiceCheckResultArgument">
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="ServiceCallID" type="xs:decimal">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Идентификатор на пусната вече асинхронна заявка. Този идентификатор е един от елементите на резултата от извикване на Execute</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CheckResultResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="CheckResultResult" type="tns:ServiceResultData" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ServiceResultData">
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="IsReady" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Указва, дали са получени данни от Първичния регистър</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="Data" nillable="true" type="tns:DataContainer">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Данни, които връща операцията. Тук има данни, при HasError=false и IsReady=true</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element xmlns:q1="http://www.w3.org/2000/09/xmldsig#" minOccurs="1" maxOccurs="1" ref="q1:Signature">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Подпис, върху контейнера с данни</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="HasError" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Указва дали е възникнала грешка при изпълнение на операцията</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="Error" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Съобщение за грешка. При HasError=true</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="DataContainer">
+            <xs:annotation>
+               <xs:documentation>
+                  <summary>Данни, които връща операцията. Тук има данни, при HasError=false и IsReady=true</summary>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="Request" type="tns:RequestContainer">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Съдържа входните параметри на справката. Съответства на елемента Argument от получения ServiceRequest</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="Response" type="tns:ResponseContainer">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Получен отговор, спрямо входните параметри и матрицата за достъп.За повече информация за структурата на получения резултатен xml: http://regixaisweb.egov.bg/RegiXInfo</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" maxOccurs="1" name="Matrix" nillable="true">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Матрица за достъп до данните. Описва до кои характеристики на резултатния обект, консуматора има достъп и до кои няма.</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                     <xs:annotation>
+                        <xs:documentation>
+                           <summary>Матрица за достъп до данните. Описва до кои характеристики на резултатния обект, консуматора има достъп и до кои няма.</summary>
+                        </xs:documentation>
+                     </xs:annotation>
+                     <xs:complexContent mixed="false">
+                        <xs:extension base="tns:AccessMatrixType">
+                           <xs:attribute name="id" type="xs:ID" />
+                        </xs:extension>
+                     </xs:complexContent>
+                  </xs:complexType>
+               </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID" />
+         </xs:complexType>
+         <xs:complexType name="RequestContainer">
+            <xs:annotation>
+               <xs:documentation>
+                  <summary>Съдържа входните параметри на справката. Съответства на елемента Argument от получения ServiceRequest</summary>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:any minOccurs="0" maxOccurs="1" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID" />
+         </xs:complexType>
+         <xs:complexType name="ResponseContainer">
+            <xs:annotation>
+               <xs:documentation>
+                  <summary>Получен отговор, спрямо входните параметри и матрицата за достъп.За повече информация за структурата на получения резултатен xml: http://regixaisweb.egov.bg/RegiXInfo</summary>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:any minOccurs="0" maxOccurs="1" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID" />
+         </xs:complexType>
+         <xs:complexType name="AccessMatrixType">
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="HasAccess" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Дали достъпът до текущата характеристика е позволен</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="Name" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Име на функцията за проверка</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="Properties" type="tns:ArrayOfAMPropertyType">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Характеристики</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="ArrayOfAMPropertyType">
+            <xs:annotation>
+               <xs:documentation>
+                  <summary>Характеристики</summary>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="unbounded" name="Property" type="tns:AMPropertyType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="AMPropertyType">
+            <xs:sequence>
+               <xs:element minOccurs="1" maxOccurs="1" name="HasAccess" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Дали достъпът до текущата характеристика е позволен</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="1" maxOccurs="1" name="Name" type="xs:string">
+                  <xs:annotation>
+                     <xs:documentation>
+                        <summary>Наименование</summary>
+                     </xs:documentation>
+                  </xs:annotation>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ExecuteSynchronous">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="request" type="tns:ServiceRequestData" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="ExecuteSynchronousResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="1" maxOccurs="1" name="ExecuteSynchronousResult" type="tns:ServiceResultData" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+      <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.w3.org/2000/09/xmldsig#" elementFormDefault="qualified" targetNamespace="http://www.w3.org/2000/09/xmldsig#">
+         <xs:element name="Signature">
+            <xs:annotation>
+               <xs:documentation>
+                  <summary>Подпис, върху контейнера с данни</summary>
+               </xs:documentation>
+            </xs:annotation>
+            <xs:complexType mixed="true">
+               <xs:annotation>
+                  <xs:documentation>
+                     <summary>Подпис, върху контейнера с данни</summary>
+                  </xs:documentation>
+               </xs:annotation>
+               <xs:sequence>
+                  <xs:any maxOccurs="unbounded" />
+               </xs:sequence>
+               <xs:anyAttribute />
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="IRegiXEntryPoint_Execute_InputMessage">
+      <wsdl:part name="parameters" element="tns:Execute" />
+   </wsdl:message>
+   <wsdl:message name="IRegiXEntryPoint_Execute_OutputMessage">
+      <wsdl:part name="parameters" element="tns:ExecuteResponse" />
+   </wsdl:message>
+   <wsdl:message name="IRegiXEntryPoint_CheckResult_InputMessage">
+      <wsdl:part name="parameters" element="tns:CheckResult" />
+   </wsdl:message>
+   <wsdl:message name="IRegiXEntryPoint_CheckResult_OutputMessage">
+      <wsdl:part name="parameters" element="tns:CheckResultResponse" />
+   </wsdl:message>
+   <wsdl:message name="IRegiXEntryPoint_ExecuteSynchronous_InputMessage">
+      <wsdl:part name="parameters" element="tns:ExecuteSynchronous" />
+   </wsdl:message>
+   <wsdl:message name="IRegiXEntryPoint_ExecuteSynchronous_OutputMessage">
+      <wsdl:part name="parameters" element="tns:ExecuteSynchronousResponse" />
+   </wsdl:message>
+   <wsdl:portType name="IRegiXEntryPoint">
+      <wsdl:operation name="Execute">
+         <wsdl:input wsaw:Action="http://tempuri.org/IRegiXEntryPoint/Execute" message="tns:IRegiXEntryPoint_Execute_InputMessage" />
+         <wsdl:output wsaw:Action="http://tempuri.org/IRegiXEntryPoint/ExecuteResponse" message="tns:IRegiXEntryPoint_Execute_OutputMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="CheckResult">
+         <wsdl:input wsaw:Action="http://tempuri.org/IRegiXEntryPoint/CheckResult" message="tns:IRegiXEntryPoint_CheckResult_InputMessage" />
+         <wsdl:output wsaw:Action="http://tempuri.org/IRegiXEntryPoint/CheckResultResponse" message="tns:IRegiXEntryPoint_CheckResult_OutputMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="ExecuteSynchronous">
+         <wsdl:input wsaw:Action="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronous" message="tns:IRegiXEntryPoint_ExecuteSynchronous_InputMessage" />
+         <wsdl:output wsaw:Action="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronousResponse" message="tns:IRegiXEntryPoint_ExecuteSynchronous_OutputMessage" />
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="WSHttpBinding_IRegiXEntryPoint" type="tns:IRegiXEntryPoint">
+      <wsp:PolicyReference URI="#WSHttpBinding_IRegiXEntryPoint_policy" />
+      <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+      <wsdl:operation name="Execute">
+         <wsdl:documentation>
+            <summary>Изпълнява заявката асинхронно</summary>
+            <param name="request">Аргумент за изпълнение на заявка</param>
+            <returns>Резултат от изпълнението на асинхронната заявка</returns>
+         </wsdl:documentation>
+         <soap12:operation soapAction="http://tempuri.org/IRegiXEntryPoint/Execute" style="document" />
+         <wsdl:input>
+            <soap12:body use="literal" />
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="CheckResult">
+         <wsdl:documentation>
+            <summary>Проверка на резултата от изпълнението на асинхронни заявки</summary>
+            <param name="argument">Аргумент съдържащ идентификатор на асинхронната операция</param>
+            <returns>Резултат от изпълнението на асинхронната заявка</returns>
+         </wsdl:documentation>
+         <soap12:operation soapAction="http://tempuri.org/IRegiXEntryPoint/CheckResult" style="document" />
+         <wsdl:input>
+            <soap12:body use="literal" />
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="ExecuteSynchronous">
+         <wsdl:documentation>
+            <summary>Изпълнява заявката синхронно</summary>
+            <param name="request">Аргумент за изпълнение на заявка</param>
+            <returns>Резултат от изпълнението заявката</returns>
+         </wsdl:documentation>
+         <soap12:operation soapAction="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronous" style="document" />
+         <wsdl:input>
+            <soap12:body use="literal" />
+         </wsdl:input>
+         <wsdl:output>
+            <soap12:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:binding name="BasicHttpBinding_IRegiXEntryPoint" type="tns:IRegiXEntryPoint">
+      <wsp:PolicyReference URI="#BasicHttpBinding_IRegiXEntryPoint_policy" />
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+      <wsdl:operation name="Execute">
+         <wsdl:documentation>
+            <summary>Изпълнява заявката асинхронно</summary>
+            <param name="request">Аргумент за изпълнение на заявка</param>
+            <returns>Резултат от изпълнението на асинхронната заявка</returns>
+         </wsdl:documentation>
+         <soap:operation soapAction="http://tempuri.org/IRegiXEntryPoint/Execute" style="document" />
+         <wsdl:input>
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="CheckResult">
+         <wsdl:documentation>
+            <summary>Проверка на резултата от изпълнението на асинхронни заявки</summary>
+            <param name="argument">Аргумент съдържащ идентификатор на асинхронната операция</param>
+            <returns>Резултат от изпълнението на асинхронната заявка</returns>
+         </wsdl:documentation>
+         <soap:operation soapAction="http://tempuri.org/IRegiXEntryPoint/CheckResult" style="document" />
+         <wsdl:input>
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="ExecuteSynchronous">
+         <wsdl:documentation>
+            <summary>Изпълнява заявката синхронно</summary>
+            <param name="request">Аргумент за изпълнение на заявка</param>
+            <returns>Резултат от изпълнението заявката</returns>
+         </wsdl:documentation>
+         <soap:operation soapAction="http://tempuri.org/IRegiXEntryPoint/ExecuteSynchronous" style="document" />
+         <wsdl:input>
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal" />
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="RegiXEntryPoint">
+      <wsdl:documentation>
+         <summary>Услуга съдържаща операции за работа с API услуги. Позволява синхронно и асинхронно изпълнение на произволни API услуги, които са част от RegiX</summary>
+      </wsdl:documentation>
+      <wsdl:port name="WSHttpBinding_IRegiXEntryPoint" binding="tns:WSHttpBinding_IRegiXEntryPoint">
+         <soap12:address location="https://regix-service-test.egov.bg/regix/RegiXEntryPoint.svc" />
+         <wsa10:EndpointReference>
+            <wsa10:Address>https://regix-service-test.egov.bg/regix/RegiXEntryPoint.svc</wsa10:Address>
+         </wsa10:EndpointReference>
+      </wsdl:port>
+      <wsdl:port name="BasicHttpBinding_IRegiXEntryPoint" binding="tns:BasicHttpBinding_IRegiXEntryPoint">
+         <soap:address location="https://regix-service-test.egov.bg/regix/RegiXEntryPoint.svc/basic" />
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>
+

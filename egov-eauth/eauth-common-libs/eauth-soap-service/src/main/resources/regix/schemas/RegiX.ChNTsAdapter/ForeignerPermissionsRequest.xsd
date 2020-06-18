@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://egov.bg/RegiX/MP/ChNTs/ForeignerPermissionsRequest" targetNamespace="http://egov.bg/RegiX/MP/ChNTs/ForeignerPermissionsRequest" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ForeignerPermissionsRequestType">
+		<xs:annotation>
+			<xs:documentation>Входни параметри за Справка за издадени/отказани разрешения за извършване на дейност с нестопанска цел в РБ</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SearchDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Дата, към която е извършена справката</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NamesLatin" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Имена на латиница</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="BirthDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Дата на раждане на лицето</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LNCh" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Личен номер на чужденец</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ForeignerPermissionsRequest" type="ForeignerPermissionsRequestType"/>
+</xs:schema>
