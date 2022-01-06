@@ -3,8 +3,8 @@ package bg.bulsi.egov.idp.controlers;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,11 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.MarshallingException;
@@ -28,17 +24,15 @@ import org.opensaml.saml.saml2.core.AuthnRequest;
 import org.opensaml.saml.saml2.core.NameIDType;
 import org.opensaml.xmlsec.encryption.support.EncryptionException;
 import org.opensaml.xmlsec.signature.support.SignatureException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import bg.bulsi.egov.eauth.metadata.config.model.IdpConfigurationProperties;
 import bg.bulsi.egov.eauth.saml.SAMLAttribute;
@@ -52,153 +46,134 @@ import net.shibboleth.utilities.java.support.component.ComponentInitializationEx
 @Controller
 public class SsoController {
 
-  // TODO check it!!!
-  private static final String PATH = "eauth-common-libs/egov-saml-impl/src/main/resources/";
-  private static final String FILE_METADATA_XML = PATH + "test_metadata.xml";
+	private final SAMLMessageHandler samlMessageHandler;
+	private final IdpConfigurationProperties idpConfiguration;
 
-  private final SAMLMessageHandler samlMessageHandler;
-  private final IdpConfigurationProperties idpConfiguration;
+	public SsoController(SAMLMessageHandler samlMessageHandler, IdpConfigurationProperties idpConfiguration) {
+		this.samlMessageHandler = samlMessageHandler;
+		this.idpConfiguration = idpConfiguration;
+	}
 
-  public SsoController(
-      SAMLMessageHandler samlMessageHandler, IdpConfigurationProperties idpConfiguration) {
-    this.samlMessageHandler = samlMessageHandler;
-    this.idpConfiguration = idpConfiguration;
-  }
+	// GET Binding
+	@GetMapping("/SingleSignOnService")
+	public void singleSignOnServiceGet(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws MarshallingException, SignatureException, MessageEncodingException,
+			SecurityException, ComponentInitializationException, MessageHandlerException, EncryptionException,
+			SAMLException, CertificateException, ParserConfigurationException, SAXException, IOException {
 
-  //TODO remove!!!
-  @ResponseBody
-  @GetMapping("/metadata")
-  public ResponseEntity<Object> getSAMLMetadata() {
+		doSSO(request, response, authentication);
+	}
 
-    ResponseEntity<Object> response;
+	// POST Binding
+	@PostMapping("/SingleSignOnService")
+	public void singleSignOnServicePost(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws MarshallingException, SignatureException, MessageEncodingException,
+			SecurityException, ComponentInitializationException, MessageHandlerException, EncryptionException,
+			SAMLException, CertificateException, ParserConfigurationException, SAXException, IOException {
 
-    try (FileInputStream xmlMetadataFs = new FileInputStream(FILE_METADATA_XML)) {
-      // Create a factory
-      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      // Use the factory to create a builder
-      DocumentBuilder builder = factory.newDocumentBuilder();
-      Document doc = builder.parse(xmlMetadataFs);
+		doSSO(request, response, authentication);
+	}
 
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      DOMSource source = new DOMSource(doc);
-      response = ResponseEntity.ok().body(source);
-    } catch (FileNotFoundException e) {
-      log.error("FILE_METADATA_XML: {}", e.getMessage());
-      response = ResponseEntity.notFound().build();
-    } catch (Exception ex) {
-      response = ResponseEntity.status(500).build();
-    }
+	/**
+	 * @param request        HTTP request
+	 * @param response       HTTP response
+	 * @param authentication - намира се аутентикирания потребител през системата
+	 *                       (ТОВА ТРЯБВА ДА ВИДЯ ДЕЛИ НЕ МОЖЕ ПРЕЗ
+	 *                       UserDetailService)
+	 * @throws SecurityException            2
+	 * @throws MarshallingException         4
+	 * @throws SignatureException           5
+	 * @throws MessageEncodingException     6
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @throws CertificateException
+	 */
+	private void doSSO(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws MarshallingException, SignatureException, MessageEncodingException, SecurityException,
+			ComponentInitializationException, MessageHandlerException, EncryptionException, SAMLException,
+			CertificateException, ParserConfigurationException, SAXException, IOException {
 
-    return response;
-  }
+		try {
+			AuthnRequest authnRequest = getAuthnRequest(request);
 
-  // GET Binding
-  @GetMapping("/SingleSignOnService")
-  public void singleSignOnServiceGet(HttpServletRequest request, HttpServletResponse response,
-                                     Authentication authentication)
-      throws MarshallingException, SignatureException, MessageEncodingException,
-          SecurityException, ComponentInitializationException, MessageHandlerException, EncryptionException, SAMLException {
+			String assertionConsumerServiceURL = idpConfiguration.getAcsEndpoint() != null
+					? idpConfiguration.getAcsEndpoint()
+					: authnRequest.getAssertionConsumerServiceURL();
 
-    doSSO(request, response, authentication);
-  }
+			List<SAMLAttribute> attributes = attributes(authentication);
 
-  // POST Binding
-  @PostMapping("/SingleSignOnService")
-  public void singleSignOnServicePost(HttpServletRequest request, HttpServletResponse response,
-                                      Authentication authentication)
-      throws MarshallingException, SignatureException, MessageEncodingException,
-          SecurityException, ComponentInitializationException, MessageHandlerException, EncryptionException, SAMLException {
+			String relayState = getRelayState(request);
 
-    doSSO(request, response, authentication);
-  }
+			SAMLPrincipal principal = new SAMLPrincipal(authentication.getName(),
+					attributes.stream()
+							.filter(attr -> "urn:oasis:names:tc:SAML:1.1:nameid-format".equals(attr.getName()))
+							.findFirst().map(SAMLAttribute::getValue).orElse(NameIDType.UNSPECIFIED),
+					attributes, authnRequest.getIssuer().getValue(), authnRequest.getID(), assertionConsumerServiceURL,
+					relayState);
 
-  /**
-   * @param request        HTTP request
-   * @param response       HTTP response
-   * @param authentication - намира се аутентикирания потребител през системата (ТОВА ТРЯБВА ДА ВИДЯ
-   *                       ДЕЛИ НЕ МОЖЕ ПРЕЗ UserDetailService)
-   * @throws SecurityException        2
-   * @throws MarshallingException     4
-   * @throws SignatureException       5
-   * @throws MessageEncodingException 6
-   */
-  private void doSSO(HttpServletRequest request, HttpServletResponse response,
-                     Authentication authentication)
-      throws MarshallingException, SignatureException,
-      MessageEncodingException, SecurityException, ComponentInitializationException, MessageHandlerException, EncryptionException, SAMLException {
+			samlMessageHandler.sendAuthnResponse(authnRequest, principal, response);
 
-    try {
-      AuthnRequest authnRequest = getAuthnRequest(request);
+		} catch (UnmarshallingException e) {
+			throw new SAMLException(e);
+		}
 
-      String assertionConsumerServiceURL = idpConfiguration.getAcsEndpoint() != null ?
-          idpConfiguration.getAcsEndpoint() :
-          authnRequest.getAssertionConsumerServiceURL();
+	}
 
-      List<SAMLAttribute> attributes = attributes(authentication);
+	private AuthnRequest getAuthnRequest(HttpServletRequest request) throws UnmarshallingException {
+		HttpSession session = request.getSession();
 
-      SAMLPrincipal principal = new SAMLPrincipal(authentication.getName(),
-          attributes.stream()
-              .filter(attr -> "urn:oasis:names:tc:SAML:1.1:nameid-format".equals(attr.getName()))
-              .findFirst()
-              .map(SAMLAttribute::getValue).orElse(NameIDType.UNSPECIFIED),
-          attributes, authnRequest.getIssuer().getValue(),
-          authnRequest.getID(), assertionConsumerServiceURL, "");
+		Element element = (Element) session.getAttribute("SAMLAuthRequest");
+		if (element == null) {
+			throw new UnmarshallingException("Missing SAML 2.0 AuthRequest");
+		}
 
-      samlMessageHandler.sendAuthnResponse(principal, response);
+		AuthnRequest authnRequest = (AuthnRequest) Objects
+				.requireNonNull(XMLObjectProviderRegistrySupport.getUnmarshallerFactory().getUnmarshaller(element))
+				.unmarshall(element);
 
-    } catch (UnmarshallingException e) {
-      throw new SAMLException(e);
-    }
+		log.debug("Remove a SAMLAuthRequest from the session");
+		session.removeAttribute("SAMLAuthRequest");
+		return authnRequest;
+	}
 
-  }
+	private String getRelayState(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String relayState = (String) session.getAttribute("RelayState");
+		log.debug("Remove a RelayState: [{}] from the session", relayState);
+		session.removeAttribute("RelayState");
+		return relayState != null ? relayState : "";
+	}
 
-  private AuthnRequest getAuthnRequest(HttpServletRequest request) throws UnmarshallingException {
-    HttpSession session = request.getSession();
+	private List<SAMLAttribute> attributes(Authentication authentication) {
 
-    Element element = (Element) session.getAttribute("SAMLAuthRequest");
-    if (element == null) {
-      throw new UnmarshallingException("Missing SAML 2.0 AuthRequest");
-    }
+		IdpPrincipal principal = (IdpPrincipal) authentication.getPrincipal();
 
-    AuthnRequest authnRequest = (AuthnRequest) Objects
-        .requireNonNull(XMLObjectProviderRegistrySupport
-            .getUnmarshallerFactory().getUnmarshaller(element)).unmarshall(element);
+		return principal.getAttributes().stream()
+				.map(identityAttributes -> new SAMLAttribute(identityAttributes.getUrn(),
+						singletonList(identityAttributes.getValue())))
+				.collect(toList());
+	}
 
-    log.debug("Remove a SAMLAuthRequest from the session");
-    session.removeAttribute("SAMLAuthRequest");
-    return authnRequest;
-  }
-
-  private List<SAMLAttribute> attributes(Authentication authentication) {
-
-    IdpPrincipal principal = (IdpPrincipal)authentication.getPrincipal();
-
-    return principal.getAttributes().stream().map(identityAttributes -> new SAMLAttribute(
-        identityAttributes.getUrn(),  singletonList(identityAttributes.getValue())
-    )).collect(toList());
-  }
-
-  
-  @GetMapping("/logout") 
+	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		log.info("do logout!");
 
 		logout();
-		
+
 		return "logout";
 	}
-  
-  private void logout() {
-      // Logout
-      ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-      HttpSession session = attr.getRequest().getSession(false);
-      if (session != null) {
-    	  session.removeAttribute("SAMLAuthRequest");
-    	  session.invalidate();
-      }
 
-      SecurityContextHolder.getContext().setAuthentication(null);
-      SecurityContextHolder.clearContext();
-  }
+	private void logout() {
+		// Logout
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		HttpSession session = attr.getRequest().getSession(false);
+		if (session != null) {
+			session.removeAttribute("SAMLAuthRequest");
+			session.invalidate();
+		}
+
+		SecurityContextHolder.getContext().setAuthentication(null);
+		SecurityContextHolder.clearContext();
+	}
 }

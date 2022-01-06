@@ -2,8 +2,8 @@ package bg.bulsi.egov.eauth.metadata.samlobjects;
 
 public enum SAMLMetadataCore {
     LEVEL_OF_ASSURANCE_NAME("urn:oasis:names:tc:SAML:attribute:assurance-certification"),
-    PROTOCOL_VERSION_URI("http://eidas.europa.eu/entity-attributes/protocol-version"),
-    APPLICATION_IDENTIFIER("http://eidas.europa.eu/entity-attributes/application-identifier"),
+    PROTOCOL_VERSION_URI("urn:bg:egov:eauth:2.0:saml:ext"),
+    APPLICATION_IDENTIFIER("http://eauth.egov.bg/attributes/citizen"),
     SAML_NAME_ID_FORMAT_PERSISTENT("urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"),
 
     SAML_NAME_ID_FORMAT_TRANSIENT("urn:oasis:names:tc:SAML:2.0:nameid-format:transient"),
@@ -46,21 +46,7 @@ public enum SAMLMetadataCore {
     /** The EIDAS10_ prefix. */
     EAUTH_SAML_PREFIX("egovbga"),
 
-    /** The EIDAS10 saml extension ns.
-     *
-     * TODO: wrong! An attribute can be from http://eidas.europa.eu/attributes/legalperson/
-     */
-    @Deprecated
-    EIDAS10_RESPONSESAML_NS("http://eidas.europa.eu/attributes/naturalperson"),
-    /** The EIDAS10 saml extension prefix */
-    EIDAS10_SAML_PREFIX("eidas"),
-    /**
-     * The EIDAS10_ base attribute uri. this should be in sync with the configuration of saml engine
-     */
-    @Deprecated
-    EIDAS10_BASE_URI("eidas/attributes/"),
-
-    /** The ON e_ tim e_ use. */
+     /** The ON e_ tim e_ use. */
     ONE_TIME_USE("oneTimeUse"),
     ;
 

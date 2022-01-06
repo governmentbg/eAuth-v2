@@ -87,7 +87,7 @@
 
 			<dependency>
 				<groupId>bg.bulsi</groupId>
-				<artifactId>egov-saml-impl</artifactId>
+				<artifactId>eauth-eid-api-client</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

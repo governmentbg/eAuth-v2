@@ -16,5 +16,6 @@
 
     <modules>
         <module>eauth-2fa-sms-backend</module>
+        <module>eauth-2fa-sms-lm-backend</module>
     </modules>
 </project>

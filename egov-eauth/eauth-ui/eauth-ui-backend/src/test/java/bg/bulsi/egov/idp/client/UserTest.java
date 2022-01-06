@@ -9,19 +9,19 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import bg.bulsi.egov.idp.IdpApplication;
-import bg.bulsi.egov.idp.services.temp.UserService;
+import bg.bulsi.egov.idp.config.TfaLoginConfig;
 
 @Test(groups = {"pause"})
 @SpringBootTest(classes = IdpApplication.class)
 public class UserTest extends AbstractTestNGSpringContextTests {
 
 	@Autowired
-	UserService userService;
+	private TfaLoginConfig loginConfig;
 	
-	@Test(groups = {"clientTest"})
+	@Test(groups = {"clientTest","pause"})
 	private void testConfig() {
 		
-		assertEquals(userService.getLoginConfig().getIdentifiers().get(0), "1010101010");
+		assertEquals(loginConfig.getIdentifiers().get(0), "1010101010");
 	
 	}
 

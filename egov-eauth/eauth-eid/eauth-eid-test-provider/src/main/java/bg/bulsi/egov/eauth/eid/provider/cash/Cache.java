@@ -34,6 +34,8 @@ public interface Cache<T> {
 
 	long getExpiredTime(String key);
 
+	boolean contains(String key);
+
     
     
 }

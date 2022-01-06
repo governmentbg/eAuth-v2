@@ -1,15 +1,18 @@
 package bg.bulsi.egov.saml.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import org.opensaml.core.xml.XMLObject;
+import org.opensaml.saml.common.AbstractSAMLObject;
+
 import bg.bulsi.egov.saml.LevelOfAssurance;
 import bg.bulsi.egov.saml.Provider;
 import bg.bulsi.egov.saml.RequestedService;
 import bg.bulsi.egov.saml.Service;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nullable;
-import org.opensaml.core.xml.XMLObject;
-import org.opensaml.saml.common.AbstractSAMLObject;
 
 public class RequestedServiceImpl extends AbstractSAMLObject implements RequestedService {
 

@@ -1,17 +1,34 @@
 package bg.bulsi.egov.idp.saml;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.PublicKey;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ValidationException;
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.joda.time.DateTime;
 import org.opensaml.core.criterion.EntityIdCriterion;
+import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.MarshallingException;
+import org.opensaml.core.xml.io.UnmarshallingException;
 import org.opensaml.messaging.context.MessageContext;
 import org.opensaml.messaging.decoder.MessageDecodingException;
 import org.opensaml.messaging.decoder.servlet.HttpServletRequestMessageDecoder;
@@ -28,35 +45,46 @@ import org.opensaml.saml.common.binding.security.impl.ReceivedEndpointSecurityHa
 import org.opensaml.saml.common.messaging.context.SAMLEndpointContext;
 import org.opensaml.saml.common.messaging.context.SAMLMessageInfoContext;
 import org.opensaml.saml.common.messaging.context.SAMLPeerEntityContext;
+import org.opensaml.saml.common.xml.SAMLConstants;
 import org.opensaml.saml.saml2.binding.decoding.impl.HTTPPostDecoder;
 import org.opensaml.saml.saml2.binding.decoding.impl.HTTPRedirectDeflateDecoder;
 import org.opensaml.saml.saml2.binding.encoding.impl.HTTPPostEncoder;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.AuthnRequest;
+import org.opensaml.saml.saml2.core.EncryptedAssertion;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.Response;
 import org.opensaml.saml.saml2.core.Status;
 import org.opensaml.saml.saml2.core.StatusCode;
 import org.opensaml.saml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.saml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml.security.impl.SAMLSignatureProfileValidator;
 import org.opensaml.security.credential.Credential;
+import org.opensaml.security.credential.CredentialSupport;
+import org.opensaml.security.credential.UsageType;
+import org.opensaml.security.x509.BasicX509Credential;
 import org.opensaml.xmlsec.encryption.support.EncryptionException;
+import org.opensaml.xmlsec.signature.X509Certificate;
 import org.opensaml.xmlsec.signature.support.SignatureException;
 import org.opensaml.xmlsec.signature.support.SignatureValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import bg.bulsi.egov.eauth.audit.model.DataKeys;
 import bg.bulsi.egov.eauth.audit.model.EventTypes;
 import bg.bulsi.egov.eauth.audit.util.EventBuilder;
 import bg.bulsi.egov.eauth.common.xml.MetadataBuilderFactoryUtil;
 import bg.bulsi.egov.eauth.metadata.config.model.IdpConfigurationProperties;
-import bg.bulsi.egov.eauth.saml.OpenSamlImplementation;
 import bg.bulsi.egov.eauth.saml.SAMLBuilder;
 import bg.bulsi.egov.eauth.saml.SAMLPrincipal;
 import bg.bulsi.egov.eauth.saml.keystore.KeyManager;
@@ -68,8 +96,9 @@ import net.shibboleth.utilities.java.support.resolver.CriteriaSet;
 import net.shibboleth.utilities.java.support.resolver.ResolverException;
 
 //import bg.bulsi.egov.saml.ProxiedSAMLContextProviderLB;
-@Component
+
 @Slf4j
+@Component
 public class SAMLMessageHandler {
 
 	private KeyManager keyManager;
@@ -82,12 +111,15 @@ public class SAMLMessageHandler {
 	private ApplicationEventPublisher applicationEventPublisher;
 	private AuthnRequestValidator authnValidator;
 	private ProviderService providerService;
+	private Environment environment;
 
 //	 @Value("${validate.authn.oids}")
 	private boolean validateOidsEnabled = false;
 
 //	 @Value("${validate.authn.claims}")
 	private boolean validateClaimsEnabled = true;
+	
+	private RestTemplate restTemplate;
 
 	@Autowired
 	public SAMLMessageHandler(
@@ -98,7 +130,9 @@ public class SAMLMessageHandler {
 			IdpConfigurationProperties idpConfiguration,
 			ApplicationEventPublisher applicationEventPublisher,
 			AuthnRequestValidator authnValidator,
-			ProviderService providerService
+			ProviderService providerService,
+			RestTemplate restTemplate,
+			Environment environment
 			) {
 
 		 this.keyManager = keyManager;
@@ -122,14 +156,14 @@ public class SAMLMessageHandler {
 		this.applicationEventPublisher = applicationEventPublisher;
 		this.authnValidator = authnValidator;
 		this.providerService = providerService;
+		this.restTemplate = restTemplate;
+		this.environment = environment;
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public MessageContext<SAMLObject> extractSAMLMessageContext(
-			HttpServletRequest request,
-			HttpServletResponse response, boolean isPostRequest)
-			throws ValidationException, SecurityException, MessageDecodingException, ComponentInitializationException, MessageHandlerException, SignatureException {
+	public MessageContext<SAMLObject> extractSAMLMessageContext(HttpServletRequest request, HttpServletResponse response, boolean isPostRequest)
+			throws MessageDecodingException, ComponentInitializationException, MessageHandlerException, SignatureException, ParserConfigurationException, SAXException, IOException, UnmarshallingException, CertificateException {
 
 		HttpServletRequestMessageDecoder<SAMLObject> decoder = (HttpServletRequestMessageDecoder<SAMLObject>) samlMessageDecoder(
 				isPostRequest);
@@ -195,15 +229,66 @@ public class SAMLMessageHandler {
 			handlerChain.initialize();
 			handlerChain.doInvoke(context);
 
-			if (authnRequest.isSigned()) {
-				SAMLSignatureProfileValidator profileValidator = new SAMLSignatureProfileValidator();
-				profileValidator.validate(authnRequest.getSignature());
+			boolean isAuthnRequestSigned = authnRequest.isSigned();
+			log.debug("isAuthnRequestSigned: [{}]", isAuthnRequestSigned);
+			
+			if (isAuthnRequestSigned) {
+				String metadataUrl = authnRequest.getIssuer().getValue();
+				log.debug("metadataUrl: [{}]", metadataUrl);
+				
+				String  entityDescriptorXml = restTemplate.getForObject(metadataUrl, String.class);
+				if (StringUtils.isBlank(entityDescriptorXml)) {
+					throw new IllegalArgumentException("EntityDescriptor is blank!");
+				}
+				
+				EntityDescriptor entityDescriptor = getEntityDescriptor(entityDescriptorXml);
+				List<KeyDescriptor> keyDescriptors = entityDescriptor.getSPSSODescriptor(SAMLConstants.SAML20P_NS).getKeyDescriptors();
+				if (keyDescriptors != null) {
+					log.debug("keyDescriptors size: [{}]", keyDescriptors.size());
+					if (keyDescriptors.isEmpty()) {
+						throw new IllegalArgumentException("Empty certificates in metadata: [" + metadataUrl + "]");
+					}
+					
+					for (KeyDescriptor keyDesc : keyDescriptors) {
+						UsageType usageType = keyDesc.getUse();
+						log.debug("key desc use: [{}]", usageType);
+						
+						if (usageType == UsageType.SIGNING) {
+							Optional<X509Certificate> cert = keyDesc.getKeyInfo().getX509Datas()
+									.stream()
+									.findFirst()
+									.map(x509Data -> x509Data.getX509Certificates()
+											.stream()
+											.findFirst()
+											.orElse(null)
+									);
+							
+							if (cert.isPresent()) {
+								SAMLSignatureProfileValidator profileValidator = new SAMLSignatureProfileValidator();
 
-				SignatureValidator
-						.validate(authnRequest.getSignature(),
-								resolveCredential(idpConfiguration.getEntityId()));
+								// very important for validation!!!
+								authnRequest.getDOM().setIdAttribute("ID", true);
+
+								profileValidator.validate(authnRequest.getSignature());
+
+								String lexicalXSDBase64Binary = cert.get().getValue();
+								log.debug("lexicalXSDBase64Binary: [{}]", lexicalXSDBase64Binary);
+								
+								byte[] decoded = DatatypeConverter.parseBase64Binary(lexicalXSDBase64Binary);
+								log.debug("decoded: [{}]", Base64.getEncoder().encodeToString(decoded));
+
+								// getCredencialFromFile("certificates/certificate.crt")
+								BasicX509Credential credential = getCredentialFromMetadata(decoded);
+
+								// resolveCredential(idpConfiguration.getEntityId())
+								SignatureValidator.validate(authnRequest.getSignature(), credential);
+							}
+						}
+					}
+				}
+				
 			}
-
+			
 			return decoder.getMessageContext();
 
 		} finally {
@@ -218,12 +303,10 @@ public class SAMLMessageHandler {
 		return postRequest ? new HTTPPostDecoder() : new HTTPRedirectDeflateDecoder();
 	}
 
-
-	public void sendAuthnResponse(SAMLPrincipal principal, HttpServletResponse response)
-			throws MarshallingException, SignatureException, ComponentInitializationException, MessageEncodingException, MessageHandlerException, EncryptionException {
-
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
+	
+	@SuppressWarnings("unchecked")
+	public void sendAuthnResponse(AuthnRequest authnRequest, SAMLPrincipal principal, HttpServletResponse response)
+			throws MarshallingException, SignatureException, ComponentInitializationException, MessageEncodingException, MessageHandlerException, EncryptionException, CertificateException, ParserConfigurationException, SAXException, IOException, UnmarshallingException {
 
 		final HTTPPostEncoder encoder = new HTTPPostEncoder();
 		Response authResponse = MetadataBuilderFactoryUtil.buildXmlSAMLObject(Response.class);
@@ -243,14 +326,20 @@ public class SAMLMessageHandler {
 		Assertion assertion = SAMLBuilder.buildAssertion(principal, status, entityId);
 
 		SAMLBuilder.signAssertion(assertion, signingCredential);
-		authResponse.getAssertions().add(assertion); // 1: comment this to encrypt assertions
-
-		// 2: uncomment this to encrypt assertions
-		/*
-		 * EncryptedAssertion as = SAMLBuilder.encryptAssertion(assertion, signingCredential);
-		 * authResponse.getEncryptedAssertions().add(as);
-		 */
-
+		
+		List<String> activeProfiles = Arrays.asList(environment.getActiveProfiles());
+		log.debug("activeProfiles: {}", activeProfiles);
+		if (!activeProfiles.contains("prod")) {
+			// 1: comment this to encrypt assertions
+			authResponse.getAssertions().add(assertion);
+		} else {
+			// get public cert from SP metadata url to encrypt the assertions
+			BasicX509Credential encryptCredential = getEncryptCredential(authnRequest, restTemplate);
+			// 2: uncomment this to encrypt assertions
+			EncryptedAssertion encryptedAssertion = SAMLBuilder.encryptAssertion(assertion, encryptCredential); // old: signingCredential
+			authResponse.getEncryptedAssertions().add(encryptedAssertion);
+		}
+		
 		authResponse.setDestination(principal.getAssertionConsumerServiceURL());
 
 		authResponse.setStatus(status);
@@ -291,12 +380,6 @@ public class SAMLMessageHandler {
 		/*
 		 * AuditEvent
 		 */
-		{ // TODO remove test
-			log.info("Principal getAssertionConsumerServiceURL {}", principal.getAssertionConsumerServiceURL());
-			log.info("Principal getName {}", principal.getName());
-			log.info("Principal getNameID {}", principal.getNameID());
-			log.info("Principal getServiceProviderEntityID {}", principal.getServiceProviderEntityID());
-		}
 		AuditApplicationEvent auditApplicationEvent = new EventBuilder(RequestContextHolder.currentRequestAttributes())
 				.principal(principal.getAssertionConsumerServiceURL())
 				.type(EventTypes.SAML_AUTHENTICATION_SUCCESS)
@@ -316,11 +399,9 @@ public class SAMLMessageHandler {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public void sendCancelAuthnResponse(String statusMessage, SAMLPrincipal principal, HttpServletResponse response)
-			throws MarshallingException, SignatureException, ComponentInitializationException, MessageEncodingException, MessageHandlerException, EncryptionException {
-
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
+			throws MarshallingException, SignatureException, ComponentInitializationException, MessageEncodingException, MessageHandlerException, EncryptionException, CertificateException, ParserConfigurationException, SAXException, IOException, UnmarshallingException {
 
 		final HTTPPostEncoder encoder = new HTTPPostEncoder();
 		Response authResponse = MetadataBuilderFactoryUtil.buildXmlSAMLObject(Response.class);
@@ -340,13 +421,19 @@ public class SAMLMessageHandler {
 		Assertion assertion = SAMLBuilder.buildAssertion(principal, status, entityId);
 
 		SAMLBuilder.signAssertion(assertion, signingCredential);
-		authResponse.getAssertions().add(assertion); // 1: comment this to encrypt assertions
-
-		// 2: uncomment this to encrypt assertions
-		/*
-		 * EncryptedAssertion as = SAMLBuilder.encryptAssertion(assertion, signingCredential);
-		 * authResponse.getEncryptedAssertions().add(as);
-		 */
+		
+		List<String> activeProfiles = Arrays.asList(environment.getActiveProfiles());
+		log.debug("activeProfiles: {}", activeProfiles);
+		if (!activeProfiles.contains("prod")) {
+			// 1: comment this to encrypt assertions
+			authResponse.getAssertions().add(assertion);
+		} else {
+			// get public cert from SP metadata url to encrypt the assertions
+			BasicX509Credential encryptCredential = getEncryptCredential(providerService.getAuthnRequest(), restTemplate);
+			// 2: uncomment this to encrypt assertions
+			EncryptedAssertion encryptedAssertion = SAMLBuilder.encryptAssertion(assertion, encryptCredential); // old: signingCredential
+			authResponse.getEncryptedAssertions().add(encryptedAssertion);
+		}
 
 		authResponse.setDestination(principal.getAssertionConsumerServiceURL());
 
@@ -394,6 +481,122 @@ public class SAMLMessageHandler {
 				.data(DataKeys.SOURCE, this.getClass().getName())
 				.build();
 		applicationEventPublisher.publishEvent(auditApplicationEvent);
+	}
+
+	private static EntityDescriptor getEntityDescriptor(String entityDescriptorXml)
+			throws ParserConfigurationException, SAXException, IOException, UnmarshallingException {
+		ByteArrayInputStream is = new ByteArrayInputStream(entityDescriptorXml.getBytes(StandardCharsets.UTF_8));
+
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		documentBuilderFactory.setNamespaceAware(true);
+		DocumentBuilder docBuilder = documentBuilderFactory.newDocumentBuilder();
+
+		Document document = docBuilder.parse(is);
+		Element element = document.getDocumentElement();
+
+		EntityDescriptor entityDescriptor = (EntityDescriptor) Objects
+				.requireNonNull(XMLObjectProviderRegistrySupport.getUnmarshallerFactory().getUnmarshaller(element))
+				.unmarshall(element);
+
+		return entityDescriptor;
+	}
+	
+	private static BasicX509Credential getCredentialFromMetadata(byte[] decoded) throws CertificateException {
+		CertificateFactory  certFactory = CertificateFactory.getInstance("X.509");
+		java.security.cert.X509Certificate certificate = (java.security.cert.X509Certificate) certFactory
+				.generateCertificate(new ByteArrayInputStream(decoded));
+
+		log.debug("cert type: [{}]", certificate.getType());
+		log.debug("cert pub key alg: [{}]", certificate.getPublicKey().getAlgorithm());
+		log.debug("cert pub key format: [{}]", certificate.getPublicKey().getFormat());
+					
+		BasicX509Credential credential = new BasicX509Credential(certificate);
+		// credential.setEntityId("http://bul-si.bg/sp");
+		
+		return credential;
+	}
+	
+	private static BasicX509Credential getCredencialFromFile(String filePath) {
+		log.debug("get credential from file: [{}]", filePath);
+		try {
+			InputStream in = new ClassPathResource(filePath).getInputStream();
+			CertificateFactory factory = CertificateFactory.getInstance("X.509");
+			java.security.cert.X509Certificate cert = (java.security.cert.X509Certificate) factory
+					.generateCertificate(in);
+			
+			cert.checkValidity();
+			
+			log.debug("cert type: [{}]", cert.getType());
+			
+			String certStr = Base64.getEncoder().encodeToString(cert.getEncoded());
+			log.debug("cert as string: [{}]", certStr);
+			
+			PublicKey pubKey = cert.getPublicKey();
+			log.debug("pub key alg: [{}]", pubKey.getAlgorithm());
+			log.debug("pub key format: [{}]", pubKey.getFormat());
+			
+			BasicX509Credential credential = CredentialSupport.getSimpleCredential(cert, null);
+			log.debug("credential usage type: [{}]", credential.getUsageType());
+			
+			// credential.setEntityId("http://bul-si.bg/sp");
+			
+			return credential;
+		} catch (CertificateException | IOException ex) {
+			log.error(ex.getMessage());
+		} 
+		return null;
+	}
+	
+	private static BasicX509Credential getEncryptCredential(AuthnRequest authnRequest, RestTemplate restTemplate) 
+			throws ParserConfigurationException, SAXException, IOException, UnmarshallingException, CertificateException {
+		BasicX509Credential credential = null;
+		
+		boolean isAuthnRequestSigned = authnRequest.isSigned();
+		log.debug("isAuthnRequestSigned: [{}]", isAuthnRequestSigned);
+		
+		if (isAuthnRequestSigned) {
+			String metadataUrl = authnRequest.getIssuer().getValue();
+			log.debug("metadataUrl: [{}]", metadataUrl);
+		
+			String  entityDescriptorXml = restTemplate.getForObject(metadataUrl, String.class);
+			if (StringUtils.isBlank(entityDescriptorXml)) {
+				throw new IllegalArgumentException("EntityDescriptor is blank!");
+			}
+			
+			EntityDescriptor entityDescriptor = getEntityDescriptor(entityDescriptorXml);
+			List<KeyDescriptor> keyDescriptors = entityDescriptor.getSPSSODescriptor(SAMLConstants.SAML20P_NS).getKeyDescriptors();
+			if (keyDescriptors != null) {
+				log.debug("keyDescriptors size: [{}]", keyDescriptors.size());
+				
+				for (KeyDescriptor keyDesc : keyDescriptors) {
+					UsageType usageType = keyDesc.getUse();
+					log.debug("key desc use: [{}]", usageType);
+					
+					if (usageType == UsageType.ENCRYPTION) {
+						Optional<X509Certificate> cert = keyDesc.getKeyInfo().getX509Datas()
+								.stream()
+								.findFirst()
+								.map(x509Data -> x509Data.getX509Certificates()
+										.stream()
+										.findFirst()
+										.orElse(null)
+								);
+						
+						if (cert.isPresent()) {
+							String lexicalXSDBase64Binary = cert.get().getValue();
+							log.debug("lexicalXSDBase64Binary: [{}]", lexicalXSDBase64Binary);
+							
+							byte[] decoded = DatatypeConverter.parseBase64Binary(lexicalXSDBase64Binary);
+							log.debug("decoded: [{}]", Base64.getEncoder().encodeToString(decoded));
+
+							credential = getCredentialFromMetadata(decoded);
+						}
+					}
+				}
+			}
+		}
+			
+		return credential;
 	}
 
 }

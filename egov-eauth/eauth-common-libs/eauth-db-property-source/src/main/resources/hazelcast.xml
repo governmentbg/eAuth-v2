@@ -269,6 +269,12 @@
         <eviction-policy>LRU</eviction-policy>
         <time-to-live-seconds>300</time-to-live-seconds>
     </map>
+    
+    <map name="CallbackMap">
+        <in-memory-format>BINARY</in-memory-format>
+        <eviction-policy>LRU</eviction-policy>
+        <time-to-live-seconds>300</time-to-live-seconds>
+    </map>
 	
     <!--
            Configuration for an event journal. The event journal keeps events related

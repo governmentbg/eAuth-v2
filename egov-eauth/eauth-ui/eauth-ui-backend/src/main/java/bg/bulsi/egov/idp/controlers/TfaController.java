@@ -2,7 +2,6 @@ package bg.bulsi.egov.idp.controlers;
 
 import java.util.List;
 
-import org.opensaml.core.xml.io.UnmarshallingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import bg.bulsi.egov.hazelcast.enums.OTPMethods;
 import bg.bulsi.egov.hazelcast.service.HazelcastService;
 import bg.bulsi.egov.idp.dto.AuthTimeout;
 import bg.bulsi.egov.idp.dto.CodeRequest;
@@ -45,7 +45,7 @@ public class TfaController {
 	}
 
 	@GetMapping("/providers")
-	public ResponseEntity<List<IdentityProvider>> listProviders() throws UnmarshallingException {
+	public ResponseEntity<List<IdentityProvider>> listProviders() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		if (authentication == null) {
@@ -73,6 +73,14 @@ public class TfaController {
 
 		return ResponseEntity.ok().body(timeout);
 	}
+	
+	@GetMapping(value = "/enabled-otp-methods", produces = "application/json")
+	public ResponseEntity<List<OTPMethods>> listOfAllEnabledOtpMethods() {
+		log.info("listOfAllEnabledOtpMethods!");
+		List<OTPMethods> list = tfaService.allEnabledOtpMethods();
+
+		return ResponseEntity.ok().body(list);
+	}
 
 	@GetMapping("/tfa/send")
 	public ResponseEntity<OTPresponse> sendCode() {
@@ -98,9 +106,9 @@ public class TfaController {
 	}
 
 	@GetMapping("/tfa/otpmethods")
-	public ResponseEntity<List<EnabledOTPMethod>> listOfEnabledOtpMethods() {
+	public ResponseEntity<List<EnabledOTPMethod>> listOfEnabledUserOtpMethods() {
 		log.info("listOfEnabledOtpMethods!");
-		List<EnabledOTPMethod> list = tfaService.enabledOtpMethods();
+		List<EnabledOTPMethod> list = tfaService.enabledUserOtpMethods();
 
 		return ResponseEntity.ok().body(list);
 	}

@@ -13,6 +13,8 @@ public interface IdentityRepository extends JpaRepository<Identity, Long> {
 
     Optional<Identity> findByUsernameAndPassword(String username, String password);
     
+    Optional<Identity> findByUsername(String username);
+    
     Optional<Identity> findByNid(String nid);
     
     Optional<Identity> findByEmail(String email);

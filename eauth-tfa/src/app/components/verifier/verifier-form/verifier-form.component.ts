@@ -116,7 +116,9 @@ export class VerifierFormComponent implements OnInit, AfterViewInit, OnDestroy {
 					]);
 					// this._toastr.success('Успешно валидиран код')
 				} else {
-					this._toastr.error('Невалиден код');
+					this._toastr.error('Невалиден код', '', {
+						enableHtml: true,
+					});
 				}
 			});
 	}

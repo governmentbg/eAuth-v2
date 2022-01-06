@@ -136,4 +136,15 @@
 <!-- 		<xsd:pattern value=""></xsd:pattern> -->
 		</xsd:restriction>
 	</xsd:simpleType>
+	<xsd:simpleType name="X509Type">
+		<xsd:annotation>
+			<xsd:documentation>
+				Person X.509 certificate.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+<!-- 		<xsd:pattern value=""></xsd:pattern> -->
+		</xsd:restriction>
+	</xsd:simpleType>
+
 </xsd:schema>

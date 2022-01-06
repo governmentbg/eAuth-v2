@@ -1,0 +1,28 @@
+#change tomcat def port
+server.port: 8140
+
+spring:
+   application:
+      name: sms_2fa_lm
+   profiles:
+      include: actuator
+   datasource:
+      url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+      username: bulsiadmin
+      password: bulsivirtual
+      driver-class-name: org.postgresql.Driver
+      sql-script-encoding: utf-8
+   jpa:
+      database: postgresql
+      hibernate:
+         use-new-id-generator-mappings: true
+         ddl-auto: update
+      properties:
+         hibernate:
+            #default_schema: sms
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
+            show_sql: true
+      show-sql: true
+
+database-property-source.schema: public
+#logging.level.org.springframework.web: debug

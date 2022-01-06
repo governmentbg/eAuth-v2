@@ -6,7 +6,9 @@
 				<include name="tfaServiceTest" />
 				<include name="propertiesContextTest" />
 				<include name="clientTest" />
+				<include name="clientApiTest" />
 				<include name="userPasswTest" />
+				<include name="fileTest" />
 			</define>
 			<run>
 				<include name="all" />
@@ -18,8 +20,10 @@
 			<class name="bg.bulsi.egov.idp.tfa.TfaServiceTestNg" />
 			<class name="bg.bulsi.egov.idp.client.TestPropertyContext"></class>
 			<class name="bg.bulsi.egov.idp.client.ClientTest"></class>
+			<class name="bg.bulsi.egov.idp.client.ClientApiTest"></class>
+			<class name="bg.bulsi.egov.idp.client.ClientApiTestTls"></class>
+			<class name="bg.bulsi.egov.idp.client.GetFileTest"></class>
 			<class name="bg.bulsi.egov.idp.client.UserTest"></class>
-			<class name="bg.bulsi.egov.idp.client.UserPasswTest"></class>
 		</classes>
 	</test>
 </suite>  

@@ -5,19 +5,20 @@ info:
     Authentication as Vendor servers <br/> <hr> <br /> <b>Each call must provide
     an Authorization Header parameter</b> <br />On every request you have to set
     a HTTP header parameter "authorize_key". Below you can find an example, how
-    to generate such a parameter. <h4>EXAMPLE</h4> <i><u>Input Data</u></i> <br
-    />Vendor Key - 7f4b9ef3-298d-4ced-8656-a5d8b7f96666 <br />Vendor ID -
-    ahZsmRHbDHL6TeED <br />Each Vendor receive its unique Key and ID provided by
-    DAEU. <br /> <br />DATA (the request you want to send through the API) <br
-    />{"vendorID":"ahZsmRHbDHL6TeED","userIdentificationNumber":"8611048980"}
-    <br /> <i><u>Generate "authorize_key" header</u></i> <br />DATA_TO_HEX <br
-    />7b2276656e646f724e756d626572223a2261685a736d52486244484c3654654544222c22757
-    <br
-    />365724964656e74696669636174696f6e4e756d626572223a2238363131303438393830227d
-    <br /> <br />VENDOR_KEY_2_SHA256 = SHA256(VENDOR_KEY) <br
-    />05f1a4f713f589ec6126e6161255649eca830a32ce55f3ec2fa9268c9add8d69 <br />
-    <br />authorize_key = HMAC(SHA256, DATA_TO_HEX, VENDOR_KEY_2_SHA256) <br
-    />c38babb38a5498deae40e8d71c101156242ab6a6f019290d16b62e0da9ad2cc2<br />
+    to generate such a parameter. <h4>EXAMPLE</h4> <i><u>Input Data</u></i> <br/>
+    Vendor Key - 7f4b9ef3-298d-4ced-8656-a5d8b7f96666 <br />
+    Vendor ID -  ahZsmRHbDHL6TeED <br/>
+    Each Vendor receive its unique Key and ID provided by DAEU. <br /> <br />
+    DATA (the request you want to send through the API) <br/>
+    {"vendorID":"ahZsmRHbDHL6TeED","userIdentificationNumber":"8611048980"}<br/> 
+    <i><u>Generate "authorize_key" header</u></i> 
+    <br />DATA_TO_HEX <br/>
+    7b2276656e646f724e756d626572223a2261685a736d52486244484c3654654544222c22757<br/>
+    365724964656e74696669636174696f6e4e756d626572223a2238363131303438393830227d<br/> 
+    <br />VENDOR_KEY_2_SHA256 = SHA256(VENDOR_KEY) <br/>
+    05f1a4f713f589ec6126e6161255649eca830a32ce55f3ec2fa9268c9add8d69 <br/>
+    <br />authorize_key = HMAC(SHA256, DATA_TO_HEX, VENDOR_KEY_2_SHA256) <br/>
+    c38babb38a5498deae40e8d71c101156242ab6a6f019290d16b62e0da9ad2cc2<br />
 
   version: 1.1.0
   title: RestFul eAuth API
@@ -66,7 +67,8 @@ paths:
                   content:
                     application/json:
                       schema:
-                        $ref: "#/components/schemas/InquiryResult"
+                        type: string
+                        example: authentication accepted successfuly
                 "409":
                   $ref: '#/components/responses/409_Conflict'
                 "500":
@@ -84,8 +86,8 @@ paths:
           $ref: "#/components/responses/401_Unauthorized"
         "405":
           $ref: '#/components/responses/405_NotAllowed'
-        "409":
-          $ref: '#/components/responses/409_Conflict'
+        "404":
+          $ref: "#/components/responses/404_NotFound"
         "500":
           $ref: "#/components/responses/500_ServerError"
           
@@ -128,8 +130,8 @@ paths:
           $ref: "#/components/responses/401_Unauthorized"
         "405":
           $ref: "#/components/responses/405_NotAllowed"
-        "404":
-          $ref: "#/components/responses/404_NotFound"
+        "409":
+          $ref: '#/components/responses/409_Conflict'
         "500":
           $ref: "#/components/responses/500_ServerError"
         "501":
@@ -160,8 +162,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthenticationResponse"
-        "202":
-          $ref: "#/components/responses/202_NotReady"
+        "203":
+          $ref: "#/components/responses/203_NotReady"
         "400":
           $ref: '#/components/responses/400_InvalidRequest'
         "401":
@@ -177,7 +179,7 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-  - url: https://bul-si.bg/swagger-ui/
+  - url: @eid.service.host@
 components:
   securitySchemes:
     api_key:
@@ -192,30 +194,64 @@ components:
     AuthenticationRequest:
       type: object
       required:
-        - requestedDestination
-        - requestProvider
+        - requestedResource
+        - requestSystem
+        - user
       properties:
-        requestedDestination:
+        requestedResource:
           type: string
-        requestProvider:
+          description: Contains text describing the resource/service the user want to access.
+        requestSystem:
           type: string
+          description: Contains text description of the target system.
         relayState:
           type: string
+          description: SP origin of the authentication. 
         processing:   
           $ref: "#/components/schemas/ProcessingData"
         levelOfAssurance:
           $ref: "#/components/schemas/LevelOfAssurance"
         user:
           $ref: "#/components/schemas/UserAuthData"
-        identificationAttributes:
-          $ref: "#/components/schemas/AttributeMap"
+        requestedAddAuthAttributes:
+          type: array
+          default: []
+          xml:
+            name: attribute
+            wrapped: true
+          items:
+            $ref: "#/components/schemas/AssertionAttributeType"
+          example: [ "urn:egov:bg:eauth:2.0:attributes:email" ]
     AttributeMap:
       type: object
       additionalProperties:
         type: string
         xml:
           name: atribute
-          wrapped: true
+          wrapped: true 
+    AssertionAttributeType:
+      type: string
+      description: All supported assertion attribute for the authenticated person
+      enum:
+        - urn:egov:bg:eauth:2.0:attributes:personIdentifier
+        - urn:egov:bg:eauth:2.0:attributes:personName
+        - urn:egov:bg:eauth:2.0:attributes:email
+        - urn:egov:bg:eauth:2.0:attributes:phone
+        - urn:egov:bg:eauth:2.0:attributes:latinName
+        - urn:egov:bg:eauth:2.0:attributes:birthName
+        - urn:egov:bg:eauth:2.0:attributes:dateOfBirth
+        - urn:egov:bg:eauth:2.0:attributes:gender
+        - urn:egov:bg:eauth:2.0:attributes:placeOfBirth
+        - urn:egov:bg:eauth:2.0:attributes:X509
+        - urn:egov:bg:eauth:2.0:attributes:canonicalResidenceAddress
+    AssertionAttributeValue:
+      type: object
+      description: "For the authenticated person contains attrubute velues for requested attrribute keys in AuthenticationRequest -> requestedAddAuthAttributes"
+      properties:
+        attribute:
+          $ref: "#/components/schemas/AssertionAttributeType"
+        value:
+          type: string
     LevelOfAssurance:
       type: string
       description: Available standart EU assurance level
@@ -256,10 +292,36 @@ components:
           type: string
         clientIpAddress:
           type: string
-        subject:
-          $ref: "#/components/schemas/IdentityData"
+        subjectAssertions:
+          type: array
+          description: >+
+            Contains values of all assertion sttributes for the identifies person. <br/>
+            For succesfull authenticaton Identity provider must provide mandatory attleeast two attributes<br/><br/>
+            1. "urn:egov:bg:eauth:2.0:attributes:personIdentifier"<br/>
+            Identifier of the authenticated user<br/>
+            Тhe identifier shall be expressed using the following structure for the corresponding character string in the presented order<br/> 
+            a) 3 character natural person identity type reference, having one of the following defined values<br/>
+            I.   \"PAS\" for identification based on passport number;<br/>
+            II. \"IDC\" for identification based on national identity card number; <br/>
+            III.\"PNO\" for identification based on (national) personal number (national civic registration number); or<br/>
+            IV.  \"TIN\" Tax Identification Number according to the European Commission - Tax and Customs Union <br/>
+            (http://ec.europa.eu/taxation_customs/tin/tinByCountry.html). <br/>
+            V.   \"VAT\" for identification based on a national value added tax identification number; or <br/>
+            VI. \"NTR\" for identification based on an identifier from a national register, e.g. a national trade register.<br/>
+            b) 2 character ISO 3166-1 [15] country code; <br/>
+            c) hyphen-minus "-" (0x2D (ASCII), U+002D (UTF-8)); and <br/>
+            d) identifier (according to country and identity type reference).<br/><br/>
+            2. "urn:egov:bg:eauth:2.0:attributes:personName" Full name of the authenticated person.
+          uniqueItems: true
+          xml:
+            name: assertion
+            wrapped: true
+          items:
+            $ref: "#/components/schemas/AssertionAttributeValue"
+          example: [{ "attribute": "urn:egov:bg:eauth:2.0:attributes:personIdentifier", "value": "PNOBG-1010101010" },{ "attribute": "urn:egov:bg:eauth:2.0:attributes:personName", "value": "Дафинка Петрова" }]
         inResponseToId:
           type: string
+          description: relyingPartyRequestID of this response
         levelOfAssurance:
           $ref: "#/components/schemas/LevelOfAssurance"
     AuthenticationCallbackResult:
@@ -291,24 +353,6 @@ components:
         authenticationString:
           type: string
           format: base64
-    UserData:
-      type: object
-      properties:
-        name:
-          type: string
-        identificationNumber:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    IdentityData:
-      type: object
-      properties:
-        identified:
-          $ref: "#/components/schemas/UserData"
-        additionalIdentityAttributes:
-          $ref: "#/components/schemas/AttributeMap"
     InquiryResult:
       type: object
       description: Holds authentication polling data
@@ -358,8 +402,8 @@ components:
               type: integer
               description: an optional parameter that specifies the required time in seconds to wait between requests
   responses:
-    202_NotReady: # Can be referenced as '#/components/responses/202_NotReady'
-      description: Request is accepted but still in processing
+    203_NotReady: # Can be referenced as '#/components/responses/203_NotReady'
+      description: Request is accepted, but still in processing.
       content:
         application/json:
           schema:
@@ -368,7 +412,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProcessingException'
     400_InvalidRequest:  # Can be referenced as '#/components/responses/400_InvalidRequest'
-      description: Bad Request, user can change it and resubmit new correct request
+      description: Bad Request, user can change it and resubmit new correct request.
       content:
         application/json:
           schema:
@@ -377,7 +421,7 @@ components:
           schema:
             $ref: '#/components/schemas/CommonAuthException'
     401_Unauthorized: # Can be referenced as '#/components/responses/401_Unauthorized'
-      description: API key is missing or invalid
+      description: API key is missing or invalid.
       headers:
         WWW_Authenticate:
           schema:
@@ -408,7 +452,7 @@ components:
           schema:
             $ref: '#/components/schemas/CommonAuthException'
     405_NotAllowed: # Can be referenced as '#/components/responses/405_NotAllowed'
-      description: Invalid request or not allowed method
+      description: Invalid request or not allowed method.
       content:
         application/json:
           schema:
@@ -417,7 +461,7 @@ components:
           schema:
             $ref: '#/components/schemas/CommonAuthException'
     409_Conflict: # Can be referenced as '#/components/responses/409_Conflict'
-      description: The user might be able to resolve the conflict and resubmit the request
+      description: There is a conflict within this request. The user might be able to resolve the conflict and resubmit the request.
       content:
         application/json:
           schema:
@@ -426,7 +470,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProcessingException'
     410_Gone: # Can be referenced as '#/components/responses/410_Gone'
-      description: Resource is no longer available
+      description: Resource is no longer available.
       content:
         application/json:
           schema:
@@ -444,7 +488,7 @@ components:
           schema:
             $ref: '#/components/schemas/ProcessingException'
     501_NotImplemented: # Can be referenced as '#/components/responses/501_NotImplemented'
-      description: The specified resource was not found.
+      description: The specified resource is not yet implemented.
       content:
         application/json:
           schema:

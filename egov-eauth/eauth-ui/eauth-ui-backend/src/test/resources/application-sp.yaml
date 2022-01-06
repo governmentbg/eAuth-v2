@@ -5,7 +5,7 @@
 sp.3rd.party:
    providers: 
       'test': 
-         entity-id: 'testsp'
+         entity-id: 'test'
          name: 
             'bg': 'СП 1'
             'en': 'SP 1'

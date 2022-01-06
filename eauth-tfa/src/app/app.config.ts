@@ -11,4 +11,6 @@ export const appConfig = {
 	loginEndpoint: environment.loginEndpoint,
 	verifyUrl: environment.verifyUrl,
 	profileUrl: environment.profileUrl,
+	invalidateSSO: environment.invalidateSSO,
+	napPikURL: environment.napPikURL
 };

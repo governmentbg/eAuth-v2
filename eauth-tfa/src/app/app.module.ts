@@ -20,10 +20,14 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TimerService} from './services/timer.service';
 import { APP_BASE_HREF } from '@angular/common';
+import { MethodButtonComponent } from './components/verifier/method-button/method-button.component';
+import { VerifyInputComponent } from './components/verifier/verify-input/verify-input.component';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
+		MethodButtonComponent,
+		VerifyInputComponent
 	],
 	imports: [
 		BrowserModule,

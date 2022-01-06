@@ -17,7 +17,6 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 	private HazelcastService hcService;
 	
 	@Autowired
-	//@Qualifier("hazelcastInstance")
 	private HazelcastInstance hazelcastInstance;
 	
 	

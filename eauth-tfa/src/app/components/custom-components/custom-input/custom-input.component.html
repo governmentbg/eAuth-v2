@@ -5,6 +5,8 @@
         [placeholder]="label | customTranslate:lang"
         [name]="attributeId"
         [value]="value"
+        [maxLength]="setLenghtValidation()"
         [type]="getAuthAttributeType()"
-        (change)="inputChange()">
+        (change)="inputChange()"
+        numberOnly>
 </mat-form-field>

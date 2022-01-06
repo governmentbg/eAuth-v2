@@ -1,19 +1,20 @@
 package bg.bulsi.egov.eauth.eid.provider.service;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
-import org.apache.commons.codec.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
@@ -22,46 +23,59 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Charsets;
 
 import bg.bulsi.egov.eauth.audit.model.DataKeys;
 import bg.bulsi.egov.eauth.audit.model.EventTypes;
 import bg.bulsi.egov.eauth.audit.util.EventBuilder;
+//import bg.bulsi.egov.eauth.audit.model.DataKeys;
+//import bg.bulsi.egov.eauth.audit.model.EventTypes;
+//import bg.bulsi.egov.eauth.audit.util.EventBuilder;
 import bg.bulsi.egov.eauth.eid.ExIdentApiDelegate;
-import bg.bulsi.egov.eauth.eid.dto.AttributeMap;
+import bg.bulsi.egov.eauth.eid.dto.AssertionAttributeType;
+import bg.bulsi.egov.eauth.eid.dto.AssertionAttributeValue;
 import bg.bulsi.egov.eauth.eid.dto.AuthProcessingType;
 import bg.bulsi.egov.eauth.eid.dto.AuthenticationCallbackResult;
 import bg.bulsi.egov.eauth.eid.dto.AuthenticationRequest;
 import bg.bulsi.egov.eauth.eid.dto.AuthenticationResponse;
-import bg.bulsi.egov.eauth.eid.dto.IdentityData;
 import bg.bulsi.egov.eauth.eid.dto.InquiryResult;
 import bg.bulsi.egov.eauth.eid.dto.ProcessingData;
 import bg.bulsi.egov.eauth.eid.dto.UserAuthData;
-import bg.bulsi.egov.eauth.eid.dto.UserData;
 import bg.bulsi.egov.eauth.eid.provider.cash.Cache;
 import bg.bulsi.egov.eauth.eid.provider.cash.InMemoryCache;
-import bg.bulsi.egov.eauth.eid.provider.model.AttributeMapKeys;
 import bg.bulsi.egov.eauth.eid.provider.model.Identity;
 import bg.bulsi.egov.eauth.eid.provider.model.UserStatusDataIn;
 import bg.bulsi.egov.eauth.eid.provider.model.UserStatusDataOut;
 import bg.bulsi.egov.eauth.eid.provider.model.repository.IdentityRepository;
 import bg.bulsi.egov.eauth.eid.provider.service.exception.EidProviderException;
 import bg.bulsi.egov.eauth.eid.provider.utils.AutorizeKey;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class EidService implements ExIdentApiDelegate {
-
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
 	@Value("${eid.provider.identity.type}")
 	private String defaultIdentity;
+	
+	@Value("${eid.provider.vendor.id}")
+	private String vendorId;
+	
+	@Value("${eid.provider.vendor.key}")
+	private String vendorKey;
 
 	/*
 	 * String relyingPartyRequestID UserStatusData RAWin
@@ -72,44 +86,35 @@ public class EidService implements ExIdentApiDelegate {
 	 */
 	private static Cache<UserStatusDataOut> identitiyResponseCash = new InMemoryCache<>();
 
-	private String authKey = "6Uh2ji5GXIk8Deiws57fXBNYtWzQHXI9noqtcykhE3I=";
-
 	@Autowired
 	private IdentityRepository identityRepository;
 
 	@Autowired
 	private ApplicationEventPublisher applicationEventPublisher;
-
-	public EidService() {
-		// FIXME CALCULATE authKey dynamically
-
-		// 6Uh2ji5GXIk8Deiws57fXBNYtWzQHXI9noqtcykhE3I=
-		// authKey = AutorizeKey.encodeHmacSHA256("fullAuthenticationRequest","vendorKey");
-
-		// this.authKey = getAutKey(body);
 	
-	}
-
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	/**
 	 * Use temporary String authorizeKey =
 	 * "32edfe308b6a5c627fdef0cab411a79ab1a0a73b19fae24d7663cf33dca1863a"; for
 	 * authentication
 	 * 
-	 * @ApiResponse(code = 200, message = "Request accepted successfuly", response =
-	 *                   InquiryResult.class),
-	 * @ApiResponse(code = 400, message = "Invalid data supplied"),
-	 * @ApiResponse(code = 401, message = "API key is missing or invalid"),
-	 * @ApiResponse(code = 405, message = "Invalid request"),
-	 * @ApiResponse(code = 454, message = "Incorrect coverage")
-	 */
-	@SuppressWarnings({ "unused" })
+        @ApiResponse(code = 200, message = "Request accepted successfuly", response = InquiryResult.class),
+        @ApiResponse(code = 400, message = "Bad Request, user can change it and resubmit new correct request.", response = CommonAuthException.class),
+        @ApiResponse(code = 401, message = "API key is missing or invalid.", response = CommonAuthException.class),
+        @ApiResponse(code = 405, message = "Invalid request or not allowed method.", response = CommonAuthException.class),
+        @ApiResponse(code = 404, message = "The specified resource was not found.", response = CommonAuthException.class),
+        @ApiResponse(code = 500, message = "The server encountered an unexpected exception.", response = ProcessingException.class) })
+   	 */
 	@Override
 	public ResponseEntity<InquiryResult> identityInquiry(AuthenticationRequest body) throws EidProviderException{
 
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
+//		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//		HttpServletRequest request = attr.getRequest();
+//		apiKey = (String) request.getAttribute("api_key");
+//		vendorId = (String) request.getAttribute("vendor_id");
+//		vendorKey = (String) request.getAttribute("vendor_key");
 		
 		ProcessingData processingData = body.getProcessing();
 
@@ -131,49 +136,70 @@ public class EidService implements ExIdentApiDelegate {
 				.build();
 			// applicationEventPublisher.publishEvent(auditApplicationEvent);
 
-			throw new EidProviderException("Not present", 405);
+			throw new EidProviderException("The specified resource was not found", 204);
 		}
 
 		String relyingPartyRequestID = generateRelyingParty(id);
 
-		OffsetDateTime validityDateTime;
-		if (true) {			
-			validityDateTime = processingData.getResponceTimeout();
-		} else {
-			int expPeriod = getExpPeriod(body);
-			validityDateTime = OffsetDateTime.ofInstant(Instant.now().plusSeconds(expPeriod),ZoneId.systemDefault());
-		}
+		OffsetDateTime validityDateTime = processingData.getResponceTimeout();
 		
 		if (AuthProcessingType.POLLING.equals(processingData.getPtype())) {
 		
 			/*
 			 * Add in IN HashMap
 			 */
-			addRequestMap(relyingPartyRequestID, body, HttpStatus.valueOf(200), validityDateTime);
-
+			//addRequestMap(relyingPartyRequestID, body, HttpStatus.valueOf(200), validityDateTime);
+			addRequestMap(relyingPartyRequestID, body, HttpStatus.valueOf(200), processingData.getResponceTimeout().toInstant().toEpochMilli());
 		} else if (AuthProcessingType.CALLBACK.equals(processingData.getPtype())) {
 			
-			if (processingData.getResponceTimeout().toInstant().toEpochMilli() < OffsetDateTime.now().toInstant().toEpochMilli()) {
-				
-				//XXX Read code
-				HttpStatus code = HttpStatus.ACCEPTED;
-				
-				AuthenticationCallbackResult authenticationCallbackResult = genAuthCallBackResponse(relyingPartyRequestID, body, identity, code);
-
-				// TODO CALLBACK URL
+			Map<String,Object> uriVariables = new HashMap<>();
+			//uriVariables.put("api_key", apiKey);
+			uriVariables.put("vendor_id", vendorId);
+			uriVariables.put("vendor_key", vendorKey);
 			
+			HttpStatus code = null;
+			AuthenticationCallbackResult authenticationCallbackResult;
+			
+			
+			// TODO CALLBACK URL
+			UriComponentsBuilder builder = UriComponentsBuilder
+					.fromUriString(processingData.getCallbackUrl())
+					.encode(StandardCharsets.UTF_8)
+//					.queryParam("api_key", apiKey)
+//					.queryParam("vendor_id", vendorId)
+//					.queryParam("vendor_key", vendorKey)
+					;
+			log.info("uri: [{}]", builder.toUriString());
+
+			long timeoutTime = processingData.getResponceTimeout().toInstant().toEpochMilli();
+			long currentTime = OffsetDateTime.now().toInstant().toEpochMilli();
+			log.info("TIME must like {} > {}", timeoutTime, currentTime);
+			
+			if (isResponceTimeoutValid(processingData)) {
+				
+				code = HttpStatus.OK; //HttpStatus.ACCEPTED;
+				authenticationCallbackResult = genAuthCallBackResponse(relyingPartyRequestID, body, identity, code);
+				restTemplate.postForEntity(builder.toUriString(), authenticationCallbackResult,  AuthenticationCallbackResult.class, uriVariables);
+			
+			} else {
+				//FIXME only err response w/o body
+				code = HttpStatus.GATEWAY_TIMEOUT;
+				authenticationCallbackResult = genAuthCallBackResponse(relyingPartyRequestID, body, identity, code);
+				restTemplate.postForEntity(builder.toUriString(), authenticationCallbackResult,  AuthenticationCallbackResult.class, uriVariables);
+				
 			}
 			
 		}
 		
-
 		InquiryResult inq = new InquiryResult();
 		inq.setRelyingPartyRequestID(relyingPartyRequestID);
 		inq.setValidity(validityDateTime);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		//TODO get from configuration 3rd.idp#provider-api-key
-		headers.set("api_key", "12345");
+		//headers.set("api_key", apiKey);
+		headers.set("vendor_id", vendorId);
+		headers.set("vendor_key", vendorKey);
 
 		/*
 		 * @Disabled publishing AuditEvent
@@ -185,38 +211,20 @@ public class EidService implements ExIdentApiDelegate {
 				.build();
 		// applicationEventPublisher.publishEvent(auditApplicationEvent);
 
-		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(inq);
+		return ResponseEntity.status(HttpStatus.valueOf(ResponceCodes.HTTP_200.code)).headers(headers).body(inq);
 		// return new ResponseEntity<>(inq, HttpStatus.OK);
 	}
-
-	/*
-	 * Get expiration period from Additional attributes in SEC
-	 */
-	@Deprecated
-	private int getExpPeriod(AuthenticationRequest body) {
-		Set<String> keys = body.getIdentificationAttributes().keySet();
-		String expPeriodKey = null;
-		for (String string : keys) {
-			if (string.contains("EXPIRATIONPERIOD")) {
-				expPeriodKey = string;
-			}
-		}
-
-		int expPeriod = 0;
-		if (expPeriodKey != null) {
-			try {
-				String expPeriodAttributeValue = body.getIdentificationAttributes().get(expPeriodKey);
-				expPeriod = Integer.parseInt(expPeriodAttributeValue);
-			} catch (NumberFormatException e) {
-				expPeriod = 0;
-			}
-		}
-		return expPeriod;
+	
+	private boolean isResponceTimeoutValid(ProcessingData processingData) {
+		return processingData.getResponceTimeout().toInstant().toEpochMilli() > OffsetDateTime.now().toInstant().toEpochMilli();
 	}
 
 	private Optional<Identity> findIdentity(AuthenticationRequest body) {
 		UserAuthData userAuthData = body.getUser();
 		String id = userAuthData.getIdentityString();
+		log.info("identity str: [{}]", id);
+		String auth = userAuthData.getAuthenticationString();
+		log.info("auth str: [{}]", auth);
 
 		Optional<Identity> identityOpt = Optional.empty();
 
@@ -227,8 +235,21 @@ public class EidService implements ExIdentApiDelegate {
 			identityOpt = identityRepository.findByEmail(id);
 		} else if ("phone".equals(defaultIdentity)) {
 			identityOpt = identityRepository.findByPhone(id);
+		} else if ("credentials".equals(defaultIdentity)) {
+			identityOpt = identityRepository.findByUsername(id);
+//			if (identityOpt.isPresent() && !passwordEncoder.matches(auth, identityOpt.get().getPassword())) {
+			if (identityOpt.isPresent() && !auth.equals(identityOpt.get().getPassword())) {
+				log.debug("Password for user '{}' didn't match!", id);
+				identityOpt = Optional.empty();
+			}
 		} else {
-			log.error("Missing IDENTITY TYPE @findIdentity");
+			log.error("Uncknown IDENTITY TYPE ");
+			throw new EidProviderException("Missing identity type", 400);
+		}
+		
+		if(!identityOpt.isPresent()){
+			log.error("Missing registered IDENTITY");
+			throw new EidProviderException("Missing identity", 404);
 		}
 
 		return identityOpt;
@@ -236,30 +257,34 @@ public class EidService implements ExIdentApiDelegate {
 
 	/**
 	 * 
-	 * @ApiResponse(code = 200, message = "successful operation", response =
-	 *                   AuthenticationResponse.class),
-	 * @ApiResponse(code = 400, message = "Invalid status value"),
-	 * @ApiResponse(code = 401, message = "API key is missing or invalid"),
-	 * @ApiResponse(code = 438, message = "Issuer not found"),
-	 * @ApiResponse(code = 405, message = "Invalid request"),
-	 * @ApiResponse(code = 451, message = "Responce Not Ready", response =
-	 *                   ResponseStatus.class)
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+        @ApiResponse(code = 200, message = "Request successfuly processed", response = AuthenticationResponse.class),
+        @ApiResponse(code = 203, message = "Request is accepted, but still in processing.", response = ProcessingException.class),
+        @ApiResponse(code = 400, message = "Bad Request, user can change it and resubmit new correct request.", response = CommonAuthException.class),
+        @ApiResponse(code = 401, message = "API key is missing or invalid.", response = CommonAuthException.class),
+        @ApiResponse(code = 404, message = "The specified resource was not found.", response = CommonAuthException.class),
+        @ApiResponse(code = 409, message = "There is a conflict within this request. The user might be able to resolve the conflict and resubmit the request.", response = ProcessingException.class),
+        @ApiResponse(code = 501, message = "The specified resource is not yet implemented.", response = CommonAuthException.class) })
+    */
 	@Override
-	public ResponseEntity getAuthentication(String relyingPartyRequestID) {
+	public ResponseEntity<AuthenticationResponse> getAuthentication(String relyingPartyRequestID) {
 
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
+		//HttpServletRequest request = attr.getRequest();
+		long inputCacheSize = identitiyRequiestCash.size();
+		long responseCacheSize = identitiyResponseCash.size();
+		log.debug("get Authentication for '{}' from input cache with size {} and response cache with size {}",relyingPartyRequestID,inputCacheSize,responseCacheSize);
+		
+		if (inputCacheSize==0 && responseCacheSize==0) {
+			log.debug("No active authentication inquries!");
+			throw new EidProviderException(ResponceCodes.HTTP_409.getMsg(), ResponceCodes.HTTP_409.getCode());
+		}
+		UserStatusDataOut userStatusDataOut = identitiyResponseCash.get(relyingPartyRequestID);
+		//FIXME check if must remove before expired or before return Entity<>(OK)
+//		identitiyResponseCash.remove(relyingPartyRequestID);
 
-		UserStatusDataOut userStatusDataOut;
-		AuthenticationResponse authenticationResponse;
-
-		userStatusDataOut = identitiyResponseCash.get(relyingPartyRequestID);
-		identitiyResponseCash.remove(relyingPartyRequestID);
-
-		authenticationResponse = userStatusDataOut.getAuthenticationResponse();
-		if (authenticationResponse != null) {
+		if ( userStatusDataOut != null && userStatusDataOut.getAuthenticationResponse() != null) {
+			AuthenticationResponse authenticationResponse = userStatusDataOut.getAuthenticationResponse();
+			
 			/*
 			 * AuditEvent
 			 */
@@ -268,9 +293,12 @@ public class EidService implements ExIdentApiDelegate {
 						.data(DataKeys.SOURCE, this.getClass().getName())
 						.build();
 			applicationEventPublisher.publishEvent(auditApplicationEvent);
-
-			return new ResponseEntity<>(authenticationResponse, HttpStatus.valueOf(200));
+			
+			//identitiyResponseCash.remove(relyingPartyRequestID);
+			return new ResponseEntity<>(authenticationResponse, HttpStatus.valueOf(ResponceCodes.HTTP_200.code));
 		} else {
+			
+
 			/*
 			 * AuditEvent
 			 */
@@ -280,63 +308,74 @@ public class EidService implements ExIdentApiDelegate {
 						.build();
 			applicationEventPublisher.publishEvent(auditApplicationEvent);
 
-			throw new EidProviderException("Invalid request", 405);
+			throw new EidProviderException(ResponceCodes.HTTP_203.getMsg(), ResponceCodes.HTTP_203.getCode());
 		}
 
 	}
+	
+	
 
 	/**
-	 * Read from RequestMap Write to ResponseMap and Remove from RequestMap
+	 * Read/Remove from RequestMap and 
+	 * Write to ResponseMap
+	 *
+	 * Sheduled through:
+	 * SchedulerTask &&
+	 * AsyncTaskShed
 	 *
 	 * @return
 	 */
-	@Scheduled(initialDelay = 15000, fixedRate = 3000)
 	public void poolInMemoryToIdentityInquiry() {
-
-		Optional<String> keyOpt = identitiyRequiestCash.getOldestKey();
-
-		UserStatusDataIn reqData = null;
-		long reqExp;
-		if (keyOpt.isPresent()) {
-			String key = keyOpt.get();
-
-			reqData = identitiyRequiestCash.get(key);
-			reqExp = identitiyRequiestCash.getExpiredTime(key);
-
-			AuthenticationRequest authenticationRequest = reqData.getAuthenticationRequest();
-			// ResponseStatus status = reqData.getStatus();
-
-			Optional<Identity> identityOpt = findIdentity(authenticationRequest);
-
-			HttpStatus code;
-			Identity identity;
-			AuthenticationResponse authenticationResponse = null;
-			if (identityOpt.isPresent()) {
-				identity = identityOpt.get();
-				String authPass = authenticationRequest.getUser().getAuthenticationString();
-
-				if (identity.getPassword().equals(authPass)) { // hashPass(authPass)
-					code = HttpStatus.valueOf(200);
-					authenticationResponse = genAuthResponse(key, authenticationRequest, identity, code);
+		
+		if (identitiyRequiestCash.size()>0) {
+			
+			Optional<String> keyOpt = identitiyRequiestCash.getOldestKey();
+	
+			UserStatusDataIn reqData = null;
+			long reqExp;
+			if (keyOpt.isPresent()) {
+				String key = keyOpt.get();
+	
+				reqData = identitiyRequiestCash.get(key);
+				reqExp = identitiyRequiestCash.getExpiredTime(key);
+	
+				AuthenticationRequest authenticationRequest = reqData.getAuthenticationRequest();
+				// ResponseStatus status = reqData.getStatus();
+	
+				Optional<Identity> identityOpt = findIdentity(authenticationRequest);
+	
+				HttpStatus code;
+				Identity identity;
+				AuthenticationResponse authenticationResponse = null;
+				if (identityOpt.isPresent()) {
+					identity = identityOpt.get();
+					String authPass = authenticationRequest.getUser().getAuthenticationString();
+	
+					if (identity.getPassword().equals(authPass)) { // hashPass(authPass)
+						
+						code = HttpStatus.valueOf(ResponceCodes.HTTP_200.code);
+						authenticationResponse = genAuthResponse(key, authenticationRequest, identity, code);
+					} else {
+						code = HttpStatus.valueOf(ResponceCodes.HTTP_405.code); //INVALID REQUEST (bad password)
+					}
+	
 				} else {
-					code = HttpStatus.valueOf(405);
+					code = HttpStatus.valueOf(ResponceCodes.HTTP_404.code); //Not Found
 				}
-
+				log.debug("Add authentication response for '{}' with status {}",key,code.name());
+				addResponseMap(key, authenticationResponse, code, reqExp);
+				log.debug("Remove inqury cache for '{}'",key);
+				identitiyRequiestCash.remove(key);
+	
 			} else {
-				code = HttpStatus.valueOf(405);
+				log.debug("Key not present.");
 			}
-
-			addResponseMap(key, authenticationResponse, code, reqExp);
-
-			identitiyRequiestCash.remove(key);
-
-		} else {
-			log.debug("Key not present.");
+			
 		}
 
 	}
 
-	private String generateRelyingParty(String nid) {
+	public static String generateRelyingParty(String nid) {
 		String relyingPartyRequestID = null;
 		String timedNid = nid + String.valueOf(System.currentTimeMillis());
 		byte[] bytes = null;
@@ -361,6 +400,7 @@ public class EidService implements ExIdentApiDelegate {
 	 * @param authenticationRequest
 	 * @param code
 	 */
+	
 	private void addRequestMap(String relyingPartyRequestID, AuthenticationRequest authenticationRequest,
 			HttpStatus code, long expPeriod) {
 //		
@@ -381,9 +421,9 @@ public class EidService implements ExIdentApiDelegate {
 		userStatusDataIn.setAuthenticationRequest(authenticationRequest);
 //		userStatusDataIn.setStatus(status);
 
-		identitiyRequiestCash.add(relyingPartyRequestID, userStatusDataIn, expPeriod, Cache.ExpiredType.EXPIRED_PERIOD);
+		identitiyRequiestCash.add(relyingPartyRequestID, userStatusDataIn, expPeriod, Cache.ExpiredType.EXPIRED_TIME);
 	}
-	
+	@Deprecated
 	private void addRequestMap(String relyingPartyRequestID, AuthenticationRequest authenticationRequest,
 			HttpStatus code, OffsetDateTime expOffsetDateTime) {
 
@@ -434,50 +474,77 @@ public class EidService implements ExIdentApiDelegate {
 		AuthenticationResponse authenticationResponse = new AuthenticationResponse(); 
 		// TODO authenticationResponse.setId();
 
-		UserAuthData userAuthData = body.getUser();
-
-		IdentityData identityData = new IdentityData();
-		/*
-		 * Update UserAuthData w/ Identity DB profile data
-		 */
-		if (identity != null) {
-			if ("egn".equals(defaultIdentity)) {
-				userAuthData.setIdentityString(identity.getNid());
-			} else if ("email".equals(defaultIdentity)) {
-				userAuthData.setIdentityString(identity.getEmail());
-			} else if ("phone".equals(defaultIdentity)) {
-				userAuthData.setIdentityString(identity.getPhone());
-			} else {
-				log.error("Missing IDENTITY TYPE @genAuthResponse");
+		List<AssertionAttributeValue> assertionAttributeValues = new ArrayList<>();
+		
+		//Mandatory PERSONIDENTIFIER and PERSONNAME
+		AssertionAttributeValue assertionIdentityAttributeValue = new AssertionAttributeValue();
+		assertionIdentityAttributeValue.setAttribute(AssertionAttributeType.PERSONIDENTIFIER);
+		//XXX fix in the DB structure or getter
+		assertionIdentityAttributeValue.setValue("PNOBG-"+identity.getNid());	
+		assertionAttributeValues.add(assertionIdentityAttributeValue);
+		
+		AssertionAttributeValue assertionNameAttributeValue = new AssertionAttributeValue();
+		assertionNameAttributeValue.setAttribute(AssertionAttributeType.PERSONNAME);
+		assertionNameAttributeValue.setValue(identity.getNames());
+		assertionAttributeValues.add(assertionNameAttributeValue);
+		
+		//Map listValue@Type with Identity
+		@Valid List<AssertionAttributeType> atts = body.getRequestedAddAuthAttributes();
+		Iterator<AssertionAttributeType> iterator = atts.iterator();
+		while (iterator.hasNext()) {
+			AssertionAttributeValue assertionAttributeValue = new AssertionAttributeValue();
+			AssertionAttributeType attType = iterator.next();
+			String value = null;
+			switch (attType) {
+			//Optional
+				case EMAIL:
+					value = identity.getEmail();
+					break;
+				case PHONE:
+					value = identity.getPhone();
+					break;
+				case LATINNAME:
+					value = identity.getNames();
+					break;
+				case BIRTHNAME:
+					value = identity.getNames();
+					break;
+				case GENDER:
+//					value = identity.get???;
+					break;
+				case DATEOFBIRTH:
+//					value = identity.get???;
+					break;
+				case PLACEOFBIRTH:
+//					value = identity.get???;
+					break;
+				case X509:
+//					value = identity.get???;
+					break;
+				case CANONICALRESIDENCEADDRESS:
+//					value = identity.get???;
+					break;
+				case PERSONIDENTIFIER:
+				case PERSONNAME:
+				default:
+					break;
 			}
 
-			UserData userData = new UserData();
-			userData.setEmail(identity.getEmail());
-			userData.setIdentificationNumber(identity.getNid());
-			userData.setName(identity.getNames());
-			userData.setPhone(identity.getPhone());
-
-			identityData.setIdentified(userData);
-
-			AttributeMap attributeMap = new AttributeMap();
-			attributeMap.put(AttributeMapKeys.BIRTH_FIRST_NAME.name(), identity.getNames());
-
-			identityData.setAdditionalIdentityAttributes(attributeMap);
+			assertionAttributeValue.setAttribute(attType);
+			assertionAttributeValue.setValue(value);
+			assertionAttributeValues.add(assertionAttributeValue);
 		}
 
-		authenticationResponse.setSubject(identityData);
-		// authenticationResponse.setAttributes(body.getAdditionalAttributes());
+		authenticationResponse.setSubjectAssertions(assertionAttributeValues);
+		authenticationResponse.setId(relyingPartyRequestID);
 		authenticationResponse.setClientIpAddress("");
-		// authenticationResponse.setInResponseToId(body.getVendorId());
-		// authenticationResponse.setIssuer(body.getRequestProvider());
+//		authenticationResponse.setInResponseToId(body.get...);
+//		authenticationResponse.setIssuer(body.get...);
 		authenticationResponse.setLevelOfAssurance(body.getLevelOfAssurance());
 		authenticationResponse.setRelayState(body.getRelayState());
 		
 		return authenticationResponse;
 	}
-
-	@Autowired
-	RequestContextHolder rch;
 
 	private AuthenticationCallbackResult genAuthCallBackResponse(String relyingPartyRequestID, AuthenticationRequest body,
 			Identity identity, HttpStatus code) {
@@ -488,8 +555,9 @@ public class EidService implements ExIdentApiDelegate {
 		
 		authenticationCallbackResult.setRelyingPartyRequestID(relyingPartyRequestID);
 		
-		if (code.value() == 200) {			
+		if (code.value() == 200 || code.value() == 203) {			
 			authenticationCallbackResult.setSuccess(true);
+			authenticationCallbackResult.setErrorMessage(code.getReasonPhrase());
 		} else {
 			authenticationCallbackResult.setSuccess(false);
 			authenticationCallbackResult.setErrorMessage(code.getReasonPhrase());
@@ -502,78 +570,46 @@ public class EidService implements ExIdentApiDelegate {
 		
 	}
 
-	@SuppressWarnings("unused")
-	private enum AuthReqCodes {
-
-		HTTP_200("Successful operation"), HTTP_400("Invalid status value"), HTTP_401(
-				"API key is missing or invalid"), HTTP_405(
-						"Invalid request"), HTTP_438("Issuer not found"), HTTP_451("Responce Not Ready");
-
-		String msg;
-
-		AuthReqCodes(String msg) {
-			this.msg = msg;
-		}
-
-		String getMsg() {
-			return this.msg;
-		}
-	}
-
-	private enum IdentityInquiryCodes {
-
-		HTTP_200("Request accepted successfuly"), HTTP_400("Invalid data supplied"), HTTP_401(
-				"API key is missing or invalid"), HTTP_405("Invalid request"), HTTP_454("Incorrect coverage");
-
-		String msg;
-
-		IdentityInquiryCodes(String msg) {
-			this.msg = msg;
-		}
-
-		String getMsg() {
-			return this.msg;
-		}
-	}
 
 	@SuppressWarnings("unused")
-	private enum IdentityCalbackCodes {
+	private enum ResponceCodes {
 
-		HTTP_400("Invalid data supplied"), HTTP_401("API key is missing or invalid"), HTTP_405(
-				"Invalid request"), HTTP_438("Issuer not found"), HTTP_454("Incorrect coverage");
+		HTTP_200(200,"Request successfuly processed"), 
+		HTTP_203(203,"Request is accepted but still in processing"), 
+		HTTP_400(400,"Bad Request, user can change it and resubmit new correct request"), 
+		HTTP_401(401,"API key is missing or invalid"), 
+		HTTP_404(404,"The specified resource was not found"), 
+		HTTP_405(405,"Invalid request or not allowed method"), 
+		HTTP_409(409,"The user might be able to resolve the conflict and resubmit the request"), 
+		HTTP_500(500,"The server encountered an unexpected exception"),
+		HTTP_501(501,"Not Implemented");
 
+		@Getter
+		int code;
+		@Getter
 		String msg;
 
-		IdentityCalbackCodes(String msg) {
+		ResponceCodes(int code, String msg) {
+			this.code = code;
 			this.msg = msg;
 		}
 
-		String getMsg() {
-			return this.msg;
-		}
 	}
 
+	//Uses by default Openbsd BCrypt
+
+	@SuppressWarnings("unused")
 	private String hashPass(String pass) {
-		// FIXME SALT configuration???
-		String salt = "";
-		String toEncrypt = pass + salt;
-		byte[] encHash = null;
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
-			byte[] dataBytes = toEncrypt.getBytes(Charsets.UTF_8);
-			encHash = md.digest(dataBytes);
-		} catch (NoSuchAlgorithmException e) {
-			log.error(e.getLocalizedMessage());
-		}
-
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < encHash.length; i++) {
-			sb.append(Integer.toString((encHash[i] & 0xff) + 0x100, 16).substring(1));
-		}
-
-		return sb.toString();
+		return 	passwordEncoder.encode(pass);
 	}
 
+	/**
+	 * Use "vendorKey" from Configuration
+	 * as secret
+	 * 
+	 * @param body
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	private String getAutKey(AuthenticationRequest body) {
 		// Convert model to JsonString
@@ -585,26 +621,11 @@ public class EidService implements ExIdentApiDelegate {
 			log.error(e.getLocalizedMessage());
 		}
 		// Encode
-		//TODO get "vendor key" from Configuration
-		return AutorizeKey.encodeHmacSHA256(jsonString, "XXX");
-	}
-
-	@SuppressWarnings("unused")
-	private void logCacheStatus(String methodDestination, String beforeAfter) {
-		log.info("# " + beforeAfter + " - " + methodDestination + " - " + "identitiyREQuiestCash["
-				+ identitiyRequiestCash.sizeAll() + "]");
-		log.info("# " + beforeAfter + " - " + methodDestination + " - " + "identitiyRESPonseCash["
-				+ identitiyResponseCash.sizeAll() + "]");
+		return AutorizeKey.encodeHmacSHA256(jsonString, vendorKey);
 	}
 	
-	public static void main(String[] args) {
-
-		RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-		Enumeration<String> pars = request.getParameterNames();
-		for (String string: args) {
-			log.info("Parameter: {}", string);
-		}
+	public boolean isTransferred(String realingPartyId) {
+		return identitiyResponseCash.contains(realingPartyId);
 	}
-	
+
 }

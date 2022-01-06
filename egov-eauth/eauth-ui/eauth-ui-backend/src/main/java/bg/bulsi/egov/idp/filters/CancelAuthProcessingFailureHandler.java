@@ -16,9 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 public class CancelAuthProcessingFailureHandler implements AuthenticationFailureHandler {
 
 	private AuthenticationFailureHandler totalAuthTimeout = new SimpleUrlAuthenticationFailureHandler(
-			"/eauth/ssologin?error=4");
+			"/eauth/ssologin?error=408");
 	private AuthenticationFailureHandler cancelAuthTimeout = new SimpleUrlAuthenticationFailureHandler(
-			"/eauth/ssologin?error=5");
+			"/eauth/ssologin?error=499");
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,

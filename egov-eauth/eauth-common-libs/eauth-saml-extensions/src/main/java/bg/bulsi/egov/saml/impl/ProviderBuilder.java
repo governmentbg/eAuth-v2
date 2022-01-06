@@ -1,10 +1,12 @@
 package bg.bulsi.egov.saml.impl;
 
-import bg.bulsi.egov.saml.Provider;
-import bg.bulsi.egov.saml.SAMLeAuthConstants;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import org.opensaml.saml.common.AbstractSAMLObjectBuilder;
+
+import bg.bulsi.egov.saml.Provider;
+import bg.bulsi.egov.saml.SAMLeAuthConstants;
 
 public class ProviderBuilder extends AbstractSAMLObjectBuilder<Provider> {
 

@@ -107,7 +107,7 @@ public class SecurityConfig {
 			 	.and()
 				.csrf().disable()
 				.authorizeRequests()
-				.antMatchers("/cancel-auth").permitAll()
+				.antMatchers("/cancel-auth", "/saml2/service-provider-metadata/**").permitAll()
 				.antMatchers(saml2Matcher)
 					.authenticated().and().saml2Login();
 

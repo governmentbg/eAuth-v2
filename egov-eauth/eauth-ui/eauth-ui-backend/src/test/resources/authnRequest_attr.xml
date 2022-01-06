@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml2p:AuthnRequest
+	AssertionConsumerServiceURL="http://localhost:8210/login/saml2/sso/mock-idp"
+	Destination="http://eauth-test.egov.bg:4200/SingleSignOnService"
+	ForceAuthn="false" ID="ARQ8859c6f-a05f-480b-be65-59ced178876e"
+	IsPassive="false" IssueInstant="2020-10-22T07:33:32.273Z"
+	ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+	Version="2.0" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+	<saml2:Issuer
+		xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">http://localhost:8210/saml2/service-provider-metadata/mock-idp
+	</saml2:Issuer>
+	<ds:Signature
+		xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod
+				Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+			<ds:SignatureMethod
+				Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+			<ds:Reference
+				URI="#ARQ8859c6f-a05f-480b-be65-59ced178876e">
+				<ds:Transforms>
+					<ds:Transform
+						Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<ds:Transform
+						Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+				</ds:Transforms>
+				<ds:DigestMethod
+					Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+				<ds:DigestValue>mGo8u6I24HdPqXCLOYIfUwWb3Vzt8qLDxkSl0SJGdSc=</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>
+CWX/hFzy6DYpRTOVEXgfeexgvJUMX+ywG5bWa/qnVUob+/7e54diSj9jGkLOn2fYB0aUqRR02G++&#xd;
+OEnNJ/NWO2HKLDGaFrDf5A4VJN27E0KXKhbRpBgx/2v63Q3m2Wv2D6vwVQjcHELkZR8Eh0GiC7OJ&#xd;
+AiopLSE+w+cJf89O05FbUcF0isz78xWmks0iLdOI8JqRPT6NUtkm+YELdH+awIh+lyiIgZqjgZHA&#xd;
+R8NXXcAFU46qB4Mgeytp4wPeksZ2rmCOGXlpsk5xVZalJCrzjjuo6k4e3JpnOvokDOiJ9qOG6mzD&#xd;
++G5VdEQtUAGlJuK6WJNCuhT9C03RjKJFFFx+zA==
+		</ds:SignatureValue>
+	</ds:Signature>
+	<saml2p:Extensions>
+		<egovbga:RequestedService
+			xmlns:egovbga="urn:bg:egov:eauth:2.0:saml:ext">
+			<egovbga:Service>2.16.100.1.1.1.1.13.1.1.1</egovbga:Service>
+			<egovbga:Provider>2.16.100.1.1.1.1.13</egovbga:Provider>
+			<egovbga:LevelOfAssurance>HIGH</egovbga:LevelOfAssurance>
+		</egovbga:RequestedService>
+		<egovbga:RequestedAttributes
+			xmlns:egovbga="urn:bg:egov:eauth:2.0:saml:ext">
+			<egovbga:RequestedAttribute
+				FriendlyName="latinName"
+				Name="urn:egov:bg:eauth:2.0:attributes:latinName"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:latinName
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="birthName"
+				Name="urn:egov:bg:eauth:2.0:attributes:birthName"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:birthName
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="email" Name="urn:egov:bg:eauth:2.0:attributes:email"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:email
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="phone" Name="urn:egov:bg:eauth:2.0:attributes:phone"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:phone
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="gender" Name="urn:egov:bg:eauth:2.0:attributes:gender"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:gender
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="dateOfBirth"
+				Name="urn:egov:bg:eauth:2.0:attributes:dateOfBirth"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:dateOfBirth
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="placeOfBirth"
+				Name="urn:egov:bg:eauth:2.0:attributes:placeOfBirth"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:placeOfBirth
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+			<egovbga:RequestedAttribute
+				FriendlyName="canonicalResidenceAddress"
+				Name="urn:egov:bg:eauth:2.0:attributes:canonicalResidenceAddress"
+				NameFormat="urn:oasis:names:tc:saml2:2.0:attrname-format:uri"
+				isRequired="false">
+				<egovbga:AttributeValue>urn:egov:bg:eauth:2.0:attributes:canonicalResidenceAddress
+				</egovbga:AttributeValue>
+			</egovbga:RequestedAttribute>
+		</egovbga:RequestedAttributes>
+	</saml2p:Extensions>
+</saml2p:AuthnRequest>

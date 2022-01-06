@@ -3,14 +3,12 @@ package bg.bulsi.egov.eauth.metadata.config.model;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
@@ -30,6 +28,9 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * application-idp-config.yml 
+ */
 @Component
 @Data
 @ConfigurationProperties(prefix = "idp")
@@ -50,6 +51,8 @@ public class IdpConfigurationProperties {
 	private AuthenticationMethod authMethod; // = AuthenticationMethod.ALL;
 	// # base url
 	private String baseUrl;
+	// # backend context for failure handlers url
+	private String pathPrefix;
 	// # The number of seconds before a lower time bound, or after an upper time
 	// bound, to consider still acceptable
 	private Integer clockSkew;
@@ -61,6 +64,10 @@ public class IdpConfigurationProperties {
 	private Boolean compareEndpoints;
 	// #Organization INFO
 	private OrganizationData organizationData;
+	
+	private ContactData supportContact;
+	
+	private ContactData technicalContact;
 	// # Path to Claims XSD
 	private String claims;
 
@@ -80,13 +87,13 @@ public class IdpConfigurationProperties {
 	
 	private transient HashMap<String, String> protocolBindingLocation; // = new HashMap<>();
 	
-	private String levelOfAssurance;
+	private List<String> levelOfAssurance;
 	
 	private Boolean hideLoaType;
 	
 	private String eauthProtocolVersion;
 
-	private String eauthApplicationIdentifier;
+	private List<String> eauthAssertionAttributes;
 	
 	private Map<String, List<String>> attributes; // = new TreeMap<>();
 	// # !Missing default constructor

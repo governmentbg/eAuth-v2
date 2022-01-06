@@ -35,7 +35,7 @@
 						</goals>
 						<configuration>
 							<!-- <inputSpec>${project.basedir}/../eauth-eid-api-spec/openapi_eAvtRest.yaml</inputSpec> -->
-							<inputSpec>${project.basedir}/../eauth-eid-api-spec/eAuth_openapi.yaml</inputSpec>
+							<inputSpec>${openAPI.yaml.file}</inputSpec>
 							<!-- <inputSpec>https://bul-si.bg/swagger-ui/openapi_eAvtRest.yaml</inputSpec> -->
 							<language>spring</language>
 							<withXml>true</withXml>

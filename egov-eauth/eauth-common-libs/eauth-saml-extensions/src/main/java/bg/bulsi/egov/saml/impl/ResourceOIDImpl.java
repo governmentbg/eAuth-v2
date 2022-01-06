@@ -1,7 +1,8 @@
 package bg.bulsi.egov.saml.impl;
 
-import bg.bulsi.egov.saml.ResourceOID;
 import org.opensaml.core.xml.schema.impl.XSStringImpl;
+
+import bg.bulsi.egov.saml.ResourceOID;
 
 public class ResourceOIDImpl extends XSStringImpl implements ResourceOID {
 

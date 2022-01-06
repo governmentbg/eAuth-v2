@@ -22,6 +22,8 @@ public interface AuditEventEntityRepository extends JpaRepository<AuditEventEnti
 
     List<AuditEventEntity> findByPrincipalAndAuditEventDateAfter(String principal, Instant after);
 
+    List<AuditEventEntity> findByAuditEventDateAfterAndAuditEventType(Instant after, String type);
+    
     List<AuditEventEntity> findByPrincipalAndAuditEventDateAfterAndAuditEventType(String principal, Instant after, String type);
 
     Page<AuditEventEntity> findAllByAuditEventDateBetween(Instant fromDate, Instant toDate, Pageable pageable);
@@ -29,4 +31,9 @@ public interface AuditEventEntityRepository extends JpaRepository<AuditEventEnti
     List<AuditEventEntity> findByAuditOriginAndPrincipalAndAuditEventDateAfterAndAuditEventType(String auditOrigin, String principal, Instant after, String type);
 
     Page<AuditEventEntity> findAllByAuditOriginAndAuditEventTypeAndAuditEventDateBetween(String auditOrigin, String auditEventType,Instant fromDate, Instant toDate, Pageable pageable);
+
+    Page<AuditEventEntity> findAllByAuditOriginAndAuditEventDateBetween(String auditOrigin,Instant fromDate, Instant toDate, Pageable pageable);
+
+    Page<AuditEventEntity> findAllByAuditEventTypeAndAuditEventDateBetween(String auditEventType,Instant fromDate, Instant toDate, Pageable pageable);
+
 }

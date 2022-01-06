@@ -1,18 +1,10 @@
 package bg.bulsi.egov.idp.filters;
 
-import bg.bulsi.egov.eauth.metadata.config.security.tokens.FederatedUserAuthenticationToken;
-import bg.bulsi.egov.idp.dto.CodeData;
-import bg.bulsi.egov.idp.dto.OTPMethod;
-import bg.bulsi.egov.idp.security.InvalidAuthenticationException;
-import bg.bulsi.egov.idp.security.tokens.ExternalIdpUserAuthenticationToken;
-import bg.bulsi.egov.idp.services.TfaService;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -22,14 +14,23 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
+import bg.bulsi.egov.eauth.metadata.config.security.tokens.FederatedUserAuthenticationToken;
+import bg.bulsi.egov.idp.dto.CodeData;
+import bg.bulsi.egov.idp.dto.OTPMethod;
+import bg.bulsi.egov.idp.security.InvalidAuthenticationException;
+import bg.bulsi.egov.idp.security.tokens.ExternalIdpUserAuthenticationToken;
+import bg.bulsi.egov.idp.services.TfaService;
+import lombok.var;
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class TfaProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-	@Setter
-	private TfaService tfaService;
+	private final TfaService tfaService;
 
-	public TfaProcessingFilter(String defaultFilterProcessesUrl) {
+	public TfaProcessingFilter(String defaultFilterProcessesUrl, TfaService tfaService) {
 		super(defaultFilterProcessesUrl);
+		this.tfaService = tfaService;
 	}
 
 	@Override
@@ -42,7 +43,7 @@ public class TfaProcessingFilter extends AbstractAuthenticationProcessingFilter 
 			throw new AuthenticationCredentialsNotFoundException("Missing authenticated user");
 		}
 
-		// TODO валидиране на пропъртитата
+		// TODO: валидиране на пропъртитата
 		final String tId = request.getParameter("tId");
 		final String code = request.getParameter("code");
 		final String method = request.getParameter("method");
@@ -60,7 +61,7 @@ public class TfaProcessingFilter extends AbstractAuthenticationProcessingFilter 
 
 		var status = this.tfaService.validate(data);
 
-		if (!status.valid()) {
+		if (Boolean.FALSE.equals(status.valid())) {
 			throw new InvalidAuthenticationException(status.message());
 		}
 

@@ -93,25 +93,31 @@ public class HomeController {
 
 		String username = null;
 		String identifier = null;
-
-		AttributeStatement attritbuteStatement = saml2Response.getAssertions().get(0).getAttributeStatements().get(0);
-		List<Attribute> attritbutes = attritbuteStatement.getAttributes();
-		for (Attribute attr : attritbutes) {
-			if (attr.getName().contains("personName")) {
-				username = ((XSStringImpl) attr.getAttributeValues().get(0)).getValue();
-			} else if (attr.getName().contains("personIdentifier")) {
-				String identValue = ((XSStringImpl) attr.getAttributeValues().get(0)).getValue();
-				identifier = identValue.substring(identValue.indexOf('-') + 1);
-			}
-		}
-
-		log.info("username: [{}]", username);
-		log.info("identifier: [{}]", identifier);
 		
-		model.addAttribute("loggedIn", loggedIn);
-		model.addAttribute("message", message);
-		model.addAttribute("username", username);
-		model.addAttribute("identifier", identifier);
+		AttributeStatement attritbuteStatement =null;
+		if (saml2Response.getAssertions()!=null && !saml2Response.getAssertions().isEmpty()) {
+			//TODO Read all assertion
+			attritbuteStatement =saml2Response.getAssertions().get(0).getAttributeStatements().get(0);
+			List<Attribute> attritbutes = attritbuteStatement.getAttributes();
+			for (Attribute attr : attritbutes) {
+				if (attr.getName().contains("personName")) {
+					username = ((XSStringImpl) attr.getAttributeValues().get(0)).getValue();
+				} else if (attr.getName().contains("personIdentifier")) {
+					String identValue = ((XSStringImpl) attr.getAttributeValues().get(0)).getValue();
+					identifier = identValue.substring(identValue.indexOf('-') + 1);
+				}
+			}
+
+			log.info("username: [{}]", username);
+			log.info("identifier: [{}]", identifier);
+			
+			model.addAttribute("loggedIn", loggedIn);
+			model.addAttribute("message", message);
+			model.addAttribute("username", username);
+			model.addAttribute("identifier", identifier);
+		} else {
+			log.debug("Authentication ERROR!");
+		}
 
 		return "index";
 	}

@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -14,6 +16,7 @@ import javax.xml.namespace.QName;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xml.security.signature.XMLSignature;
 import org.opensaml.core.xml.Namespace;
+import org.opensaml.core.xml.XMLObjectBuilder;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.schema.XSAny;
 import org.opensaml.core.xml.schema.XSString;
@@ -24,15 +27,26 @@ import org.opensaml.saml.ext.saml2alg.DigestMethod;
 import org.opensaml.saml.ext.saml2alg.SigningMethod;
 import org.opensaml.saml.ext.saml2mdattr.EntityAttributes;
 import org.opensaml.saml.saml2.core.Attribute;
+import org.opensaml.saml.saml2.metadata.Company;
+import org.opensaml.saml.saml2.metadata.ContactPerson;
+import org.opensaml.saml.saml2.metadata.ContactPersonTypeEnumeration;
+import org.opensaml.saml.saml2.metadata.EmailAddress;
 import org.opensaml.saml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml.saml2.metadata.Extensions;
+import org.opensaml.saml.saml2.metadata.GivenName;
 import org.opensaml.saml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml.saml2.metadata.NameIDFormat;
+import org.opensaml.saml.saml2.metadata.Organization;
+import org.opensaml.saml.saml2.metadata.OrganizationDisplayName;
+import org.opensaml.saml.saml2.metadata.OrganizationName;
+import org.opensaml.saml.saml2.metadata.OrganizationURL;
 import org.opensaml.saml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml.saml2.metadata.SSODescriptor;
 import org.opensaml.saml.saml2.metadata.SingleSignOnService;
+import org.opensaml.saml.saml2.metadata.SurName;
+import org.opensaml.saml.saml2.metadata.TelephoneNumber;
 import org.opensaml.security.SecurityException;
 import org.opensaml.security.credential.Credential;
 import org.opensaml.security.credential.UsageType;
@@ -40,6 +54,7 @@ import org.opensaml.xmlsec.keyinfo.KeyInfoGenerator;
 import org.opensaml.xmlsec.keyinfo.impl.X509KeyInfoGeneratorFactory;
 import org.opensaml.xmlsec.signature.KeyInfo;
 import org.opensaml.xmlsec.signature.Signature;
+import org.opensaml.xmlsec.signature.impl.SignatureBuilder;
 import org.opensaml.xmlsec.signature.support.SignatureConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,9 +64,12 @@ import com.google.common.collect.ImmutableSortedSet;
 
 import bg.bulsi.egov.eauth.common.exceptions.EAuthMetadataException;
 import bg.bulsi.egov.eauth.common.xml.MetadataBuilderFactoryUtil;
+import bg.bulsi.egov.eauth.metadata.config.model.ContactData;
 import bg.bulsi.egov.eauth.metadata.config.model.IdpConfigurationProperties;
+import bg.bulsi.egov.eauth.metadata.config.model.OrganizationData;
 import bg.bulsi.egov.eauth.metadata.samlobjects.SAMLMetadataCore;
 import bg.bulsi.egov.eauth.metadata.samlobjects.SPType;
+import bg.bulsi.egov.eauth.saml.keystore.KeyManager;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -61,10 +79,50 @@ public class EauthMetadataBuilder {
 	// private transient Signature spSignature;
 	// private transient Credential spEncryptionCredential;
 	// private transient Credential spSigningCredential;
+    public static transient final String DEFAULT_LANG = "en";
+    public static final String ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA = "ERROR : error generating the OrganizationData: {}";
+
 	private transient Signature idpSignature;
 	private transient Credential idpEncryptionCredential;
 	private transient Credential idpSigningCredential;
-    public static final ImmutableMap<String, String> SIGNATURE_TO_DIGEST_ALGORITHM_MAP =
+	private IdpConfigurationProperties idpConfigurationProperties;
+	
+	@Autowired
+    public EauthMetadataBuilder( KeyManager keyManager,IdpConfigurationProperties idpConfigurationProperties) {
+		super();
+		this.idpSignature = buildSignature(idpSigningCredential);
+	//	((SAMLObjectContentReference)idpSignature.getContentReferences().get(0)).setDigestAlgorithm(EncryptionConstants.ALGO_ID_DIGEST_SHA256);
+		this.idpEncryptionCredential = keyManager.getDefaultCredential();
+		this.idpSigningCredential = keyManager.getDefaultCredential();
+		this.idpConfigurationProperties = idpConfigurationProperties;
+	}
+
+    @SuppressWarnings("unchecked")
+    public Signature buildSignature(Credential credential) {
+    	
+        /*QName qName = Signature.DEFAULT_ELEMENT_NAME;
+        XMLObjectBuilder<Signature> builder =
+            (XMLObjectBuilder<Signature>)XMLObjectProviderRegistrySupport.getBuilderFactory().getBuilder(qName);
+        if (builder == null) {
+            log.error(
+                "Unable to retrieve builder for object QName "
+                + qName
+            );
+            return null;
+        }
+        return
+            builder.buildObject(
+                 qName.getNamespaceURI(), qName.getLocalPart(), qName.getPrefix()
+             );*/
+    	Signature signt = MetadataBuilderFactoryUtil.generateSignature();
+    	signt.setSigningCredential(credential);
+    	signt.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+    	signt.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA256);
+    	
+    	return signt;
+    }
+    
+	public static final ImmutableMap<String, String> SIGNATURE_TO_DIGEST_ALGORITHM_MAP =
             ImmutableMap.<String, String>builder()
                     .put(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA256, SignatureConstants.ALGO_ID_DIGEST_SHA256)
                     .put(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA384, SignatureConstants.ALGO_ID_DIGEST_SHA384)
@@ -78,8 +136,6 @@ public class EauthMetadataBuilder {
                     .put(XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256_MGF1, SignatureConstants.ALGO_ID_DIGEST_SHA256)
                     .build();
 
-	@Autowired
-	private IdpConfigurationProperties idpConfigurationProperties;
 
 	public Extensions generateExtensions() throws EAuthMetadataException {
 		final Extensions eauthExtensions = MetadataBuilderFactoryUtil.generateMetadataExtension();
@@ -161,7 +217,7 @@ public class EauthMetadataBuilder {
 		}
 
 		final Attribute eidasApplicationIdentifierAttribute = buildEauthProtocolVersionAttribute(
-				SAMLMetadataCore.APPLICATION_IDENTIFIER.getValue(), idpConfigurationProperties.getEauthProtocolVersion());
+				SAMLMetadataCore.APPLICATION_IDENTIFIER.getValue(), idpConfigurationProperties.getEauthAssertionAttributes());
 		if (null == eidasApplicationIdentifierAttribute) {
 			log.info("SAML METADATA EXCEPTION - eAuth Application Identifier Attribute is empty");
 		} else {
@@ -177,7 +233,7 @@ public class EauthMetadataBuilder {
 			attribute.setNameFormat(RequestedAttribute.URI_REFERENCE);
 			attribute.setName(name);
 
-			final XSAny attributeValue = createEauthProtocolVersionAttributeValue(value);
+			final XSAny attributeValue = createEauthExtensionsAttributeValue(value);
 			attribute.getAttributeValues().add(attributeValue);
 
 			return attribute;
@@ -186,8 +242,24 @@ public class EauthMetadataBuilder {
 			return null;
 		}
 	}
+	private static Attribute buildEauthProtocolVersionAttribute(String name, List<String> values)
+			throws EAuthMetadataException {
+		if (!values.isEmpty()) {
+			final Attribute attribute = (Attribute) MetadataBuilderFactoryUtil
+					.buildXmlObject(Attribute.DEFAULT_ELEMENT_NAME);
+			attribute.setNameFormat(RequestedAttribute.URI_REFERENCE);
+			attribute.setName(name);
 
-	private static XSAny createEauthProtocolVersionAttributeValue(String value) {
+			final List<XSAny> attributeValues = values.stream().map(value->createEauthExtensionsAttributeValue(value)).collect(Collectors.toList());
+			attribute.getAttributeValues().addAll(attributeValues);
+
+			return attribute;
+		} else {
+
+			return null;
+		}
+	}
+	private static XSAny createEauthExtensionsAttributeValue(String value) {
 		final XSAnyBuilder builder = new XSAnyBuilder();
 		final XSAny attributeValue = builder.buildObject(SAMLConstants.SAML20_NS,
 				org.opensaml.saml.saml2.core.AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
@@ -206,12 +278,10 @@ public class EauthMetadataBuilder {
 	}
 
 	@SuppressWarnings("squid:S2583")
-	private void generateIDPSSODescriptor(final EntityDescriptor entityDescriptor,
+	public void generateIDPSSODescriptor(final EntityDescriptor entityDescriptor,
 			final X509KeyInfoGeneratorFactory keyInfoGeneratorFactory, ImmutableSortedSet<String> attributeNames)
 			throws org.opensaml.security.SecurityException, IllegalAccessException, NoSuchFieldException,
 			EAuthMetadataException {
-		// the node has IDP role
-		final String spSamlProtocol = SAMLConstants.SAML20P_NS;
 		final String idpSamlProtocol = SAMLConstants.SAML20P_NS;
 		IDPSSODescriptor idpSSODescriptor = MetadataBuilderFactoryUtil.buildXmlObject(IDPSSODescriptor.class);
 		idpSSODescriptor.setWantAuthnRequestsSigned(true);
@@ -306,6 +376,16 @@ public class EauthMetadataBuilder {
 		Attribute loaAttrib = (Attribute) MetadataBuilderFactoryUtil.buildXmlObject(Attribute.DEFAULT_ELEMENT_NAME);
 		loaAttrib.setName(SAMLMetadataCore.LEVEL_OF_ASSURANCE_NAME.getValue());
 		loaAttrib.setNameFormat(Attribute.URI_REFERENCE);
+		XSStringBuilder stringBuilder = (XSStringBuilder) XMLObjectProviderRegistrySupport.getBuilderFactory()
+				.getBuilder(XSString.TYPE_NAME);
+		for (String loa : idpConfigurationProperties.getLevelOfAssurance()) {
+			XSString stringValue = stringBuilder
+					.buildObject(org.opensaml.saml.saml2.core.AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
+			stringValue.setValue(loa);
+			loaAttrib.getAttributeValues().add(stringValue);			
+		}
+
+
 		/*if (idpConfigurationProperties.isHideLoaType()) {
 			XSAnyBuilder builder = new XSAnyBuilder();
 			XSAny stringValue = builder.buildObject(SAMLConstants.SAML20_NS,
@@ -323,5 +403,104 @@ public class EauthMetadataBuilder {
 		}*/
 		entityAttributes.getAttributes().add(loaAttrib);
 	}
+    public Organization buildOrganization() {
+        Organization samlOrganization = null;
+        OrganizationData organization= idpConfigurationProperties.getOrganizationData();
+        if (organization != null) {
+            try {
+//                TODO change code.....
+                samlOrganization = MetadataBuilderFactoryUtil.buildXmlObject(Organization.class);
+                OrganizationDisplayName odn = MetadataBuilderFactoryUtil.buildXmlObject(OrganizationDisplayName.class);
+                odn.setValue(organization.getDisplayName());
+                odn.setXMLLang(DEFAULT_LANG);
+                samlOrganization.getDisplayNames().add(odn);
 
+                OrganizationName on = MetadataBuilderFactoryUtil.buildXmlObject(OrganizationName.class);
+                on.setValue(organization.getName());
+                on.setXMLLang(DEFAULT_LANG);
+                samlOrganization.getOrganizationNames().add(on);
+
+                OrganizationURL url = MetadataBuilderFactoryUtil.buildXmlObject(OrganizationURL.class);
+                url.setValue(organization.getUrl());
+                url.setXMLLang(DEFAULT_LANG);
+                samlOrganization.getURLs().add(url);
+
+            } catch (IllegalAccessException iae) {
+                log.info(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, iae.getMessage());
+                log.debug(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, iae);
+            } catch (NoSuchFieldException nfe) {
+                log.info(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, nfe.getMessage());
+                log.debug(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, nfe);
+            }
+        } else {
+        	log.error("ERROR: cannot retrieve organization from the configuration");
+        }
+        return samlOrganization;
+    }
+
+    public ContactPerson buildContact(ContactPersonTypeEnumeration contactType) {
+        ContactPerson contact = null;
+        try {
+            ContactData currentContact = null;
+            if (contactType == ContactPersonTypeEnumeration.SUPPORT) {
+                currentContact = idpConfigurationProperties.getSupportContact();
+            } else if (contactType == ContactPersonTypeEnumeration.TECHNICAL) {
+                currentContact = idpConfigurationProperties.getTechnicalContact();
+            } else {
+                log.error("ERROR: unsupported contact type");
+            }
+            contact = MetadataBuilderFactoryUtil.buildXmlObject(ContactPerson.class);
+            if (currentContact == null) {
+                log.error("ERROR: cannot retrieve {} contact from the configuration",contactType.toString());
+                return contact;
+            }
+
+            EmailAddress emailAddressObj = MetadataBuilderFactoryUtil.buildXmlObject(EmailAddress.class);
+            Company company = MetadataBuilderFactoryUtil.buildXmlObject(Company.class);
+            GivenName givenName = MetadataBuilderFactoryUtil.buildXmlObject(GivenName.class);
+            SurName surName = MetadataBuilderFactoryUtil.buildXmlObject(SurName.class);
+            TelephoneNumber phoneNumber = MetadataBuilderFactoryUtil.buildXmlObject(TelephoneNumber.class);
+            contact.setType(contactType);
+            emailAddressObj.setAddress(currentContact.getEmail());
+            company.setName(currentContact.getCompany());
+            givenName.setName(currentContact.getGivenName());
+            surName.setName(currentContact.getSurName());
+            phoneNumber.setNumber(currentContact.getPhone());
+
+            populateContact(contact, currentContact, emailAddressObj, company, givenName, surName, phoneNumber);
+
+        } catch (IllegalAccessException iae) {
+            log.info(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, iae.getMessage());
+            log.debug(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, iae);
+        } catch (NoSuchFieldException nfe) {
+            log.info(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, nfe.getMessage());
+            log.debug(ERROR_ERROR_GENERATING_THE_ORGANIZATION_DATA, nfe);
+        }
+        return contact;
+    }
+
+    private void populateContact(ContactPerson contact,
+                                 ContactData currentContact,
+                                 EmailAddress emailAddressObj,
+                                 Company company,
+                                 GivenName givenName,
+                                 SurName surName,
+                                 TelephoneNumber phoneNumber) {
+        if (!StringUtils.isEmpty(currentContact.getEmail())) {
+            contact.getEmailAddresses().add(emailAddressObj);
+        }
+        if (!StringUtils.isEmpty(currentContact.getCompany())) {
+            contact.setCompany(company);
+        }
+        if (!StringUtils.isEmpty(currentContact.getGivenName())) {
+            contact.setGivenName(givenName);
+        }
+        if (!StringUtils.isEmpty(currentContact.getSurName())) {
+            contact.setSurName(surName);
+        }
+        if (!StringUtils.isEmpty(currentContact.getPhone())) {
+            contact.getTelephoneNumbers().add(phoneNumber);
+        }
+
+    }
 }

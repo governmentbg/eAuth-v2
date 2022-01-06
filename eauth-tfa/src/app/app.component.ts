@@ -26,7 +26,7 @@ export class AppComponent {
 		private _timerService: TimerService
 	) {
 		this._translateService.use('bg');
-		this.authTimeout();
+		// this.authTimeout();
 	}
 
 	private _timeoutListener(timeLeft) {
@@ -43,10 +43,13 @@ export class AppComponent {
 	}
 
 	private authTimeout() {
-		this._timerService.authTimeout().subscribe((res: AuthTimeout) => {
-			const timeLeft = this._timeBetweenDates(res.expirationTimestamp);
-			this._timeoutListener(timeLeft);
-		});
+		this._timerService
+			.authTimeout()
+			.pipe(takeUntil(this._unsubscribe))
+			.subscribe((res: AuthTimeout) => {
+				const timeLeft = this._timeBetweenDates(res.expirationTimestamp);
+				this._timeoutListener(timeLeft);
+			});
 	}
 
 	private _timeBetweenDates(timestamp) {

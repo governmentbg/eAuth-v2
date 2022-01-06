@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppLayoutComponent }
-	from './_layout/app-layout/app-layout.component';
+import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 
 const routes: Routes = [
 	// Site routes goes here
@@ -23,9 +22,16 @@ const routes: Routes = [
 			{
 				path: '',
 				loadChildren: () =>
-					import(
-						'../app/components/temp-login/temp-login.module'
-					).then((m) => m.TempLoginModule)
+					import('../app/components/home/home.module').then(
+						(m) => m.HomeModule
+					),
+			},
+			{
+				path: 'service-providers',
+				loadChildren: () =>
+					import('../app/components/temp-login/temp-login.module').then(
+						(m) => m.TempLoginModule
+					),
 			},
 			{
 				path: 'sso-tfa',
@@ -33,7 +39,7 @@ const routes: Routes = [
 				loadChildren: () =>
 					import('../app/components/verifier/verifier.module').then(
 						(m) => m.VerifierModule
-					)
+					),
 			},
 			// { path: 'sso-tfa/:error', loadChildren: () => import('../app/components/verifier/verifier.module').then(m => m.VerifierModule) },
 			{
@@ -41,40 +47,40 @@ const routes: Routes = [
 				loadChildren: () =>
 					import(
 						'../app/components/verified-screen/verified-screen.module'
-					).then((m) => m.VerifiedScreenModule)
+					).then((m) => m.VerifiedScreenModule),
 			},
 			{
 				path: 'verified/:method',
 				loadChildren: () =>
 					import(
 						'../app/components/verified-screen/verified-screen.module'
-					).then((m) => m.VerifiedScreenModule)
-			}
-		]
+					).then((m) => m.VerifiedScreenModule),
+			},
+		],
 	},
 	{
 		path: 'ssologin',
 		loadChildren: () =>
-			import(
-				'../app/components/select-supplier/select-supplier.module'
-			).then((m) => m.SelectSupplierModule)
+			import('../app/components/select-supplier/select-supplier.module').then(
+				(m) => m.SelectSupplierModule
+			),
 	},
 	{
 		path: 'ssologin/:error',
 		loadChildren: () =>
-			import(
-				'../app/components/select-supplier/select-supplier.module'
-			).then((m) => m.SelectSupplierModule)
+			import('../app/components/select-supplier/select-supplier.module').then(
+				(m) => m.SelectSupplierModule
+			),
 	},
 	// no layout routes
 	// { path: 'login', component: LoginComponent},
 	// { path: 'register', component: RegisterComponent },
 	// otherwise redirect to home
-	{ path: '**', redirectTo: '' }
+	{ path: '**', redirectTo: '' },
 ];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

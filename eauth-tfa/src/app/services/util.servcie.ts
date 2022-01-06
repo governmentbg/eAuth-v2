@@ -52,7 +52,8 @@ export class UtilService {
 			this._translate.get('' + params['error']).subscribe((value) => {
 				if (value != 'undefined') {
 					this._toastr.error(value, '', {
-						timeOut: 120000
+						timeOut: 120000,
+						enableHtml: true,
 					});
 				}
 			});
@@ -72,7 +73,8 @@ export class UtilService {
 			this._translate.get('warning-msg-time-end').subscribe((value) => {
 				if (value != 'undefined') {
 					this._toastr.warning(value, '', {
-						timeOut: 120000
+						timeOut: 120000,
+						enableHtml: true,
 					});
 				}
 			});

@@ -111,7 +111,7 @@
 	</xsd:complexType>
 
 	<xsd:simpleType name="ClaimsTypeEnum">
-		<xsd:restriction base="xsd:string">
+		<xsd:restriction base="xsd:anyURI">
 			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:personIdentifier" />
 			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:personName" />
 			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:latinName" />
@@ -121,7 +121,9 @@
 			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:gender" />
 			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:dateOfBirth" />
 			<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:placeOfBirth" />
-			<!-- EXITING old not in use claims -->
+    		<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:canonicalResidenceAddress" />
+    		<xsd:enumeration value="urn:egov:bg:eauth:2.0:attributes:X509" />
+    					<!-- EXITING old not in use claims -->
 			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:cannonicalName" />
 			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:nationalityCode" />
 			<xsd:enumeration value="urn:egov:bg:eauth:1.0:attributes:canonicalResidenceAddress" />
@@ -133,6 +135,29 @@
 		</xsd:restriction>
 	</xsd:simpleType>
 
+	<xsd:element name="RequestedAttributes"
+		type="egovbga:RequestedAttributesType" />
 
+	<xsd:complexType name="RequestedAttributesType">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="unbounded"
+				ref="egovbga:RequestedAttribute" />
+		</xsd:sequence>
+	</xsd:complexType>
+    
+    <xsd:element name="RequestedAttribute" type="egovbga:RequestedAttributeType" />
+    
+    <xsd:complexType name="RequestedAttributeType">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" ref="egovbga:AttributeValue"/>
+        </xsd:sequence>
+        <xsd:attribute name="Name" use="required" type="egovbga:ClaimsTypeEnum"/>
+        <xsd:attribute name="NameFormat" use="required" type="xsd:anyURI"/>
+        <xsd:attribute name="FriendlyName" use="optional" type="xsd:string"/>
+        <xsd:attribute name="isRequired" use="optional" type="xsd:boolean"/>
+        <xsd:anyAttribute namespace="##other" processContents="lax"/>
+    </xsd:complexType>
+    
+    <xsd:element name="AttributeValue" type="xsd:anyType" />
 
 </xsd:schema>

@@ -9,7 +9,7 @@
 	
 	<ul>
 		<li>
-			<a id="logoutId" href="/saml2/authenticate/mock-idp">Login</a>
+			<a id="logoutId" href="/profilebe/saml2/authenticate/mock-idp">Login</a>
 		</li>
 	</ul>
 </body>

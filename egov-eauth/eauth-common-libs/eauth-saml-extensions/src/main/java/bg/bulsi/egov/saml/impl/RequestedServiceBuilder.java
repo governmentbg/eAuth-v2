@@ -1,9 +1,10 @@
 package bg.bulsi.egov.saml.impl;
 
 
+import org.opensaml.saml.common.AbstractSAMLObjectBuilder;
+
 import bg.bulsi.egov.saml.RequestedService;
 import bg.bulsi.egov.saml.SAMLeAuthConstants;
-import org.opensaml.saml.common.AbstractSAMLObjectBuilder;
 
 public class RequestedServiceBuilder extends AbstractSAMLObjectBuilder<RequestedService> {
 

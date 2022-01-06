@@ -53,9 +53,9 @@
     <element name="Extensions" type="samlp:ExtensionsType"/>
     <complexType name="ExtensionsType">
         <sequence>
-			<element ref="egovbga:RequestedService" minOccurs="0" maxOccurs="1"/>
+			<element ref="egovbga:RequestedService" minOccurs="1" maxOccurs="1"/>
 			<element ref="egovbga:SPContext" minOccurs="0" maxOccurs="1"/>
-			
+			<element ref="egovbga:RequestedAttributes" minOccurs="0" maxOccurs="1"/>
 			<!-- <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/> -->
         </sequence>
     </complexType>

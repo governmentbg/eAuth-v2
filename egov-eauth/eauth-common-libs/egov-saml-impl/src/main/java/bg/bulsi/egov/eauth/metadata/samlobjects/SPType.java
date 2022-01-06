@@ -14,7 +14,7 @@ public interface SPType extends SAMLObject {
 
     /** The Constant DEFAULT_ELEMENT_NAME. */
     QName DEF_ELEMENT_NAME = new QName(SAMLMetadataCore.EAUTH_SAML_NS.getValue(), DEF_LOCAL_NAME,
-            SAMLMetadataCore.EIDAS10_SAML_PREFIX.getValue());
+            SAMLMetadataCore.EAUTH_SAML_PREFIX.getValue());
 
     /** The Constant TYPE_LOCAL_NAME. */
     String TYPE_LOCAL_NAME = "SPType";

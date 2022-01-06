@@ -13,6 +13,8 @@ import org.opensaml.saml.saml2.core.StatusMessage;
 import org.opensaml.saml.saml2.metadata.Extensions;
 import org.opensaml.saml.saml2.metadata.impl.ExtensionsBuilder;
 import org.opensaml.xmlsec.signature.KeyInfo;
+import org.opensaml.xmlsec.signature.Signature;
+import org.opensaml.xmlsec.signature.impl.SignatureBuilder;
 import org.springframework.security.saml2.Saml2Exception;
 
 import bg.bulsi.egov.eauth.common.exceptions.EAuthMetadataException;
@@ -85,7 +87,20 @@ public final class MetadataBuilderFactoryUtil {
         ExtensionsBuilder extensionsBuilder = new ExtensionsBuilder();
         return extensionsBuilder.buildObject(SAMLConstants.SAML20MD_NS, "Extensions", "md");
     }
+    /**
+     * Generate metadata Signature.
+     *
+     * @return the signature
+     */
+    public static Signature generateSignature() {
+    	SignatureBuilder extensionsBuilder = new SignatureBuilder();
+//        return extensionsBuilder.buildObject(SAMLConstants.SAML20MD_NS, Signature.DEFAULT_ELEMENT_LOCAL_NAME, "md");
+        return extensionsBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
 
+    }
+
+    
+    
     /**
      * Generate issuer.
      *

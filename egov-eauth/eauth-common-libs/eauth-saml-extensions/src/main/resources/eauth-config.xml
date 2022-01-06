@@ -4,7 +4,7 @@
   xmlns="http://www.opensaml.org/xmltooling-config">
 
   <ObjectProviders>
-
+	<!-- parent element -->
     <ObjectProvider qualifiedName="egovbga:RequestedService">
       <BuilderClass className="bg.bulsi.egov.saml.impl.RequestedServiceBuilder"/>
       <MarshallingClass className="bg.bulsi.egov.saml.impl.RequestedServiceMarshaller"/>
@@ -27,6 +27,25 @@
       <BuilderClass className="bg.bulsi.egov.saml.impl.LevelOfAssuranceBuilder"/>
       <MarshallingClass className="bg.bulsi.egov.saml.impl.LevelOfAssuranceMarshaller"/>
       <UnmarshallingClass className="bg.bulsi.egov.saml.impl.LevelOfAssuranceUnmarshaller"/>
+    </ObjectProvider>
+    
+    <!-- parent element: contains list of RequestedAttribute -->
+    <ObjectProvider qualifiedName="egovbga:RequestedAttributes">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.RequestedAttributesBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.RequestedAttributesMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.RequestedAttributesUnmarshaller"/>
+    </ObjectProvider>
+    
+    <ObjectProvider qualifiedName="egovbga:RequestedAttribute">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.RequestedAttributeBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.RequestedAttributeMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.RequestedAttributeUnmarshaller"/>
+    </ObjectProvider>
+    
+    <ObjectProvider qualifiedName="egovbga:AttributeValue">
+      <BuilderClass className="bg.bulsi.egov.saml.impl.AttributeValueBuilder"/>
+      <MarshallingClass className="bg.bulsi.egov.saml.impl.AttributeValueMarshaller"/>
+      <UnmarshallingClass className="bg.bulsi.egov.saml.impl.AttributeValueUnmarshaller"/>
     </ObjectProvider>
 
   </ObjectProviders>

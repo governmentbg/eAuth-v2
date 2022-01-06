@@ -1,48 +1,76 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>bg.bulsi</groupId>
-    <artifactId>eauth-eid-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>eauth-eid-api-client</artifactId>
-  <name>eauth-eid-api-client</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
- 	<dependencies>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>bg.bulsi</groupId>
+		<artifactId>eauth-eid-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>eauth-eid-api-client</artifactId>
+	<name>eauth-eid-api-client</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+
 		<dependency>
 			<groupId>bg.bulsi</groupId>
 			<artifactId>eauth-eid-api-dto</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-core</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webflux</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>jackson-databind-nullable</artifactId>
-            <version>${jackson-databind-nullable.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-   	</dependencies>
+
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>${jackson-databind-nullable.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.projectreactor.netty</groupId>
+			<artifactId>reactor-netty</artifactId>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<dependencies>
+					<!-- <dependency>
+						<groupId>org.openapitools</groupId>
+						<artifactId>openapi-generator</artifactId>
+						<version>5.0.0-SNAPSHOT</version>
+					</dependency> -->
+				</dependencies>
 				<executions>
 					<execution>
 						<goals>
@@ -54,7 +82,10 @@
 							<developerOrganization>BUL SI Ltd</developerOrganization>
 							<developerOrganizationUrl>http://bul-si.bg</developerOrganizationUrl>
 
-							<inputSpec>${project.basedir}/../eauth-eid-api-spec/eAuth_openapi.yaml</inputSpec>
+							<!-- <inputSpec>${project.basedir}/../eauth-eid-api-spec/eAuth_openapi.yaml</inputSpec> -->
+							<templateDirectory>${project.basedir}/../custom_template/Java</templateDirectory>
+							<!-- <templateResourcePath>${project.basedir}/../custom_template/Java</templateResourcePath> -->
+							<inputSpec>${openAPI.yaml.file}</inputSpec>
 							<apiPackage>${default.package}</apiPackage>
 							<modelPackage>${default.package}.dto</modelPackage>
 							<invokerPackage>${default.package}.client</invokerPackage>
@@ -62,15 +93,15 @@
 
 							<generateSupportingFiles>true</generateSupportingFiles>
 							<generateApis>true</generateApis>
-							<generateModels>fa</generateModels>
-							
+							<generateModels>false</generateModels>
+
 							<ensureUniqueParams>true</ensureUniqueParams>
 							<generatorName>java</generatorName>
 							<library>webclient</library>
-							
+
 							<configOptions>
 								<withXml>true</withXml>
-								<dateLibrary>java8</dateLibrary>
+								<dateLibrary>custom</dateLibrary>
 								<useBeanValidation>true</useBeanValidation>
 								<serializableModel>true</serializableModel>
 								<java8>true</java8>

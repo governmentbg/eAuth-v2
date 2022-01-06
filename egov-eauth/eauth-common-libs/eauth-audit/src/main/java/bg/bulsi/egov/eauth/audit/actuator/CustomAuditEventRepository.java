@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;
@@ -44,11 +45,16 @@ public class CustomAuditEventRepository implements AuditEventRepository {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<AuditEvent> find(String principal, Instant after, String type) {
-        Iterable<AuditEventEntity> persistentAuditEvents =
-            persistenceAuditEventRepository.findByPrincipalAndAuditEventDateAfterAndAuditEventType(principal, after, type);
+        Iterable<AuditEventEntity> persistentAuditEvents ;
+    	if (StringUtils.isEmpty(principal)) {
+			persistentAuditEvents = persistenceAuditEventRepository.findByAuditEventDateAfterAndAuditEventType(after, type);
+		}else {
+    		persistentAuditEvents = persistenceAuditEventRepository.findByPrincipalAndAuditEventDateAfterAndAuditEventType(principal, after, type);
+		}
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
-    }
+    }	
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)

@@ -8,19 +8,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import bg.bulsi.egov.eauth.eid.dto.AuthProcessingType;
 import bg.bulsi.egov.eauth.eid.dto.LevelOfAssurance;
-import bg.bulsi.egov.idp.dto.AuthenticationAttribute;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+/**
+ * application-idp.yaml
+ */
 @Component
 @ConfigurationProperties("idp.3rd.party")
 public class EidProvidersConfiguration implements Serializable {
@@ -63,93 +61,11 @@ public class EidProvidersConfiguration implements Serializable {
 		return res;
 	}
 
-	@ToString
-	public static class EidProviderConfig implements Serializable {
-
-		private static final long serialVersionUID = -8399611290531449950L;
-		
-		public enum ProviderIdSuffix {
-			USERNAME,
-			PASSWORD,
-			EGN,
-			PIK,
-			PUK
-		}
-
-
-		@Getter
-		@Setter
-		@NotBlank
-		//Vendor_ID
-		private String providerId;
-
-		@Getter
-		@Setter
-		@NotBlank
-		private String providerApiKey;
-
-		@Getter
-		@Setter
-		private Map<String, String> name;
-
-		@Getter
-		@Setter
-		@NotBlank
-		private LevelOfAssurance loa;
-
-		@Getter
-		@Setter
-		@NotBlank
-		private AuthProcessingType eidProcesss;
-		
-		@Getter
-		@Setter
-		@NotBlank
-		private Boolean tfaRequired = false;
-
-		@Getter
-		@Setter
-		@NotBlank
-		private String endpoint;
-
-		@Getter
-		@Setter
-		@NotBlank
-		private boolean active;
-
-		@Getter
-		@Setter
-		@NotBlank
-		private int expirationPeriod; // in sec
-
-		@Getter
-		@Setter
-		/**
-		 * key must generate like
-		 * IdentityParam.providerId + "_" + ProviderIdSuffix.name()
-		 */
-		private Map<String, ProviderAuthAttribute> attributes;
-
-
-		@EqualsAndHashCode(callSuper = true)
-		public static class ProviderAuthAttribute extends AuthenticationAttribute implements Serializable {
-
-			private static final long serialVersionUID = -7304199837524898345L;
-
-
-			public enum Eid {
-				IDENTITY,
-				PASSWORD,
-				ADDITIONAL;
-			}
-
-			@Getter
-			@Setter
-			@NotBlank
-			private Eid eId;
-
-		}
-
+	@Override
+	public String toString() {
+		return "EidProvidersConfiguration [providers " + providers.size() + " =" + providers + "]";
 	}
+	
+	
 
 }

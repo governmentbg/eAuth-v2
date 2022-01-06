@@ -12,6 +12,8 @@ import { CustomTranslate } from '../pipes/custom-translate.pipe';
 import { AttributeType } from 'src/app/model/enums/attributeType';
 import { LevelOfAssurance } from 'src/app/model/enums/levelOfAssurance';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ProgressSpinnerService }
+	from '../custom-components/progress-spinner/progress-spinner.service';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
@@ -29,6 +31,7 @@ describe('LoginComponent', () => {
 				FormsModule,
 			],
 			declarations: [LoginComponent, CustomInputComponent, CustomTranslate],
+			providers: [ProgressSpinnerService]
 		}).compileComponents();
 	}));
 

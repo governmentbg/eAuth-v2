@@ -1,0 +1,25 @@
+#verifier-input-holder {
+    margin-bottom: 10px;
+
+    input {
+        margin: 0 5px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 30px;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 5px #ccc inset;
+        outline: none;
+        width: 10%;
+        transition: all .2s ease-in-out;
+        border-radius: 3px;
+        
+        &:focus {
+          border-color: #d2dde2;
+          box-shadow: 0 0 5px#d2dde2 inset;
+        }
+        
+        &::selection {
+          background: transparent;
+        }
+      }
+}

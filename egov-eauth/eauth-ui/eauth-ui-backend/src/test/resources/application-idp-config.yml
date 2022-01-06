@@ -4,7 +4,7 @@
 
 idp:
   #
-  entity_id: http://mock-idp
+  entity_id: https://eauth-test.egov.bg
   # Private key used to sign the SAML response
   private_key: certificates/private.key
   # Public certificate to verify the signature of the SAML response
@@ -24,7 +24,7 @@ idp:
   # Organization Info
   organization_data:
      name: Bulsi
-     display_name: Bulsi 
+     display_name: Bulsi
      url: http://bul-si.bg
   # Claims XSD /eauth-saml-extensions/src/main/resources/schema/bg-egov-eauthentication-2.0.xsd
   claims: /home/gdimitrov/workspaces201909/eAuth2/egov-eauth/eauth-common-libs/eauth-saml-extensions/src/main/resources/schema/bg-egov-eauthentication-2.0.xsd
@@ -38,31 +38,40 @@ idp:
   sp_type: 
   # Set<String> 
   digest_methods: !!set
-     ? method1
-     ? method2
+     ? 'http://www.w3.org/2001/04/xmlenc#sha256'
   # Set<String> 
   signing_methods: !!set
-     ? sing1 
-     ? sing2
+     ? 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'
   # Set<String> 
   encryption_algorithms: !!set
      ? alg1
-     ? alg2
   # transient HashMap<String, String> 
   protocolBindingLocation: 
-     'key1': 'value1'
-     'key2': 'value2'
+     'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST': 'https://eauth-test.egov.bg/SingleSignOnService'
   #
-  levelOfAssurance: loa
+  levelOfAssurance: 
+     - LOW
+     - SUBSTANTIAL
+     - HIGH
   #
   hide_loa_type: false
   #
   eauth_protocol_version: 2.0.0
   # 
-  eauth_application_identifier: eaut_ident
+  eauth_assertion_attributes: 
+     - urn:egov:bg:eauth:2.0:attributes:personIdentifier
+     - urn:egov:bg:eauth:2.0:attributes:personName
+     - urn:egov:bg:eauth:2.0:attributes:email
+     - urn:egov:bg:eauth:2.0:attributes:phone
+     - urn:egov:bg:eauth:2.0:attributes:latinName
+     - urn:egov:bg:eauth:2.0:attributes:birthName
+     - urn:egov:bg:eauth:2.0:attributes:dateOfBirth
+     - urn:egov:bg:eauth:2.0:attributes:gender
+     - urn:egov:bg:eauth:2.0:attributes:placeOfBirth
+     - urn:egov:bg:eauth:1.0:attributes:canonicalResidenceAddress
   # Map<String, List<String>>
   attributes:
-     'key1': 
+     'key1':
         - listValue
         - listValue2
   # List<FederatedUserAuthenticationToken> users             ::IdpConfigurationProperties
@@ -78,6 +87,6 @@ idp:
   #         'keyX1': 
   #            - list1
   #            - list2
-  acs_endpoint: http://www
+  #acs_endpoint: http://www
   
   

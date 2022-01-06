@@ -1,0 +1,8 @@
+<div id="verifier-input-holder">
+    <input #firstDigitEl (input)="inputChange($event, 0, secondDigitEl)" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+    <input #secondDigitEl (input)="inputChange($event, 1, thirdDigitEl)" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+    <input #thirdDigitEl (input)="inputChange($event, 2, fourthDigitEl)" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+    <input #fourthDigitEl (input)="inputChange($event, 3, fifthDigitEl)" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+    <input #fifthDigitEl (input)="inputChange($event, 4, sixthDigitEl)" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+    <input #sixthDigitEl (input)="inputChange($event, 5)" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+</div>

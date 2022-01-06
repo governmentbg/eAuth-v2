@@ -1,13 +1,15 @@
 ############ ACTUATOR ############
 
 spring:
+#   autoconfigure:
+#      exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
    profiles:
       include: actuator-ext #, audit
    #Actuator credentiials
-#   security:
-#      user:
-#         name: actuator
-#         password: actuatorpassword
+   security:
+      user:
+         name: 'actuator'
+         password: 'actuatorpassword'
 
 
 #management.endpoint.<id>.enabled#

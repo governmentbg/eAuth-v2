@@ -3,12 +3,9 @@ package bg.bulsi.egov.eauth.tfa.sms.service;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,13 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import bg.bulsi.egov.eauth.audit.model.DataKeys;
 import bg.bulsi.egov.eauth.audit.model.EventTypes;
 import bg.bulsi.egov.eauth.audit.util.EventBuilder;
-import bg.bulsi.egov.eauth.audit.util.HttpReqRespUtils;
 import bg.bulsi.egov.eauth.tfa.api.OtpApiDelegate;
 import bg.bulsi.egov.eauth.tfa.api.dto.AuthRequestDetails;
 import bg.bulsi.egov.eauth.tfa.api.dto.CheckResult;
@@ -46,6 +41,8 @@ public class SmsService implements OtpApiDelegate {
 	private static final String SUCCESS_CODE = "OK";
 	private static final String SMS_PREFIX = "+359";
 
+	private static final String SMS_OTP_EXP_KEY = "egov.eauth.dyn.tfa.sms.otp.expiration";
+	
 	private final SmsStoreService store;
 
 
@@ -108,11 +105,8 @@ public class SmsService implements OtpApiDelegate {
 
 	public boolean validateExpired(String transactionId, String code) {
 
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
-
 		Optional<Sms> sms = findSmsByTransactionIdAndCode(transactionId, code);
-		long expirationTimeInSeconds = Long.parseLong(hazelcastService.get("egov.eauth.dyn.tfa.sms.otp.expiration"));
+		long expirationTimeInSeconds = Long.parseLong(hazelcastService.get(SMS_OTP_EXP_KEY));
 
 		/*
 		 * AuditEvent
@@ -149,15 +143,11 @@ public class SmsService implements OtpApiDelegate {
 
 	@Override
 	public ResponseEntity<OTPass> clientAuth(AuthRequestDetails body, Optional<String> userID) {
-
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
-
+		
 		ResponseEntity<OTPass> responseEntity = null;
 		String phone = body.getContacts().getPhone();
 		log.info("phone: [{}]", phone);
 
-		// TODO: validate in profile-ui
 		if (StringUtils.isBlank(phone) || !phone.trim().startsWith(SMS_PREFIX)) {
 			log.error("Bad phone formatt: [{}]", phone);
 			return ResponseEntity.status(500).body(new OTPass());
@@ -177,7 +167,7 @@ public class SmsService implements OtpApiDelegate {
 				update(sms);
 				store.update(sms);
 
-				long expirationTimeInSeconds = Long.parseLong(hazelcastService.get("egov.eauth.dyn.tfa.sms.otp.expiration"));
+				long expirationTimeInSeconds = Long.parseLong(hazelcastService.get(SMS_OTP_EXP_KEY));
 				responseEntity = ResponseEntity.ok(new OTPass().transaction(sms.getTransactionId())
 						.timestamp(sms.getCreateDate().getTime() + (expirationTimeInSeconds * 1000)).complete(true));
 				
@@ -192,7 +182,7 @@ public class SmsService implements OtpApiDelegate {
 			}
 
 		} catch (Exception ex) {
-			long expirationTimeInSeconds = Long.parseLong(hazelcastService.get("egov.eauth.dyn.tfa.sms.otp.expiration"));
+			long expirationTimeInSeconds = Long.parseLong(hazelcastService.get(SMS_OTP_EXP_KEY));
 			responseEntity = ResponseEntity.status(500).body(new OTPass().transaction(sms.getTransactionId())
 					.timestamp(sms.getCreateDate().getTime() + (expirationTimeInSeconds * 1000)).complete(false));
 			log.error(ex.getCause().getLocalizedMessage());
@@ -205,13 +195,10 @@ public class SmsService implements OtpApiDelegate {
 	@Override
 	public ResponseEntity<CheckResult> validateCode(String code, String transactionId) {
 
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-		HttpServletRequest request = attr.getRequest();
-
-		long expirationTimeInSeconds = Long.parseLong(hazelcastService.get("egov.eauth.dyn.tfa.sms.otp.expiration"));
+		long expirationTimeInSeconds = Long.parseLong(hazelcastService.get(SMS_OTP_EXP_KEY));
 
 		boolean valid = store.validate(transactionId, code, expirationTimeInSeconds);
-		log.info("valid: " + valid);
+		log.info("valid: [{}]", valid);
 
 		CheckResult result = new CheckResult().valid(valid).status("OK").validUntil(0L);
 

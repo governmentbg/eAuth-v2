@@ -36,6 +36,11 @@
 			<groupId>bg.bulsi</groupId>
 			<artifactId>eauth-saml-extensions</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>bg.bulsi</groupId>
+			<artifactId>egov-saml-impl</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>bg.bulsi</groupId>

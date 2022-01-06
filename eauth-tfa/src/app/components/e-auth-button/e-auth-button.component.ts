@@ -41,12 +41,16 @@ export class EAuthButtonComponent implements OnInit {
 				);
 
 				this._router.navigate(['verifier']);
-				this._toastr.success(res['message']);
+				this._toastr.success(res['message'], '', {
+					enableHtml: true,
+				});
 
 				this._utilService.timeoutMethod();
 			},
 			() => {
-				this._toastr.error('Текста ще се прецизира', 'Грешка');
+				this._toastr.error('Текста ще се прецизира', 'Грешка', {
+					enableHtml: true,
+				});
 			}
 		);
 	}

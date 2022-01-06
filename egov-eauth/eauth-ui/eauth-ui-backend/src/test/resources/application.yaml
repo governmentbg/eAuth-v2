@@ -1,94 +1,106 @@
 # The logging configuration. On a real server this will be a file url. e.g. file://{{ mujina_dir }}/logback.xml
 logging:
-  config: classpath:logback.xml
-  level:
-    org:
-      apache:
-        http: DEBUG
-      springframework:
-         security:
-           DEBUG
-     
-    #org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping:TRACE
+   config: classpath:logback.xml
+   level:
+      org:
+         apache:
+            http: DEBUG
+         springframework:
+            security: DEBUG
        
+      #org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping:TRACE
+          
 server:
-  port: 8080
-  servlet:
-    session:
-      # 8 hours before we time-out
-      timeout: 28800
-      cookie:
-        secure: false
+   port: 8080
+   ssl:
+      enabled: false
+      #session-timeout: 1800
+      #key-store-type: 
+      #key-store: 
+      #key-store-password: 
+      #key-password:
+      trust-store-type: JKS
+      trust-store: 'classpath:certificates/idptruststore.jks'
+      trust-store-password: 1234
+      #trust-password: 
+   #http:
+      #port: 
+   servlet:
+      session:
+         # 8 hours before we time-out
+         timeout: 28800
+         cookie:
+            secure: false
 
 spring:
-  application:
-    name: eAuth_IdP
-  profiles:
-    include: idp, sp, idp-config
-  datasource:
-    url: 'jdbc:postgresql://eauth2-db.egov.bg:5432/eauth'
-    username: bulsiadmin
-    password: bulsivirtual
-    driver-class-name: org.postgresql.Driver
-    sql-script-encoding: UTF-8
+   application:
+      name: eAuth_IdP
+   profiles:
+      include: idp, sp, idp-config
+   datasource:
+      url: 'jdbc:postgresql://eauth2-db.egov.bg:5432/eauth'
+      username: bulsiadmin
+      password: bulsivirtual
+      driver-class-name: org.postgresql.Driver
+      sql-script-encoding: UTF-8
 
-  jpa:
-    database: postgresql
-    hibernate:
-      use-new-id-generator-mappings: true
-      ddl-auto: update
-    properties:
-       hibernate:
-          show_sql: true
-          dialect: org.hibernate.dialect.PostgreSQL94Dialect
-          #default_schema: profile
-    show-sql: true
+   jpa:
+      database: postgresql
+      hibernate:
+         use-new-id-generator-mappings: true
+         ddl-auto: update
+      properties:
+         hibernate:
+            show_sql: true
+            dialect: org.hibernate.dialect.PostgreSQL94Dialect
+               #default_schema: profile
+      show-sql: true
 
-  session:
-    store-type: hazelcast
-    hazelcast:
-      flush-mode: immediate
-  devtools:
-    restart:
-      enabled: true
+   session:
+      store-type: hazelcast
+      hazelcast:
+         flush-mode: immediate
+   devtools:
+      restart:
+         enabled: true
 
 eauth:
-  security:
-    jwt:
-      token-secret: 9B728DEAEA5411628AAD8E7426D1A
-      token-expiration-msec: 300000
-    provider:
-      id-secret: NWKNjXLRdRNjhjgTcRssMmMskbxFrRJWvjWMw7wbVCcHJxKtvf74KzrJRg4hfFhj
+   security:
+      jwt:
+         token-secret: 9B728DEAEA5411628AAD8E7426D1A
+         token-expiration-msec: 300000
+      provider:
+         id-secret: NWKNjXLRdRNjhjgTcRssMmMskbxFrRJWvjWMw7wbVCcHJxKtvf74KzrJRg4hfFhj
 
 # //TODO HARDCODED
 # SAML AuthnRequest validator
 validate:
-  authn:
-    oids: false
-    claims: true
+   authn:
+      oids: false
+      claims: true
 
 # UserService 2FA login identfiers
 tfa:
-  login:
-    identifiers:
-      - 1010101010
-      - 3702134041
-      - 6212299283
-      - 1809113164
-      - 4110253049
-      - 9501265816
-      - 5905245899
-      - 5111103277
-      - 7805153318
-      - 2902284392
-      - 8805248360
-      - 8209048959
-      - 6912188979
-      - 7806277020 # Страхо  
-      - 5507157663 # Стойчо Чичеков
-      - 7302105283 # Красимир Иванов
-      - 8608126455 # Таня Петрова
-      - 8007276274 # Вергиния Стоименова
-      - 8002106510 # Ева Бончева
-      - 6608065340 # Свилен ДАЕУ
-      - 5807026290 # Дими
+   login:
+      identifiers:
+         - 1010101010
+         - 3702134041
+         - 6212299283
+         - 1809113164
+         - 4110253049
+         - 9501265816
+         - 5905245899
+         - 5111103277
+         - 7805153318
+         - 2902284392
+         - 8805248360
+         - 8209048959
+         - 6912188979
+         - 7806277020 # Страхо   
+         - 5507157663 # Стойчо Чичеков
+         - 7302105283 # Красимир Иванов
+         - 8608126455 # Таня Петрова
+         - 8007276274 # Вергиния Стоименова
+         - 8002106510 # Ева Бончева
+         - 6608065340 # Свилен ДАЕУ
+         - 5807026290 # Дими

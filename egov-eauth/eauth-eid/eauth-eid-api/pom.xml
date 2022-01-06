@@ -21,6 +21,8 @@
 
 	<properties>
 		<default.package>bg.bulsi.egov.eauth.eid</default.package>
+		<eid.service.host>http://localhost:8230</eid.service.host>
+		<openAPI.yaml.file>${project.build.directory}/service-spec/eAuth_openapi.yaml</openAPI.yaml.file>
 	</properties>
 
 	
@@ -75,5 +77,37 @@
 		</dependency>
 
 	</dependencies>
-
+<build>
+<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/service-spec</outputDirectory>
+							<useDefaultDelimiters>false</useDefaultDelimiters>
+							<delimiters>
+								<delimiter>@</delimiter>
+							</delimiters>
+							
+							<resources>
+								<resource>
+									<directory>${project.basedir}/../eauth-eid-api-spec/</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>*.yaml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+</plugins></build>
 </project>

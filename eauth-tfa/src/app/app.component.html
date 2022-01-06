@@ -2,4 +2,6 @@
     <router-outlet></router-outlet>
 </div>
 
-<form ngNoForm method="POST" [action]="cancelAuthEndpoint" #cancelAuthForm></form>
+<form ngNoForm method="POST" [action]="cancelAuthEndpoint" #cancelAuthForm>
+    <input type="hidden" name="error" value="408"/>
+</form>

@@ -1,5 +1,6 @@
 package bg.bulsi.egov.idp.services.temp;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -20,10 +21,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.w3c.dom.Element;
 
 import bg.bulsi.egov.hazelcast.service.HazelcastService;
+import bg.bulsi.egov.idp.client.config.model.EidProvidersConfiguration;
 import bg.bulsi.egov.idp.dto.AuthTimeout;
 import bg.bulsi.egov.idp.dto.IdentityProvider;
 import bg.bulsi.egov.idp.dto.LevelOfAssurance;
-import bg.bulsi.egov.idp.services.EidProviderClientImpl;
 import bg.bulsi.egov.saml.Provider;
 import bg.bulsi.egov.saml.RequestedService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProviderService {
 
 	@Autowired
-	private EidProviderClientImpl client;
+	private EidProvidersConfiguration config;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -46,13 +47,19 @@ public class ProviderService {
 	 */
 	public List<IdentityProvider> list(LevelOfAssurance serviceProviderLoa) {
 
-		List<IdentityProvider> providers = client.getConfig().getProviders().values().stream()
+		List<IdentityProvider> providers = config.getProviders().values().stream()
 				.filter(providerConfig -> providerConfig.isActive())
 				.filter(providerConfig -> providerConfig.getLoa().ordinal() >= serviceProviderLoa.ordinal())
 				.map(providerConfig -> modelMapper.map(providerConfig, IdentityProvider.class))
 				// .filter(idp -> idp.getLoa().ordinal() >= serviceProviderLoa.ordinal())
+				.sorted(Comparator.comparing(provider -> provider.getName().get("bg"), Comparator.naturalOrder()))
 				.collect(Collectors.toList());
-
+		for (IdentityProvider identityProvider: providers) { 
+			identityProvider.setAttributes(identityProvider.getAttributes().stream()
+					.sorted(Comparator.comparing(att -> att.getType(), Comparator.comparingInt(p -> p.ordinal())))
+					.collect(Collectors.toList()));
+		}
+		
 		return providers;
 	}
 
@@ -86,11 +93,12 @@ public class ProviderService {
 	/*
 	 * get SAML Authn Request from session parameter
 	 */
-	private AuthnRequest getAuthnRequest() throws UnmarshallingException {
+	public AuthnRequest getAuthnRequest() throws UnmarshallingException {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = attr.getRequest();
 
 		HttpSession session = request.getSession(false);
+
 		Element element = (Element) session.getAttribute("SAMLAuthRequest");
 		if (element == null) {
 			throw new UnmarshallingException("Missing SAML 2.0 AuthRequest");

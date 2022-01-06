@@ -1,44 +1,60 @@
 pipeline {
     agent any
 
-    tools {nodejs "NodeJS"}
+    tools {nodejs "nodeJS_12"}
 
     stages {
+//        stage('Checkout code') {
+//            steps {
+//                checkout scm
+//            }
+//        }
+        
         stage('Install') { 
             steps {
-                sh 'npm install'
-                updateGitlabCommitStatus name: 'build', state: 'pending'
-                updateGitlabCommitStatus name: 'build', state: 'success'
+                nodejs(nodeJSInstallationName: 'nodeJS_12') {
+                    sh 'npm config ls'
+                    sh 'npm install'
+                }
+                updateGitlabCommitStatus name: 'install', state: 'pending'
+                updateGitlabCommitStatus name: 'install', state: 'success'
             }
         }
 
         stage('Lint') {
             steps {
-                sh 'npm run eslint'
-                updateGitlabCommitStatus name: 'build', state: 'pending'
-                updateGitlabCommitStatus name: 'build', state: 'success'
+                nodejs (nodeJSInstallationName: 'nodeJS_12'){
+                    sh 'npm run eslint'
+                }
+                
+                updateGitlabCommitStatus name: 'codeStyle', state: 'pending'
+                updateGitlabCommitStatus name: 'codeStyle', state: 'success'
             }
         }
 
         stage('Unit Test') {
             steps {
-                sh 'ng test --no-watch --code-coverage'
-                updateGitlabCommitStatus name: 'build', state: 'pending'
-                updateGitlabCommitStatus name: 'build', state: 'success'
+                nodejs (nodeJSInstallationName: 'nodeJS_12'){
+                    sh 'ng test --no-watch --code-coverage'
+                }
+                updateGitlabCommitStatus name: 'test', state: 'pending'
+                updateGitlabCommitStatus name: 'test', state: 'success'
             }
         }
 
-        stage('Sonar') {
-            steps {
-                sh 'npm run sonar'
-                updateGitlabCommitStatus name: 'build', state: 'pending'
-                updateGitlabCommitStatus name: 'build', state: 'success'
-            }
-        }
+        // stage('Sonar') {
+        //     steps {
+        //         sh 'npm run sonar'
+        //         updateGitlabCommitStatus name: 'build', state: 'pending'
+        //         updateGitlabCommitStatus name: 'build', state: 'success'
+        //     }
+        // }
 
         stage('Build') {
             steps {
-                sh 'ng build --prod'
+                nodejs (nodeJSInstallationName: 'nodeJS_12'){
+                    sh 'ng build --configuration stage'
+                }
                 updateGitlabCommitStatus name: 'build', state: 'pending'
                 updateGitlabCommitStatus name: 'build', state: 'success'
             }
@@ -70,8 +86,8 @@ pipeline {
                                     usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)
                                 ]
                             )
-                updateGitlabCommitStatus name: 'build', state: 'pending'
-                updateGitlabCommitStatus name: 'build', state: 'success'
+                updateGitlabCommitStatus name: 'deploy', state: 'pending'
+                updateGitlabCommitStatus name: 'deploy', state: 'success'
             }
         }
     }

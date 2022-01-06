@@ -1,0 +1,24 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+}
+.waiting-text-container {
+	margin: 20% auto 5% auto;
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-align: center;
+}
+.waiting-loader-container {
+	margin: 2% auto;
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-align: center;
+}

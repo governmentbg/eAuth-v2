@@ -1,0 +1,83 @@
+###########################################################
+# Identity Provider -> IdpConfigurationProperties
+###########################################################
+
+idp:
+  #
+  entity_id: http://mock-idp
+  # Private key used to sign the SAML response
+  private_key: certificates/private.key
+  # Public certificate to verify the signature of the SAML response
+  certificate: certificates/certificate.crt
+  # Passphrase of the keystore
+  passphrase: secret  
+  # base url
+  base_url: http://localhost:8080
+  # The number of seconds before a lower time bound, or after an upper time bound, to consider still acceptable
+  clock_skew: 300
+  # Number of seconds after a message issue instant after which the message is considered expired
+  expires: 300
+  # Authentication method ALL for every username / password combination and USER for the configured users
+  auth_method: ALL
+  # Are endpoints compared. If so then pay notice to the base_url when behind a load balancer
+  compare_endpoints: true
+  # Organization Info
+  organization_data:
+     name: Bulsi
+     display_name: Bulsi 
+     url: http://bul-si.bg
+  # Claims XSD /eauth-saml-extensions/src/main/resources/schema/bg-egov-eauthentication-2.0.xsd
+  claims: /home/gdimitrov/workspaces201909/eAuth2/egov-eauth/eauth-common-libs/eauth-saml-extensions/src/main/resources/schema/bg-egov-eauthentication-2.0.xsd
+  #
+  needsSigning: false
+  # SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA256 
+  default_signature_algorithm: 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'
+  # 
+  signature_algorithm: 
+  #
+  sp_type: 
+  # Set<String> 
+  digest_methods: !!set
+     ? method1
+     ? method2
+  # Set<String> 
+  signing_methods: !!set
+     ? sing1 
+     ? sing2
+  # Set<String> 
+  encryption_algorithms: !!set
+     ? alg1
+     ? alg2
+  # transient HashMap<String, String> 
+  protocolBindingLocation: 
+     'key1': 'value1'
+     'key2': 'value2'
+  #
+  levelOfAssurance: loa
+  #
+  hide_loa_type: false
+  #
+  eauth_protocol_version: 2.0.0
+  # 
+  eauth_application_identifier: eaut_ident
+  # Map<String, List<String>>
+  attributes:
+     'key1': 
+        - listValue
+        - listValue2
+  # List<FederatedUserAuthenticationToken> users             ::IdpConfigurationProperties
+  # private Map<String, List<String>> attributes             ::FederatedUserAuthenticationToken
+  #	!!! constructor required private final Object principal                           ::UsernamePasswordAuthenticationToken
+  #	!!! constructor required private Object credentials                               ::UsernamePasswordAuthenticationToken
+  # !!! constructor required private final Collection<GrantedAuthority> authorities   ::AbstractAuthenticationToken
+  #	private Object details                                   ::AbstractAuthenticationToken
+  #	private boolean authenticated = false                    ::AbstractAuthenticationToken
+  #users:
+  #   attributes:
+  #      -
+  #         'keyX1': 
+  #            - list1
+  #            - list2
+  acs_endpoint: http://www
+  
+  

@@ -1,6 +1,7 @@
 package bg.bulsi.egov.idp.filters;
 
 import java.io.IOException;
+import java.security.cert.CertificateException;
 import java.util.Objects;
 
 import javax.servlet.FilterChain;
@@ -8,10 +9,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.opensaml.core.xml.config.XMLObjectProviderRegistrySupport;
 import org.opensaml.core.xml.io.MarshallerFactory;
 import org.opensaml.core.xml.io.MarshallingException;
+import org.opensaml.core.xml.io.UnmarshallingException;
 import org.opensaml.messaging.context.MessageContext;
 import org.opensaml.messaging.decoder.MessageDecodingException;
 import org.opensaml.messaging.handler.MessageHandlerException;
@@ -22,11 +26,14 @@ import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationException;
+import org.springframework.security.saml2.provider.service.authentication.Saml2Error;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import bg.bulsi.egov.eauth.audit.model.DataKeys;
 import bg.bulsi.egov.eauth.audit.model.EventTypes;
@@ -102,6 +109,8 @@ public class ForceAuthnFilter extends OncePerRequestFilter {
 
 			chain.doFilter(request, response);
 
+		} catch (SignatureException e) {
+			throw new Saml2AuthenticationException(new Saml2Error("400", "SAML AuthnRequest signature validation failed!"), "SAML AuthnRequest signature validation failed!", e);
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
 		}
@@ -110,7 +119,8 @@ public class ForceAuthnFilter extends OncePerRequestFilter {
 
 	private AuthnRequest getAuthnRequest(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws MessageDecodingException, ComponentInitializationException, MessageHandlerException,
-			SignatureException, MarshallingException {
+			SignatureException, MarshallingException, CertificateException, ParserConfigurationException, SAXException, IOException, UnmarshallingException {
+		
 		MessageContext<SAMLObject> messageContext = samlMessageHandler.extractSAMLMessageContext(request, response,
 				request.getMethod().equalsIgnoreCase("POST"));
 
@@ -122,17 +132,17 @@ public class ForceAuthnFilter extends OncePerRequestFilter {
 
 		session.setAttribute("SAMLAuthRequest", element);
 		log.debug("Add a SAMLAuthRequest to the session");
+		
+		String relayState = request.getParameter("RelayState");
+		log.debug("relayState: [{}] from request param", relayState);
+		if (StringUtils.isNotBlank(relayState)) {
+			session.setAttribute("RelayState", relayState);
+			log.debug("Add a RelayState to the session", relayState);
+		}
 
 		/*
 		 * AuditEvent
 		 */
-		{ //TODO remove test
-			log.info("AuthnRequest getAssertionConsumerServiceURL {}", authnRequest.getConsent());
-			log.info("AuthnRequest getDestination {}", authnRequest.getDestination());
-			log.info("AuthnRequest getID {}", authnRequest.getID());
-			log.info("AuthnRequest getProviderName {}", authnRequest.getProviderName());
-			log.info("AuthnRequest getAssertionConsumerServiceURL {}", authnRequest.getAssertionConsumerServiceURL());
-		}
 		String principal = null;
 		if (authnRequest.getIssuer() != null) {
 			principal = authnRequest.getIssuer().getValue();
@@ -146,5 +156,5 @@ public class ForceAuthnFilter extends OncePerRequestFilter {
 
 		return authnRequest;
 	}
-
+	
 }

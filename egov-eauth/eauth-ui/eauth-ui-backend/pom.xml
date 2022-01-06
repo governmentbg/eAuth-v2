@@ -31,7 +31,7 @@
 			<groupId>bg.bulsi</groupId>
 			<artifactId>eauth-profile-rest-api-dto</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>bg.bulsi</groupId>
 			<artifactId>eauth-ui-rest-api-dto</artifactId>
@@ -57,10 +57,10 @@
 			<artifactId>eauth-security-provider</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>bg.bulsi</groupId>
-			<artifactId>eauth-audit</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>bg.bulsi</groupId> -->
+		<!-- <artifactId>eauth-audit</artifactId> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>bg.bulsi</groupId>
@@ -70,6 +70,11 @@
 		<dependency>
 			<groupId>bg.bulsi</groupId>
 			<artifactId>egov-saml-impl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>bg.bulsi</groupId>
+			<artifactId>eauth-eid-api-client</artifactId>
 		</dependency>
 
 		<!-- Spring modules -->
@@ -192,6 +197,11 @@
 			<artifactId>commons-io</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
 		<!-- mockito-all -->
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -225,6 +235,11 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.projectreactor.addons</groupId>
+			<artifactId>reactor-extra</artifactId>
 		</dependency>
 
 	</dependencies>

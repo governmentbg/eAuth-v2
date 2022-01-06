@@ -41,9 +41,18 @@ export class CustomInputComponent implements OnInit {
 	}
 
 	public getAuthAttributeType() {
-		if (this.authAttrType === AttributeType.SECRET) {
+		if (
+			this.authAttrType === AttributeType.SECRET ||
+			this.authAttrType === AttributeType.EGN
+		) {
 			return 'password';
+		} else {
+			return 'text';
 		}
+	}
+
+	setLenghtValidation() {
+		return this.authAttrType === AttributeType.EGN ? 10 : 250;
 	}
 
 	public inputChange() {

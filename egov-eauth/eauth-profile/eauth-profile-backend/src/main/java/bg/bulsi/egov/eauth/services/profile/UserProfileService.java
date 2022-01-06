@@ -1,20 +1,17 @@
 package bg.bulsi.egov.eauth.services.profile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.opensaml.core.xml.io.UnmarshallingException;
 import org.opensaml.saml.saml2.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,13 +19,12 @@ import org.springframework.security.saml2.provider.service.authentication.Saml2A
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.xml.sax.SAXException;
 
 import bg.bulsi.egov.eauth.audit.model.DataKeys;
 import bg.bulsi.egov.eauth.audit.model.EventTypes;
 import bg.bulsi.egov.eauth.audit.util.EventBuilder;
-import bg.bulsi.egov.eauth.audit.util.HttpReqRespUtils;
+import bg.bulsi.egov.eauth.exception.ProfileBackendException;
 import bg.bulsi.egov.eauth.model.repository.UserRepository;
 import bg.bulsi.egov.eauth.profile.rest.api.ApiException;
 import bg.bulsi.egov.eauth.profile.rest.api.UserApiDelegate;
@@ -72,16 +68,12 @@ public class UserProfileService implements UserApiDelegate {
         log.info("encryptedNid: [{}]", encryptedNid);
         
         return encryptedNid;
-        // return ((Jws<Claims>) authentication.getPrincipal()).getBody().getSubject();
     }
 
     @Transactional
     @Override
     public ResponseEntity<Void> createProfile(User user) throws ApiException {		
     	
-    	ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-    	HttpServletRequest request = attr.getRequest();
-
         if (user.getId() == null) {
 
             bg.bulsi.egov.eauth.model.User userToCreate = modelMapper.map(user, bg.bulsi.egov.eauth.model.User.class);
@@ -142,7 +134,8 @@ public class UserProfileService implements UserApiDelegate {
             return ResponseEntity.ok().body(userRes);
         }
 
-        return ResponseEntity.notFound().build();
+		throw new ProfileBackendException("Вашият профил не е намерен. Ако нямате профил, моля въведете вашите данни",
+				HttpStatus.NOT_FOUND.value());
     }
 
 }

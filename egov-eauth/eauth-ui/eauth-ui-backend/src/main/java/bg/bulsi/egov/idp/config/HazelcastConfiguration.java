@@ -25,6 +25,7 @@ public class HazelcastConfiguration {
 		serializer.setCookieName("eauthIdp");
 		// serializer.setUseHttpOnlyCookie(false);
 		serializer.setUseSecureCookie(false);
+		serializer.setCookieMaxAge(1800);
 		return serializer;
 	}
 

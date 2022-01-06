@@ -17,14 +17,14 @@ public class AsyncTaskShed {
 	EidService eidService;
 
 
+	// return type Future<InquiryResult> || CompletableFuture<T>
 	@Async
-	public void  asyncMethod() { // reurn type Future<InquiryResult> || CompletableFuture<T>
-		log.debug("running task in thread: " + Thread.currentThread().getName());
+	public void  asyncTask() { 
+		log.debug("running Async task 'IdentityInquiry' in thread: " + Thread.currentThread().getName());
 
-		//EidService eidService = new EidService();
 		eidService.poolInMemoryToIdentityInquiry();
 		
 		//return new AsyncResult<InquiryResult>(res.getBody());
-
 	}
+	
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Nap Authentication</title>
+	</head>
+	
+	<body onload="document.forms[0].submit()">
+		<noscript>
+    	<p>
+        	<strong>Note:</strong> Since your browser does not support JavaScript,
+       		you must press the Continue button once to proceed.
+    	</p>
+		</noscript>
+	
+		<form action="#" th:action="@{${action}}"  method="post">
+			<input type="hidden" name="__egn__" th:value="${id}">
+			<input type="hidden" name="providerId" th:value="${providerId}">
+			<input type="hidden" name="__defaultName__" th:value="${defaultName}">
+			
+			<!-- test -->
+			<input type="hidden" name="__jwt__" th:value="${jwt}">
+			<input type="hidden" name="__typeCode__" th:value="${typeCode}">
+			
+			<noscript>
+        	<div>
+            	<input type="submit" value="Continue"/>
+        	</div>
+    		</noscript>
+		</form>
+	
+	</body>
+</html>

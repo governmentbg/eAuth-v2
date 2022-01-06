@@ -25,6 +25,11 @@
 		<url>http://svn.bul-si.bg/bulsisvn/projects/DAEU/eAvt2.0/code/trunk/eAuth-parent</url>
 	</scm>
 
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://jenkins.bul-si.bg</url>
+	</ciManagement>
+
 	<distributionManagement>
 		<repository>
 			<id>deployment</id>
@@ -124,61 +129,98 @@
 					<version>4.3.1</version>
 				</plugin>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.0.0-M4</version>
-				</plugin>
-				<plugin>
 					<groupId>org.sonarsource.scanner.maven</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${sonar-maven-plugin.version}</version>
 				</plugin>
+				<!-- download sources and javadoc -->
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>download-sources</id>
+							<goals>
+								<goal>sources</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>download-javadoc</id>
+							<configuration>
+								<classifier>javadoc</classifier>
+							</configuration>
+							<goals>
+								<goal>resolve</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- Always create javadoc jar. <plugin> <artifactId>maven-javadoc-plugin</artifactId> 
+					<executions> <execution> <id>attach-javadoc</id> <goals> <goal>jar</goal> 
+					</goals> </execution> </executions> </plugin> -->
+				<!-- Always create source jar. -->
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+								<goal>test-jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.0.0-M4</version>
+					<configuration>
+						<!-- Jacoco prepare-agent builds some command-line params without -->
+						<!-- which jacoco will not instrument. Hence it is important to add -->
+						<!-- those command-line params here (${argLine} holds those params) -->
+						<argLine>${surefire.argLine} -Xms256m -Xmx2048m</argLine>
+						<forkCount>1</forkCount>
+						<runOrder>random</runOrder>
+						<aggregate>true</aggregate>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.5</version>
+					<configuration>
+						<destFile>${sonar.jacoco.reportPath}</destFile>
+						<append>true</append>
+					</configuration>
+					<executions>
+						<execution>
+							<id>agent</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+							<configuration>
+								<propertyName>surefire.argLine</propertyName>
+							</configuration>
+						</execution>
+						<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>report-aggregate</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>report-aggregate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<!-- Jacoco prepare-agent builds some command-line params without -->
-					<!-- which jacoco will not instrument. Hence it is important to add -->
-					<!-- those command-line params here (${argLine} holds those params) -->
-					<argLine>${argLine} -Xms256m -Xmx2048m</argLine>
-					<forkCount>1</forkCount>
-					<runOrder>random</runOrder>
-					<aggregate>true</aggregate>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.5</version>
-				<configuration>
-					<destFile>${sonar.jacoco.reportPath}</destFile>
-					<append>true</append>
-				</configuration>
-				<executions>
-					<execution>
-						<id>agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report-aggregate</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>report-aggregate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
 	</build>
 
 	<modules>
@@ -222,6 +264,12 @@
 			</dependency>
 
 			<dependency>
+				<groupId>bg.bulsi</groupId>
+				<artifactId>egov-saml-impl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
 				<artifactId>eauth-soap-service</artifactId>
 				<groupId>bg.bulsi</groupId>
 				<version>${project.version}</version>
@@ -238,14 +286,25 @@
 				<artifactId>jsr305</artifactId>
 				<version>3.0.2</version>
 			</dependency>
-			<!-- jackson -->
+			<!-- jackson 
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
 				<version>${jackson-version}</version>
 			</dependency>
-
+			-->
 			<!--SpringFox dependencies -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-to-slf4j</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.apache.logging.log4j</groupId>
+			    <artifactId>log4j-api</artifactId>
+			    <version>${log4j2.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger2</artifactId>
@@ -427,11 +486,12 @@
 		<sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
 		<!-- OpenAPI & Swagger -->
 		<jackson-version>2.10.3</jackson-version>
-        <jackson-databind.version>2.10.3</jackson-databind.version>
-        <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
-        <reactor.version>3.1.8.RELEASE</reactor.version>
-        <reactor-netty.version>0.7.8.RELEASE</reactor-netty.version>
-		
+		<jackson-databind.version>2.10.3</jackson-databind.version>
+		<jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
+		<reactor.version>3.1.8.RELEASE</reactor.version>
+		<reactor-netty.version>0.7.8.RELEASE</reactor-netty.version>
+		<surefire.argLine></surefire.argLine>
+		<log4j2.version>2.17.1</log4j2.version>
 	</properties>
 
 	<profiles>
@@ -491,6 +551,9 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 		</repository>
 
 		<repository>
@@ -501,6 +564,9 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
 		</repository>
 
 		<repository>

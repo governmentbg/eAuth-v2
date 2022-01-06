@@ -20,10 +20,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.opensaml.core.xml.io.UnmarshallingException;
 import org.opensaml.core.xml.schema.impl.XSStringImpl;
 import org.opensaml.saml.saml2.core.Attribute;
-import org.opensaml.saml.saml2.core.AttributeStatement;
 import org.opensaml.saml.saml2.core.Issuer;
 import org.opensaml.saml.saml2.core.Response;
 import org.opensaml.saml.saml2.core.Status;
+import org.opensaml.xmlsec.encryption.support.DecryptionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -45,10 +45,10 @@ public class Saml2Controller {
 
 	@Autowired
 	private Saml2Service service;
-
+	
 	@GetMapping("/")
 	public String home(Model model) throws TransformerException, SAXException, IOException,
-			ParserConfigurationException, UnmarshallingException {
+			ParserConfigurationException, UnmarshallingException, DecryptionException {
 
 		String username = null;
 		String identifier = null;
@@ -76,9 +76,8 @@ public class Saml2Controller {
 		log.info("issuer: [{}]", issuer.getValue());
 		Status status = saml2Response.getStatus();
 		log.info("statusCode: [{}]", status.getStatusCode().getValue());
-
-		AttributeStatement attritbuteStatement = saml2Response.getAssertions().get(0).getAttributeStatements().get(0);
-		List<Attribute> attritbutes = attritbuteStatement.getAttributes();
+		
+		List<Attribute> attritbutes = service.getAttributeStatement(saml2Response).getAttributes();
 		for (Attribute attr : attritbutes) {
 			if (attr.getName().contains("personName")) {
 				username = ((XSStringImpl) attr.getAttributeValues().get(0)).getValue();

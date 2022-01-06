@@ -1,30 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true"
-  xmlns="http://ch.qos.logback/xml/ns/logback"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
-  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+	xmlns="http://ch.qos.logback/xml/ns/logback"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<!-- <include resource="org/springframework/boot/logging/logback/console-appender.xml" 
+		/> -->
+	<!-- <include resource="org/springframework/boot/logging/logback/base.xml"/> -->
+	<property name="LOG_PATH" value="/home/bulsiadmin/log"/>
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>
+	</appender>
 
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%date{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
-    </encoder>
-  </appender>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/eauth_ui.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${LOG_PATH}/archive/eauth_ui.%d{yyyy-MM-dd}.log</fileNamePattern>
 
-  <!--<logger name="mujina" level="DEBUG"/>-->
-  <!--<logger name="org.springframework.security" level="DEBUG"/>-->
-  <!--<logger name="org.springframework.security.web" level="DEBUG" />-->
-  <!--<logger name="org.opensaml" level="DEBUG" />-->
+			<!-- keep 30 days' worth of history capped at 3GB total size -->
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>100MB</totalSizeCap>
 
-  <logger name="bg.bulsi.egov.idp" level="DEBUG" />
-  <logger name="org.springframework.security.web.authentication.*" level="DEBUG" />
-  <logger name="org.springframework.security.web.client.*" level="DEBUG" />
+		</rollingPolicy>
 
-  <logger name="org.springframework.security.access.intercept.*" level="DEBUG" />
-  <logger name="org.springframework.session" level="DEBUG" />
-  <logger name="PROTOCOL_MESSAGE" level="DEBUG" />
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>
+	</appender>
 
-  <root level="INFO">
-    <appender-ref ref="STDOUT"/>
-  </root>
+	<!--<logger name="mujina" level="DEBUG"/> -->
+	<!--<logger name="org.springframework.security" level="DEBUG"/> -->
+	<!--<logger name="org.springframework.security.web" level="DEBUG" /> -->
+	<!--<logger name="org.opensaml" level="DEBUG" /> -->
+
+	<logger name="bg.bulsi.egov.idp" level="DEBUG" />
+	<logger name="org.springframework.security.web.authentication.*"
+		level="DEBUG" />
+	<logger name="org.springframework.security.web.client.*"
+		level="DEBUG" />
+
+	<logger name="org.springframework.security.access.intercept.*"
+		level="DEBUG" />
+	<logger name="org.springframework.session" level="DEBUG" />
+	<logger name="org.springframework.session" level="DEBUG" />
+	<logger name="org.opensaml" level="DEBUG" />
+	<logger name="PROTOCOL_MESSAGE" level="DEBUG" />
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
 </configuration>

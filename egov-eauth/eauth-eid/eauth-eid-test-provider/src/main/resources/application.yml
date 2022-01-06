@@ -1,4 +1,17 @@
-server.port: 8230
+server:
+   port: 8230
+#   session-timeout: 1800
+#   ssl:
+#      enabled: true
+#      key-store-type: 
+#      key-store: 
+#      key-store-password: 
+#      key-password: 
+#      trust-store: 
+#      trust-store-password:
+#      trust-password: 
+#   http:
+#      port: 
 
 debug: true
 
@@ -9,8 +22,7 @@ spring:
       include: actuator
    datasource:
       type: com.zaxxer.hikari.HikariDataSource
-      url: jdbc:postgresql://10.10.0.30:5432/eauth
-      #url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
+      url: jdbc:postgresql://eauth2-db.egov.bg:5432/eauth
       username: bulsiadmin
       password: bulsivirtual
       driver-class-name: org.postgresql.Driver
@@ -40,14 +52,25 @@ spring:
                use_query_cache: false
             generate_statistics: false   
 
-#database-property-source.schema: identity_provider
 
-# EGN, EMAIL or PHONE
-eid.provider.identity.type: egn
+# EGN, EMAIL or PHONE and CREDENTIALS [lower case]
+# bg.bulsi.egov.idp.dto.AttributeType
+eid.provider:
+   identity.type: credentials
+   vendor:
+      id: vid
+      key: vk
 
 #Spring security extra loging
-logging.level.org.springframework:
-   security: DEBUG
-#  web: DEBUG
-   web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+logging:
+   level:
+      bg.bulsi.egov.eauth: DEBUG
+      org:
+         apache:
+            http: DEBUG
+         springframework:
+            security: DEBUG
+         #  web: DEBUG
+            web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+     
      

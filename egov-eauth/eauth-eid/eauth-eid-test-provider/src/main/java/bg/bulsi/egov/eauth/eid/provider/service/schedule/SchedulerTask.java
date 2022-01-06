@@ -13,9 +13,9 @@ public class SchedulerTask {
     @Autowired
     private AsyncTaskShed asyncTask;
 
-    @Scheduled(fixedRateString = "2000" )
-    public void testaMethod() {
+    @Scheduled(initialDelay = 15000, fixedRate = 5000)
+    public void shedTask() {
     	log.debug("Scheduled AsynTask ...");
-        asyncTask.asyncMethod();
+        asyncTask.asyncTask();
     }
 }

@@ -529,6 +529,9 @@ components:
         - EMAIL
         - DIGITS
         - EGN
+        - PASS
+        - IDCARD
+        - EIK
         - PHONE
         - LENGTH20
         - DEFAULT  

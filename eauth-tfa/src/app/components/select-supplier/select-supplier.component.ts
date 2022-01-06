@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.servcie';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { appConfig } from 'src/app/app.config';
 
 @Component({
 	selector: 'app-select-supplier',
@@ -46,6 +47,10 @@ export class SelectSupplierComponent implements OnInit, OnDestroy {
 
 	public useLanguage(language: string) {
 		this._utilservice.useLanguage(language);
+	}
+
+	public get profileUrl() {
+		return appConfig.profileUrl;
 	}
 
 	private _getProviders() {

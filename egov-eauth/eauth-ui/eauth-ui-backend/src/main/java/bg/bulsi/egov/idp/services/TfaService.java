@@ -40,6 +40,7 @@ import bg.bulsi.egov.idp.dto.OTPresponse;
 import bg.bulsi.egov.idp.dto.SecretMetadata;
 import bg.bulsi.egov.idp.security.IdpPrincipal;
 import bg.bulsi.egov.idp.security.tokens.ExternalIdpUserAuthenticationToken;
+import bg.bulsi.egov.saml.model.AssertionAttributes;
 import bg.bulsi.egov.security.eauth.config.EauthProviderProperties;
 import bg.bulsi.egov.security.utils.PersonalIdUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,6 @@ import lombok.extern.slf4j.Slf4j;
 public class TfaService {
 
 	private static final String MISSING_URL_PROPERTY = "missing";
-	private static final String PERSON_IDENTIFIER_URN = "urn:egov:bg:eauth:2.0:attributes:personIdentifier";
 	
 	@Value("${egov.eauth.sys.tfa.email.auth.url:missing}")
 	private String emailAuthUrl;
@@ -183,7 +183,7 @@ public class TfaService {
 		return response;
 	}
 
-	public List<EnabledOTPMethod> enabledOtpMethods() {
+	public List<EnabledOTPMethod> enabledUserOtpMethods() {
 		List<EnabledOTPMethod> list = new ArrayList<>();
 		
 		String nid = getNidFromIdentityAttribute();
@@ -195,7 +195,7 @@ public class TfaService {
 			Preferred2FA defaultMethod = user.getPreferred();
 			log.info("default method from profile: " + defaultMethod);
 			
-			List<OTPMethods> otpMethods = hazelcastUtils.getOTPMethodsEnabled();
+			List<OTPMethods> otpMethods = allEnabledOtpMethods();
 			otpMethods.forEach(method -> {
 				boolean isDefault = defaultMethod != null && defaultMethod.name().equals(method.name());
 				list.add(new EnabledOTPMethod(OTPMethod.fromValue(method.name()), isDefault));
@@ -203,6 +203,11 @@ public class TfaService {
 		}
 
 		return list;
+	}
+	
+	public List<OTPMethods> allEnabledOtpMethods() {
+		List<OTPMethods> allEnabledMethods = hazelcastUtils.getOTPMethodsEnabled();
+		return allEnabledMethods;
 	}
 
 	public ResponseEntity<SecretMetadata> generateTotpSecret() {
@@ -236,7 +241,7 @@ public class TfaService {
 		IdpPrincipal principal = (IdpPrincipal) token.getPrincipal();
 		List<IdentityAttributes> identityAttributes = principal.getAttributes();
 		IdentityAttributes identAttr = identityAttributes.stream()
-				.filter(attr -> attr.getUrn().equals(PERSON_IDENTIFIER_URN))
+				.filter(attr -> attr.getUrn().equals(AssertionAttributes.PERSON_IDENTIFIER.getEidUrn()))
 				.findFirst().orElse(null);
 		String nid = null;
 		if (identAttr != null) {
@@ -310,4 +315,9 @@ public class TfaService {
 		return MessageFormat.format(sendMessage, sendTo, expirationTimeInMinutes);
 	}
 
+	public boolean checkIfProfileTfaExists() {
+		String ecryptedIdentifier = getNidFromIdentityAttribute();
+		Optional<User> user = userRepository.findByPersonID(ecryptedIdentifier);
+		return user.isPresent();
+	}
 }

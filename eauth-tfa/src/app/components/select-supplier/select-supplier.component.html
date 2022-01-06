@@ -1,58 +1,97 @@
+<header class="header">
+	<div class="headerContent">
+	 <img class="img-logo"src="/assets/img/lion-form.png"/>
+	 <div>
+	 <h1 class="heading">{{ 'heading' | translate }}</h1>
+	 <p class="sub-heading" style="color:#333333;">
+		{{ 'agency-name' | translate }}
+	</p>	
+	<!-- <a href="https://egov.bg/wps/portal/egov/helpdesk" class="help-link"> 
+		{{'help' | translate}}
+	</a>  -->
+
+	</div>
+	<div class="lang-btn-holder">
+		<app-lang-button [icon]="'../../../assets/img/bulgaria-circular.png'" lang="bg"> </app-lang-button>
+		<app-lang-button [icon]="'../../../assets/img/great-britain-circular.png'" lang="en">
+		</app-lang-button>
+	</div>
+	</div>	
+
+</header>
+
 <div class="select-supplier-wrapper">
-  <div class="select-supplier-holder">
-    <div class="left-panel-header-holder">
-      <div style="display: flex;">
-        <div style="position: relative; width: 100%;">
-          <img src="/assets/img/european-flag.png" style="width: 45%;" alt="operation-program" />
-        </div>
-        <div style="position: relative; width: 40%;">
-          <img src="/assets/img/operation-program.png" style="width: 95%;
-          margin-top: 3%;
-          margin-left: auto;"
-          alt="operation-program" />
-        </div>
-      </div>
+	<div class="select-supplier-holder">
+		<div class="left-panel-header-holder">
 
-      <img src="/assets/img/logo-gerb.png" class="img-gerb" alt="gerb" />
+			<div class="left-side-content-holder">
+			
+				<div class="select-supplier-container">
+					<h3 class="eid-header">{{ 'select-supplier-header' | translate }}</h3>
+					<!-- <p class="description-select-supplier">{{ 'choose-supplier-desc' | translate }}</p> -->
+					<mat-form-field class="supplier-selector" style="width: 84%;">
+						<mat-label >{{ 'choose-supplier-desc' | translate }}</mat-label>
+						<mat-select (selectionChange)="getSelectedidentifier($event)">
+							<mat-option *ngFor="let eId of eIdSelector" [value]="eId">
+								{{ eId.name | customTranslate: locale }}
+							</mat-option>
+						</mat-select >
+					</mat-form-field>
+							<app-login *ngIf="showLogin" [identityProvider]="selectedIdentityProvider" > </app-login >
+							<div *ngIf="!showLogin" class="mobile-info-box">
+								<div class="inner-info-box">
+									<span class="info"> 
+										{{'info' | translate}}
+									</span>
+									
+				</div>
+			
+			
+					</div>
+				</div>
+				<div class="profile-btn-mobile">
+					<p class="create-edit-mobile" > {{'create-edit-profile-hint' | translate}}</p>
+					<a class="create-edit-profile-mobile"
+						mat-raised-button
+						color="primary"
+						matTooltip="Ако желаете да използвате двуфакторна автентикация за повишаване нивото на сигурност при идентификация. Трябва да създадете своя профил за двуфакторна автентикация, като укажете предпочитано средство за автентикация."
+						matTooltipClass="toolTipStyle"
+						[href]="profileUrl"
+						>{{'create-edit-profile' | translate}}</a
+					>
+					<br />
+				</div>	
+			</div>
+		</div>
+		<div class="right-panel-header-holder">
+			<div class="profile-btn-holder">
+				<p class="create-edit-profile-info" > {{'create-edit-profile-hint' | translate}} </p>
+				<a class="create-edit-profile"
+					mat-raised-button
+					color="primary"
+					matTooltip="Ако желаете да използвате двуфакторна автентикация за повишаване нивото на сигурност при идентификация. Трябва да създадете своя профил за двуфакторна автентикация, като укажете предпочитано средство за автентикация."
+					matTooltipClass="toolTipStyle"
+					[href]="profileUrl"
+					>{{'create-edit-profile' | translate}}</a
+				>
+				<br />
+			</div>
+		</div>
 
-    </div>
-    <div class="right-panel-header-holder">
-      <div class="lang-btn-holder">
-        <app-lang-button [icon]="'../../../assets/img/bulgaria-circular.png'" lang="bg">
-        </app-lang-button>
-        <app-lang-button [icon]="'../../../assets/img/great-britain-circular.png'" lang="en">
-        </app-lang-button>
-      </div>
-
-      <div class="responsive-header-wrapper">
-        <img src="/assets/img/logo-gerb.png" alt="logo-gerb" />
-      </div>
-
-      <div class="select-supplier-conatainer">
-        <h3 class="eid-header">{{'select-supplier-header' | translate}}</h3>
-        <p class="description-select-supplier">{{'choose-supplier-desc' | translate}}</p>
-        <mat-form-field class="supplier-selector" style="margin: 0 auto;">
-          <mat-label>{{'choose-supplier-header' | translate}}</mat-label>
-          <mat-select (selectionChange)="getSelectedidentifier($event)">
-            <mat-option *ngFor="let eId of eIdSelector" [value]="eId">
-              {{eId.name | customTranslate:locale}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <app-login *ngIf="showLogin" [identityProvider]="selectedIdentityProvider">
-      </app-login>
-
-      <div class="footer-content-responsive">
-        <p>{{'footer-desc' | translate}} <a href="www.eufunds.bg" class="footer-link">www.eufunds.bg</a></p>
-      </div>
-    </div>
-
-    <footer class="footer">
-      <div class="footer-content">
-        <p>{{'footer-desc' | translate}} <a href="www.eufunds.bg" class="footer-link">www.eufunds.bg</a></p>
-      </div>
-    </footer>
-  </div>
+		
+	</div>
+	<footer class="footer">
+		<div class="footer-content">		
+			<p class="footer-text">
+				{{ 'footer-desc' | translate }}
+			</p>		
+			<div class="eu-logo" >
+				<img src="/assets/img/footer-flags.png" style="width: 100%; height:5vh;" alt="operation-program" />
+			</div>
+		</div>
+		<div class="footer-content"><p class="second-footer-text" style="margin-left:2vw">
+			{{ 'second-footer-desc' | translate }}
+		</p></div>
+	</footer>
 </div>
+

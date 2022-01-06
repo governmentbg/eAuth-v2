@@ -96,7 +96,9 @@ export class VerifierComponent implements OnInit, AfterViewInit, OnDestroy {
 
 			if (noDefautlMethodFlag) {
 				this._toastr.info(
-					'Вашият метод по подразбиране не е активен, моля изберете друг!'
+					'Вашият метод по подразбиране не е активен, моля изберете друг!', '', {
+						enableHtml: true,
+					}
 				);
 			}
 		}
@@ -117,14 +119,18 @@ export class VerifierComponent implements OnInit, AfterViewInit, OnDestroy {
 				);
 				this.initialSendFlag = false;
 				// this._router.navigate(['verifier']);
-				this._toastr.success(res['message']);
+				this._toastr.success(res['message'], '', {
+					enableHtml: true,
+				});
 				this.checkForGeneratedCode();
 
 				this._utilservice.timeoutMethod();
 			},
 			() => {
 				this._toastr.error(
-					'Неуспешно изпращане, моля опитайте отново!', 'Грешка');
+					'Неуспешно изпращане, моля опитайте отново!', 'Грешка', {
+						enableHtml: true,
+					});
 			}
 		);
 	}
@@ -156,7 +162,9 @@ export class VerifierComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.methodClickValidation();
 			}, () => {
 				this._toastr.error(
-					'Неуспешно изпращане, моля опитайте отново!', 'Грешка');
+					'Неуспешно изпращане, моля опитайте отново!', 'Грешка', {
+						enableHtml: true,
+					});
 			});
 	}
 

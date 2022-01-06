@@ -23,8 +23,7 @@ public class EidExceptionHandler extends ResponseEntityExceptionHandler{
 	public ResponseEntity<Object> handleException(EidProviderException ex, WebRequest request) {
 		HttpStatus httpStat= HttpStatus.valueOf(ex.getResponceCode());
 
-		 return handleExceptionInternal(ex, ex.getIntermediateStatus(), 
-		          new HttpHeaders(), httpStat, request);
+		 return handleExceptionInternal(ex, ex.getIntermediateStatus(), new HttpHeaders(), httpStat, request);
 	}
 
 

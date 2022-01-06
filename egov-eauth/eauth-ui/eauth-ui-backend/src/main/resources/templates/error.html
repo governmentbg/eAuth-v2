@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+<head>
+	<title>Server Error Page</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+	<p th:utext="'<b/> HTTP Status ' + ${status} + ' - ' + ${error} + ' </b>'" />
+	<p th:utext="'<b/> Timestamp: </b>' + ${timestamp}" />
+	<p th:utext="'<b/> Message: </b>' + ${message}" />
+	<p th:utext="'<b/> Exception: </b>' + ${exception}" />
+	<p th:utext="'<b/> Stack Trace: </b>' + ${trace}" />
+	<p th:utext="'<b/> path: </b>' + ${path}" />
+	
+</body>
+</html>
