@@ -465,7 +465,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jackson-version>2.9.10</jackson-version>
+		<jackson-version>2.9.10.7</jackson-version>
 
 		<swagger-codegen-maven-plugin.version>3.0.20</swagger-codegen-maven-plugin.version>
 		<swagger-annotations.version>2.1.0</swagger-annotations.version>
