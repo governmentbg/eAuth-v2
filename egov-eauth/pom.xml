@@ -472,7 +472,7 @@
 		<openapi.codegen.version>4.2.1</openapi.codegen.version>
 
 		<springfox-version>2.9.2</springfox-version>
-		<spring-webflux.version>5.2.6.RELEASE</spring-webflux.version>
+		<spring-webflux.version>5.2.20.RELEASE</spring-webflux.version>
 		<!-- Sonar -->
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
